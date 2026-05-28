@@ -157,7 +157,7 @@
       background: var(--bg-dark); border-bottom: 1px solid var(--border);
     }
     
-    .logo { cursor: pointer; display: flex; align-items: center; margin-top: 20px; }
+    .logo { cursor: pointer; display: flex; align-items: center; }
     .logo img { height: 90px; width: auto; object-fit: contain; }
     
     .nav-center { flex: 1; max-width: 550px; margin: 0 48px; position: relative; }
@@ -203,7 +203,7 @@
     }
     .nav-links a:hover { color: var(--text-primary); }
 
-    .page { display: none; min-height: 100vh; padding-top: 120px; }
+    .page { display: none; min-height: 100vh; padding-top: 100px; }
     .page.active { display: block; }
 
     /* ========== HERO БЛОК ========== */
@@ -383,7 +383,7 @@
       line-height: 1.6;
       margin-bottom: 16px;
       display: -webkit-box;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -581,6 +581,7 @@
       
       .grid-uniform, .grid-asymmetric { grid-template-columns: 1fr; }
       .card { padding: 24px; }
+      .card p { -webkit-line-clamp: 5; }
       
       .lp-layout { flex-direction: column; }
       .lp-queue { width: 100%; border-left: none; border-top: 1px solid var(--border); max-height: 280px; }
@@ -807,7 +808,7 @@
 
 <script>
   // ========== ВЕРСИОНИРОВАНИЕ ==========
-  const APP_VERSION = '2026.05.28.014';
+  const APP_VERSION = '2026.05.28.015';
   
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
@@ -820,7 +821,7 @@
     console.log('🔄 Кеш обновлён до версии:', APP_VERSION);
   }
 
-  // ========== КНОПКА "ВВЕРХ" - ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ==========
+  // ========== КНОПКА "ВВЕРХ" ==========
   window.addEventListener('scroll', function() {
     const scrollBtn = document.getElementById('scrollTopBtn');
     if (window.scrollY > 300) {
@@ -830,41 +831,27 @@
     }
   });
 
-  // ========== БАЗА ДАННЫХ АВТОРОВ ==========
-  const authorsDB = {
-    news: ['НейроНовости', 'AI-Репортер', 'Цифровой Корреспондент', 'НьюсБот', 'Инсайт Медиа', 'ТехноНовости', 'ИИ-Аналитик'],
-    podcast: ['Голос Нейросети', 'AI Ведущий', 'ПодкастБот', 'Цифровой Диктор', 'НейроГолос', 'ИИ-Интервьюер'],
-    tip: ['AI-Ментор', 'НейроГид', 'Цифровой Наставник', 'Инструктор ИИ', 'ТехноГид', 'ПромптМастер'],
-    learn: ['Профессор Нейрон', 'AI-Лектор', 'Цифровой Учитель', 'НейроПедагог', 'Академия ИИ', 'Доктор Алгоритм']
-  };
-  
-  function getRandomAuthor(section) {
-    const authors = authorsDB[section] || ['AI-Автор', 'НейроСоставитель', 'Цифровой Творец'];
-    return authors[Math.floor(Math.random() * authors.length)];
-  }
-
-  // ========== ДАННЫЕ КОНТЕНТА ==========
+  // ========== ДАННЫЕ КОНТЕНТА (ГАЙДЫ - 4 карточки) ==========
   let data = {
     news: [
-      { id: 1, tag: 'ТЕХНОЛОГИИ', title: 'GPT-5 анонсирована', desc: 'OpenAI представила новую революционную модель искусственного интеллекта.', date: '2026-05-28T12:00:00.000Z', author: getRandomAuthor('news'), image: 'images/news-gpt5.jpg', media: null, mediaTypeHint: null },
-      { id: 2, tag: 'ИССЛЕДОВАНИЯ', title: 'Прорыв в компьютерном зрении', desc: 'Новая архитектура нейросетей позволяет распознавать объекты с точностью 99.7%.', date: '2026-05-27T10:00:00.000Z', author: getRandomAuthor('news'), image: 'images/news-vision.jpg', media: null, mediaTypeHint: null },
-      { id: 3, tag: 'БИЗНЕС', title: 'ИИ трансформирует рынок труда', desc: 'Аналитики прогнозируют рост спроса на AI-специалистов на 300% в ближайшие 2 года.', date: '2026-05-26T09:00:00.000Z', author: getRandomAuthor('news'), image: 'images/news-job.jpg', media: null, mediaTypeHint: null }
+      { id: 1, tag: 'ТЕХНОЛОГИИ', title: 'GPT-5 анонсирована', desc: 'OpenAI представила новую революционную модель искусственного интеллекта.', date: '2026-05-28T12:00:00.000Z', author: 'AI-Репортер', image: 'images/news-gpt5.jpg', media: null, mediaTypeHint: null },
+      { id: 2, tag: 'ИССЛЕДОВАНИЯ', title: 'Прорыв в компьютерном зрении', desc: 'Новая архитектура нейросетей позволяет распознавать объекты с точностью 99.7%.', date: '2026-05-27T10:00:00.000Z', author: 'Цифровой Корреспондент', image: 'images/news-vision.jpg', media: null, mediaTypeHint: null },
+      { id: 3, tag: 'БИЗНЕС', title: 'ИИ трансформирует рынок труда', desc: 'Аналитики прогнозируют рост спроса на AI-специалистов на 300% в ближайшие 2 года.', date: '2026-05-26T09:00:00.000Z', author: 'НьюсБот', image: 'images/news-job.jpg', media: null, mediaTypeHint: null }
     ],
     podcast: [
-      { id: 101, tag: 'ИНТЕРВЬЮ', title: 'Будущее ИИ', desc: 'Разговор с ведущим экспертом в области машинного обучения.', date: '2026-05-28T14:00:00.000Z', author: getRandomAuthor('podcast'), image: 'images/podcast-future.jpg', media: 'media/podcast-future.mp3', mediaTypeHint: 'audio' },
-      { id: 102, tag: 'ОБУЧЕНИЕ', title: 'Карьера в AI', desc: 'Как начать путь в искусственном интеллекте: маршруты, инструменты и советы.', date: '2026-05-27T11:00:00.000Z', author: getRandomAuthor('podcast'), image: 'images/podcast-career.jpg', media: 'media/podcast-career.mp3', mediaTypeHint: 'audio' }
+      { id: 101, tag: 'ИНТЕРВЬЮ', title: 'Будущее ИИ', desc: 'Разговор с ведущим экспертом в области машинного обучения.', date: '2026-05-28T14:00:00.000Z', author: 'ИИ-Интервьюер', image: 'images/podcast-future.jpg', media: 'media/podcast-future.mp3', mediaTypeHint: 'audio' },
+      { id: 102, tag: 'ОБУЧЕНИЕ', title: 'Карьера в AI', desc: 'Как начать путь в искусственном интеллекте: маршруты, инструменты и советы.', date: '2026-05-27T11:00:00.000Z', author: 'ПодкастБот', image: 'images/podcast-career.jpg', media: 'media/podcast-career.mp3', mediaTypeHint: 'audio' }
     ],
     tip: [
-      { id: 201, tag: 'СОВЕТ ДНЯ', title: 'Как начать в AI', desc: 'Пошаговое руководство для новичков. Узнайте, с чего начать изучение искусственного интеллекта, какие инструменты выбрать и как построить свой первый проект.', date: '2026-05-28T08:00:00.000Z', author: getRandomAuthor('tip'), image: 'images/tip-start.jpg', media: null, mediaTypeHint: null },
-      { id: 202, tag: 'ПРОДУКТИВНОСТЬ', title: 'Что делегировать ИИ', desc: 'Отдайте ИИ: рутину (шаблонные письма, расшифровка аудио, суммаризация встреч), черновики, генерацию идей для контента, анализ данных и базовую обработку информации.', date: '2026-05-27T09:00:00.000Z', author: getRandomAuthor('tip'), image: 'images/tip-delegate.jpg', media: null, mediaTypeHint: null },
-      { id: 203, tag: 'БЕЗОПАСНОСТЬ', title: 'Безопасная работа с ИИ', desc: 'Никогда не загружайте в нейросети: пароли, персональные данные клиентов, финансовые отчеты, коммерческую тайну, конфиденциальные документы. Используйте локальные модели для чувствительных данных.', date: '2026-05-26T10:00:00.000Z', author: getRandomAuthor('tip'), image: 'images/tip-security.jpg', media: null, mediaTypeHint: null },
-      { id: 204, tag: 'СОВЕТ', title: 'Как выбрать нейросеть для задачи', desc: 'Для текста — GPT или Claude, для изображений — Midjourney или DALL-E, для видео — Runway или Pika, для кода — GitHub Copilot или Cursor.', date: '2026-05-25T11:00:00.000Z', author: getRandomAuthor('tip'), image: 'images/tip-choose.jpg', media: null, mediaTypeHint: null },
-      { id: 205, tag: 'СОВЕТ ДНЯ', title: 'Промпт-инжиниринг для начинающих', desc: 'Как правильно составлять запросы к нейросетям: будьте конкретны, добавляйте контекст, указывайте формат ответа, используйте примеры (few-shot), итеративно улучшайте промпты.', date: '2026-05-24T12:00:00.000Z', author: getRandomAuthor('tip'), image: 'images/tip-prompt.jpg', media: null, mediaTypeHint: null }
+      { id: 201, tag: 'СОВЕТ ДНЯ, Безопасность, ИИ', title: 'Безопасная работа с ИИ', desc: 'Никогда не загружайте в нейросети: пароли, персональные данные клиентов, финансовые отчеты, коммерческую тайну.\n\n✅ Можно: общие тексты, идеи, публичную информацию.\n✅ Нельзя: внутренние документы, базы данных, переписку.\n\nПравило: если утечка навредит бизнесу — не загружайте.', date: '2026-05-28T08:00:00.000Z', author: 'НейроГид', image: 'images/Безопасная работа с ИИ.png', media: null, mediaTypeHint: null },
+      { id: 202, tag: 'ПРОДУКТИВНОСТЬ, ИИ', title: 'Что делегировать ИИ', desc: 'Отдайте ИИ: рутину (шаблонные письма, расшифровка аудио, суммаризация встреч), черновики, генерацию идей, проверку орфографии.\nОставьте себе: финальные решения, стратегию, переговоры, креатив с душой, работу с людьми.\n\nФормула: если задача повторяется 3+ раза в неделю — автоматизируйте.', date: '2026-05-28T09:00:00.000Z', author: 'AI-Ментор', image: 'images/делегирование ии.jpg', media: null, mediaTypeHint: null },
+      { id: 203, tag: 'СОВЕТ', title: 'Как начать в AI', desc: 'Пошаговое руководство для новичков. Начните с изучения базовых понятий: нейросети, машинное обучение, промпт-инжиниринг. Попробуйте бесплатные инструменты: ChatGPT, Claude, Google Gemini. Создайте свой первый проект.', date: '2026-05-28T10:00:00.000Z', author: 'ТехноГид', image: '', media: null, mediaTypeHint: null },
+      { id: 204, tag: 'СОВЕТ', title: 'Промпт-инжиниринг для начинающих', desc: 'Как правильно составлять запросы к нейросетям: будьте конкретны, добавляйте контекст, указывайте формат ответа, используйте примеры (few-shot), итеративно улучшайте промпты.', date: '2026-05-26T11:00:00.000Z', author: 'AI-Ментор', image: '', media: null, mediaTypeHint: null }
     ],
     learn: [
-      { id: 301, tag: 'КУРС', title: 'Введение в нейросети', desc: 'Базовый курс по основам нейросетей и машинного обучения. Изучите архитектуру нейросетей, методы обучения и практические примеры использования.', date: '2026-05-28T13:00:00.000Z', author: getRandomAuthor('learn'), image: 'images/learn-intro.jpg', media: null, mediaTypeHint: null },
-      { id: 302, tag: 'ВЕБИНАР', title: 'Промпт-инжиниринг', desc: 'Как правильно составлять запросы к нейросетям. Мастер-класс от ведущих экспертов по созданию эффективных промптов.', date: '2026-05-27T15:00:00.000Z', author: getRandomAuthor('learn'), image: 'images/learn-prompt.jpg', media: null, mediaTypeHint: null },
-      { id: 303, tag: 'КНИГА', title: 'Машинное обучение для всех', desc: 'Доступное объяснение сложных концепций ML. Книга для начинающих с примерами на Python.', date: '2026-05-26T16:00:00.000Z', author: getRandomAuthor('learn'), image: 'images/learn-ml.jpg', media: null, mediaTypeHint: null }
+      { id: 301, tag: 'КУРС', title: 'Введение в нейросети', desc: 'Базовый курс по основам нейросетей и машинного обучения. Изучите архитектуру нейросетей, методы обучения и практические примеры использования.', date: '2026-05-28T13:00:00.000Z', author: 'Цифровой Учитель', image: 'images/learn-intro.jpg', media: null, mediaTypeHint: null },
+      { id: 302, tag: 'ВЕБИНАР', title: 'Промпт-инжиниринг', desc: 'Как правильно составлять запросы к нейросетям. Мастер-класс от ведущих экспертов по созданию эффективных промптов.', date: '2026-05-27T15:00:00.000Z', author: 'Академия ИИ', image: 'images/learn-prompt.jpg', media: null, mediaTypeHint: null },
+      { id: 303, tag: 'КНИГА', title: 'Машинное обучение для всех', desc: 'Доступное объяснение сложных концепций ML. Книга для начинающих с примерами на Python.', date: '2026-05-26T16:00:00.000Z', author: 'Доктор Алгоритм', image: 'images/learn-ml.jpg', media: null, mediaTypeHint: null }
     ]
   };
 
@@ -876,7 +863,7 @@
     { id: 'audio4', title: 'Новости', src: 'audio/04_SoundHelix2_music.mp3', originalName: '04_SoundHelix2_music.mp3', mediaType: 'audio' }
   ];
 
-  // ========== ФУНКЦИИ ==========
+  // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
   function showToast(message, isError = false) {
     const toast = document.getElementById('globalToast');
     toast.textContent = message;
@@ -955,7 +942,7 @@
     const mediaBtn = (type === 'podcast' && hasMedia) ? 
       `<button class="listen-btn" onclick="event.stopPropagation(); openDetailModal('${type}', ${item.id})">▶ ${mediaType === 'video' ? 'Смотреть' : 'Слушать'}</button>` : '';
     
-    const shortDesc = item.desc.length > 100 ? item.desc.substring(0, 100) + '...' : item.desc;
+    const shortDesc = item.desc.length > 120 ? item.desc.substring(0, 120) + '...' : item.desc;
     
     return `<div class="card ${cls}" onclick="openDetailModal('${type}', ${item.id})">
               ${imageHtml}
@@ -981,9 +968,9 @@
   }
 
   function renderTipsPage(filter = 'Все', sortType = 'date-desc') {
-    let filtered = filter === 'Все' ? [...data.tip] : [...data.tip].filter(i => i.tag === filter);
+    let filtered = filter === 'Все' ? [...data.tip] : [...data.tip].filter(i => i.tag === filter || i.tag.includes(filter));
     filtered = sortItems(filtered, sortType);
-    const tags = ['Все', ...new Set(data.tip.map(i => i.tag))];
+    const tags = ['Все', ...new Set(data.tip.map(i => i.tag).flatMap(t => t.split(',').map(s => s.trim())))];
     document.getElementById('tipsFilters').innerHTML = tags.map(t => `<button class="filter-btn ${t === filter ? 'active' : ''}" onclick="renderTipsPage('${t}', '${sortType}')">${t}</button>`).join('');
     document.getElementById('allTipsGrid').innerHTML = filtered.map(t => createCardHTML('tip', t, true)).join('');
     if (filtered.length === 0) document.getElementById('allTipsGrid').innerHTML = '<p style="padding:40px; text-align:center; color:#666;">Нет гайдов в этом разделе</p>';
@@ -1253,7 +1240,7 @@
     }
   });
 
-  // ========== НАВИГАЦИЯ И СОРТИРОВКА ==========
+  // ========== НАВИГАЦИЯ ==========
   function navigateTo(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(pageId).classList.add('active');
