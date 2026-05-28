@@ -1029,6 +1029,34 @@
     }
   }
 
+  function setupAudioEvents() {
+    if (!currentAudio) return;
+    
+    // Удаляем старые обработчики, чтобы не было дублей
+    currentAudio.removeEventListener('timeupdate', updateProgress);
+    currentAudio.removeEventListener('ended', onTrackEnd);
+    
+    // Добавляем новые
+    currentAudio.addEventListener('timeupdate', updateProgress);
+    currentAudio.addEventListener('ended', onTrackEnd);
+  }
+  
+  function onTrackEnd() {
+    console.log('Трек закончился, переключаем на следующий');
+    // Автоматически переключаем на следующий трек
+    if (currentQueueIndex < livePlayerQueue.length - 1) {
+      loadTrack(currentQueueIndex + 1);
+      if (isPlaying && currentAudio) {
+        currentAudio.play().catch(e => console.log('Play error:', e));
+      }
+    } else {
+      // Конец очереди
+      isPlaying = false;
+      document.getElementById('lpPlayBtn').innerText = '▶';
+      showToast('Конец очереди');
+    }
+  }
+
   function loadTrack(idx) {
     if (idx < 0 || idx >= livePlayerQueue.length) return;
     
@@ -1057,15 +1085,18 @@
     // Обновляем UI очереди
     renderLiveQueueUI();
     
-    // Если плеер был включён, запускаем воспроизведение
-    if (isPlaying && currentAudio) {
-      currentAudio.play().catch(e => console.log('Play error:', e));
-    }
+    // Настраиваем события
+    setupAudioEvents();
     
     // Обновляем прогресс при загрузке метаданных
     currentAudio.addEventListener('loadedmetadata', () => {
       document.getElementById('lpTimeTotal').innerText = formatTime(currentAudio.duration);
     });
+    
+    // Если плеер был включён, запускаем воспроизведение
+    if (isPlaying) {
+      currentAudio.play().catch(e => console.log('Play error:', e));
+    }
   }
 
   function jumpToTrack(idx) {
@@ -1079,7 +1110,14 @@
   }
 
   function togglePlay() {
-    if (!livePlayerQueue.length || !currentAudio) return;
+    if (!livePlayerQueue.length || !currentAudio) {
+      // Если нет активного трека, загружаем первый
+      if (livePlayerQueue.length && currentQueueIndex === -1) {
+        loadTrack(0);
+      } else {
+        return;
+      }
+    }
     if (isPlaying) {
       currentAudio.pause();
       isPlaying = false;
@@ -1098,7 +1136,6 @@
         currentAudio.play();
       }
     } else {
-      // Если это последний трек, останавливаем воспроизведение
       if (currentAudio) {
         currentAudio.pause();
         isPlaying = false;
@@ -1145,25 +1182,6 @@
     }
   }
 
-  // Настройка событий для аудио/видео
-  function setupAudioEvents() {
-    if (!currentAudio) return;
-    currentAudio.addEventListener('timeupdate', updateProgress);
-    currentAudio.addEventListener('ended', () => {
-      // Автоматически переключаем на следующий трек
-      if (currentQueueIndex < livePlayerQueue.length - 1) {
-        loadTrack(currentQueueIndex + 1);
-        if (isPlaying && currentAudio) {
-          currentAudio.play();
-        }
-      } else {
-        // Конец очереди
-        isPlaying = false;
-        document.getElementById('lpPlayBtn').innerText = '▶';
-      }
-    });
-  }
-
   // Перемотка по клику на прогресс-бар
   document.addEventListener('click', (e) => {
     const progressBar = document.getElementById('lpProgressBar');
@@ -1174,16 +1192,7 @@
     }
   });
 
-  // Обёртка для loadTrack с добавлением событий
-  const originalLoadTrack = loadTrack;
-  window.loadTrack = function(idx) {
-    originalLoadTrack(idx);
-    setTimeout(setupAudioEvents, 100);
-  };
-  loadTrack = function(idx) {
-    originalLoadTrack(idx);
-    setTimeout(setupAudioEvents, 100);
-  };
+  
 
   // ========== НАВИГАЦИЯ ==========
   function navigateTo(pageId) {
