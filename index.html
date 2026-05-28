@@ -58,7 +58,7 @@
     }
     .footer-logo img {
       width: auto;
-      height: 45px;
+      height: 40px;
       object-fit: contain;
     }
     .footer-info { text-align: right; }
@@ -106,7 +106,7 @@
     }
     
     .logo { cursor: pointer; display: flex; align-items: center; }
-    .logo img { height: 90px; width: auto; object-fit: contain; }
+    .logo img { height: 70px; width: auto; object-fit: contain; }
     
     .nav-center { flex: 1; max-width: 550px; margin: 0 48px; position: relative; }
     .search-box { position: relative; width: 100%; }
@@ -320,7 +320,19 @@
     .live-player-modal .modal-content { max-width: 1000px; }
     .lp-layout { display: flex; gap: 0; flex-wrap: wrap; }
     .lp-main { flex: 1; padding: 32px; display: flex; flex-direction: column; align-items: center; min-width: 280px; }
-    .lp-cover { width: 200px; height: 200px; background: var(--bg-dark); border-radius: 12px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; font-size: 60px; }
+    .lp-cover { 
+      width: 100%; max-width: 400px; 
+      background: var(--bg-dark); 
+      border-radius: 12px; 
+      margin-bottom: 24px; 
+      overflow: hidden;
+    }
+    .lp-cover video { width: 100%; height: auto; border-radius: 12px; }
+    .lp-cover .audio-icon {
+      width: 200px; height: 200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 80px; background: var(--bg-card); border-radius: 12px;
+    }
     .lp-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; text-align: center; color: #ffffff; }
     .lp-artist { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
     .lp-progress-wrap { width: 100%; max-width: 400px; margin-bottom: 24px; }
@@ -335,7 +347,7 @@
     .lp-q-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; cursor: pointer; transition: background 0.2s; margin-bottom: 8px; background: var(--input-bg); }
     .lp-q-item.active { background: rgba(0, 72, 244, 0.2); border-left: 3px solid var(--brand); }
     .lp-q-item.played { opacity: 0.5; }
-    .lp-q-img { width: 40px; height: 40px; background: var(--bg-dark); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+    .lp-q-img { width: 40px; height: 40px; background: var(--bg-dark); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
 
     .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 13px; text-transform: uppercase; margin-bottom: 40px; cursor: pointer; }
     .back-btn:hover { color: var(--text-primary); }
@@ -394,10 +406,10 @@
 <main id="main-page" class="page active">
   <section class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-content" id="heroContent" style="transform: translate(0px, 60px) scale(1);">
+    <div class="hero-content" id="heroContent" style="transform: translate(0px, 50px) scale(1);">
       <div class="hero-label" id="heroLabel" style="color: rgb(102, 102, 102); font-size: 16px; font-weight: 500; font-style: normal; text-align: left;">МЕДИА-ХАБ ИИ-КОНТЕНТА</div>
-      <h1 id="heroTitle" style="color: rgb(255, 255, 255); font-size: 126px; font-weight: 700; font-style: normal; text-align: left;">Voice_Ai</h1>
-      <p class="hero-description full-width" id="heroDesc" style="color: rgb(102, 102, 102); font-size: 16px; font-weight: 400; font-style: normal; text-align: left;">Первая уникальная платформа технологической команды «Технологии Доверия», где контент об ИИ создан с помощью нейросетей.<br>ИИ-эфиры с познавательными подкастами, последние новости и разборы технологий, уникальные гайды и обучающие материалы. <br>Всё это для тех, кто хочет понимать и использовать искусственный интеллект на практике.<br><br><br></p>
+      <h1 id="heroTitle" style="color: rgb(255, 255, 255); font-size: 110px; font-weight: 600; font-style: normal; text-align: left;">Voice_Ai</h1>
+      <p class="hero-description full-width" id="heroDesc" style="color: rgb(102, 102, 102); font-size: 16px; font-weight: 400; font-style: normal; text-align: left;">Первая уникальная платформа технологической команды «Технологии Доверия», где контент об ИИ создан с помощью нейросетей.<br>ИИ-эфиры с познавательными подкастами, последние новости и разборы технологий, уникальные гайды и обучающие материалы. <br>Всё это для тех, кто хочет понимать и использовать искусственный интеллект на практике.<br><br></p>
       <button class="live-btn" onclick="openLivePlayer()"><div class="live-dot"></div><span class="btn-text">Слушать эфир</span></button>
     </div>
   </section>
@@ -518,13 +530,15 @@
   </div>
 </div>
 
-<!-- ПЛЕЕР ЭФИРА -->
+<!-- ПЛЕЕР ЭФИРА (с поддержкой видео) -->
 <div class="modal-overlay live-player-modal" id="livePlayerModal">
   <div class="modal-content">
     <button class="modal-close" onclick="closeLivePlayer()">×</button>
     <div class="lp-layout">
       <div class="lp-main">
-        <div class="lp-cover" id="lpCover">🎙️</div>
+        <div class="lp-cover" id="lpCover">
+          <div class="audio-icon">🎙️</div>
+        </div>
         <div class="lp-title" id="lpTitle">Эфир</div>
         <div class="lp-artist" id="lpArtist">Radio AI</div>
         <div class="lp-progress-wrap">
@@ -564,7 +578,7 @@
 
 <script>
   // ========== ВЕРСИОНИРОВАНИЕ ==========
-  const APP_VERSION = '2026.05.28.007';
+  const APP_VERSION = '2026.05.28.008';
   
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
@@ -600,11 +614,13 @@
     ]
   };
 
-  // ========== ЭФИРНАЯ ОЧЕРЕДЬ ==========
+  // ========== ЭФИРНАЯ ОЧЕРЕДЬ (поддерживает аудио и видео) ==========
+  // Для аудио: mediaType: 'audio'
+  // Для видео: mediaType: 'video'
   let liveQueue = [
-    { id: 'audio1', title: 'Новости ИИ', src: 'audio/news-daily.mp3', originalName: 'news-daily.mp3', mediaType: 'audio' },
-    { id: 'audio2', title: 'Интервью с экспертом', src: 'audio/interview.mp3', originalName: 'interview.mp3', mediaType: 'audio' },
-    { id: 'audio3', title: 'Разбор технологий', src: 'audio/tech-review.mp3', originalName: 'tech-review.mp3', mediaType: 'audio' }
+    { id: 'audio1', title: 'Voice_Ai_intro', src: 'audio/01_intro.mp3', originalName: '01_intro.mp3', mediaType: 'audio' },
+    { id: 'audio2', title: 'Новости ИИ', src: 'audio/02_news.mp3', originalName: '02_news.mp3', mediaType: 'audio' },
+    { id: 'audio3', title: 'Будущее технологий', src: 'audio/03_future.mp3', originalName: '03_future.mp3', mediaType: 'audio' }
   ];
 
   // ========== ФУНКЦИИ ==========
@@ -799,11 +815,23 @@
     document.getElementById('playerModal').classList.add('active');
   }
 
-  // ========== ПЛЕЕР ==========
+  // ========== ПЛЕЕР ЭФИРА (с поддержкой аудио и видео) ==========
   let currentQueueIndex = -1;
   let isPlaying = false;
   let currentAudio = new Audio();
   let livePlayerQueue = [...liveQueue];
+
+  function updateCoverDisplay() {
+    const coverDiv = document.getElementById('lpCover');
+    const currentTrack = livePlayerQueue[currentQueueIndex];
+    if (!currentTrack) return;
+    
+    if (currentTrack.mediaType === 'video') {
+      coverDiv.innerHTML = `<video src="${currentTrack.src}?v=${Date.now()}" style="width:100%; height:auto; border-radius:12px;"></video>`;
+    } else {
+      coverDiv.innerHTML = `<div class="audio-icon">🎙️</div>`;
+    }
+  }
 
   function renderLiveQueueUI() {
     const cont = document.getElementById('lpQueueList');
@@ -812,22 +840,36 @@
       cont.innerHTML = '<p>Очередь пуста</p>';
       return;
     }
-    cont.innerHTML = livePlayerQueue.map((item, i) => `
-      <div class="lp-q-item ${i === currentQueueIndex ? 'active' : ''} ${i < currentQueueIndex ? 'played' : ''}" onclick="jumpToTrack(${i})">
-        <div class="lp-q-img">🎵</div>
-        <div class="lp-q-info"><div class="lp-q-title">${escapeHtml(item.title)}</div></div>
-      </div>
-    `).join('');
+    cont.innerHTML = livePlayerQueue.map((item, i) => {
+      const icon = item.mediaType === 'video' ? '🎬' : '🎵';
+      return `
+        <div class="lp-q-item ${i === currentQueueIndex ? 'active' : ''} ${i < currentQueueIndex ? 'played' : ''}" onclick="jumpToTrack(${i})">
+          <div class="lp-q-img">${icon}</div>
+          <div class="lp-q-info"><div class="lp-q-title">${escapeHtml(item.title)}</div></div>
+        </div>
+      `;
+    }).join('');
   }
 
   function loadTrack(idx) {
     if (idx < 0 || idx >= livePlayerQueue.length) return;
     currentQueueIndex = idx;
     const track = livePlayerQueue[idx];
+    
+    // Останавливаем текущее воспроизведение
+    currentAudio.pause();
+    currentAudio = new Audio();
+    
     currentAudio.src = track.src + '?v=' + Date.now();
     document.getElementById('lpTitle').innerText = track.title;
+    
+    // Обновляем отображение (иконка или видео)
+    updateCoverDisplay();
+    
     renderLiveQueueUI();
-    if (isPlaying) currentAudio.play();
+    if (isPlaying) {
+      currentAudio.play().catch(e => console.log('Play error:', e));
+    }
   }
 
   function jumpToTrack(idx) {
@@ -855,13 +897,17 @@
   function nextTrack() {
     if (currentQueueIndex < livePlayerQueue.length - 1) {
       loadTrack(currentQueueIndex + 1);
+      if (isPlaying) currentAudio.play();
     } else {
       closeLivePlayer();
     }
   }
 
   function prevTrack() {
-    if (currentQueueIndex > 0) loadTrack(currentQueueIndex - 1);
+    if (currentQueueIndex > 0) {
+      loadTrack(currentQueueIndex - 1);
+      if (isPlaying) currentAudio.play();
+    }
   }
 
   function updateProgress() {
@@ -883,8 +929,11 @@
     livePlayerQueue = [...liveQueue];
     document.getElementById('livePlayerModal').classList.add('active');
     renderLiveQueueUI();
-    if (livePlayerQueue.length && currentQueueIndex === -1) loadTrack(0);
-    else if (currentQueueIndex >= 0) loadTrack(currentQueueIndex);
+    if (livePlayerQueue.length && currentQueueIndex === -1) {
+      loadTrack(0);
+    } else if (currentQueueIndex >= 0) {
+      loadTrack(currentQueueIndex);
+    }
   }
 
   function closeLivePlayer() {
