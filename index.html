@@ -350,7 +350,7 @@
       grid-auto-flow: dense;
     }
 
-    /* ========== КАРТОЧКИ ========== */
+    /* ========== КАРТОЧКИ - БЕЗ ОБВОДКИ ========== */
     .card {
       background: var(--bg-dark);
       padding: 28px;
@@ -359,15 +359,7 @@
       display: flex;
       flex-direction: column;
       height: 100%;
-      border: 1px solid var(--border);
-      border-top: none;
-      border-left: none;
-    }
-    .card:first-child {
-      border-top: 1px solid var(--border);
-    }
-    .card:nth-child(3n+1) {
-      border-left: 1px solid var(--border);
+      border: none;
     }
     .card:hover { background: var(--bg-card); }
     
@@ -600,12 +592,6 @@
       .grid-uniform, .grid-asymmetric {
         grid-template-columns: repeat(2, 1fr);
       }
-      .card:nth-child(2n+1) {
-        border-left: 1px solid var(--border);
-      }
-      .card:nth-child(3n+1) {
-        border-left: none;
-      }
     }
 
     @media (max-width: 768px) {
@@ -626,14 +612,7 @@
       .grid-uniform, .grid-asymmetric {
         grid-template-columns: 1fr;
       }
-      .card { 
-        padding: 24px;
-        border-left: 1px solid var(--border);
-        border-top: 1px solid var(--border);
-      }
-      .card:first-child {
-        border-top: 1px solid var(--border);
-      }
+      .card { padding: 24px; }
       .card p { -webkit-line-clamp: 5; }
       
       .lp-layout { flex-direction: column; }
@@ -861,7 +840,7 @@
 
 <script>
   // ========== ВЕРСИОНИРОВАНИЕ ==========
-  const APP_VERSION = '2026.05.28.019';
+  const APP_VERSION = '2026.05.28.020';
   
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
@@ -892,8 +871,9 @@
       { id: 3, tag: 'ТЕХНОЛОГИИ', title: 'GPT-5 анонсирована', desc: 'OpenAI представила новую революционную модель искусственного интеллекта.', date: '2026-05-28T12:00:00.000Z', author: 'AI-Репортер', image: 'images/GPT-5 анонсирована.webp', media: null, mediaTypeHint: null }
     ],
     podcast: [
-      { id: 101, tag: 'ИНТЕРВЬЮ', title: 'Будущее ИИ', desc: 'Разговор с ведущим экспертом в области машинного обучения.', date: '2026-05-28T14:00:00.000Z', author: 'ИИ-Интервьюер', image: 'images/podcast-future.jpg', media: 'media/podcast-future.mp3', mediaTypeHint: 'audio' },
-      { id: 102, tag: 'ОБУЧЕНИЕ', title: 'Карьера в AI', desc: 'Как начать путь в искусственном интеллекте: маршруты, инструменты и советы.', date: '2026-05-27T11:00:00.000Z', author: 'ПодкастБот', image: 'images/podcast-career.jpg', media: 'media/podcast-career.mp3', mediaTypeHint: 'audio' }
+      { id: 101, tag: 'ИНТЕРВЬЮ, ПОДКАСТ', title: 'Будущее ИИ', desc: 'Разговор с ведущим экспертом в области машинного обучения.', date: '2026-05-28T14:00:00.000Z', author: 'ИИ-Интервьюер', image: 'images/Будущее ИИ.jpg', media: 'media/Будущее ИИ_подкаст.mp3', mediaTypeHint: 'audio' },
+      { id: 102, tag: 'ОБУЧЕНИЕ, ПОДКАСТ', title: 'Карьера в AI', desc: 'Как начать путь в искусственном интеллекте: маршруты, инструменты и советы.', date: '2026-05-27T11:00:00.000Z', author: 'ПодкастБот', image: 'images/Карьера в AI.jpg', media: 'media/Карьера в AI_подкаст.mp3', mediaTypeHint: 'audio' },
+      { id: 103, tag: 'ИИ, ТЕДОРА, TEDO INTELLIGENCE, ПОДКАСТ', title: 'Первый шаг в ИИ без страха: знакомство с Tedora и безопасный старт', desc: 'Безопасный старт с ИИ. Знакомство с агентом Tedora.\nПочему данные под защитой и как задать первый правильный вопрос.\nVoice_Ai — ваш навигатор в мире нейросетей.', date: '2026-05-28T15:00:00.000Z', author: 'Голос Нейросети', image: 'images/Первый шаг в ИИ без страха.jpg', media: 'media/Первый шаг в ИИ без страха_подкаст.mp3', mediaTypeHint: 'audio' }
     ],
     tip: [
       { id: 201, tag: 'СОВЕТ ДНЯ', title: 'Безопасная работа с ИИ', desc: 'Никогда не загружайте в нейросети: пароли, персональные данные клиентов, финансовые отчеты, коммерческую тайну.\n\nМожно: общие тексты, идеи, публичную информацию.\nНельзя: внутренние документы, базы данных, переписку.\n\nПравило: если утечка навредит бизнесу — не загружайте.', date: '2026-05-28T08:00:00.000Z', author: 'НейроГид', image: 'images/Безопасная работа с ИИ.png', media: null, mediaTypeHint: null },
@@ -1044,9 +1024,9 @@
   }
 
   function renderPodcastsPage(filter = 'Все', sortType = 'date-desc') {
-    let filtered = filter === 'Все' ? [...data.podcast] : [...data.podcast].filter(i => i.tag === filter);
+    let filtered = filter === 'Все' ? [...data.podcast] : [...data.podcast].filter(i => i.tag.includes(filter) || i.tag === filter);
     filtered = sortItems(filtered, sortType);
-    const tags = ['Все', ...new Set(data.podcast.map(i => i.tag))];
+    const tags = ['Все', ...new Set(data.podcast.map(i => i.tag).flatMap(t => t.split(',').map(s => s.trim())))];
     document.getElementById('podcastFilters').innerHTML = tags.map(t => `<button class="filter-btn ${t === filter ? 'active' : ''}" onclick="renderPodcastsPage('${t}', '${sortType}')">${t}</button>`).join('');
     document.getElementById('allPodcastGrid').innerHTML = filtered.map(p => createCardHTML('podcast', p, true)).join('');
     if (filtered.length === 0) document.getElementById('allPodcastGrid').innerHTML = '<p style="padding:40px; text-align:center; color:#666;">Нет подкастов в этом разделе</p>';
