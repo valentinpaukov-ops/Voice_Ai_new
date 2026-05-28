@@ -1,0 +1,13 @@
+/*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/images/*
+  Cache-Control: max-age=604800, public
+
+/audio/*
+  Cache-Control: max-age=86400, public
+
+/media/*
+  Cache-Control: max-age=604800, public
