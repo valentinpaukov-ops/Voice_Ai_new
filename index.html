@@ -60,13 +60,6 @@
       flex-direction: column;
       gap: 12px;
     }
-    .footer-logo .logo-text {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--brand);
-      letter-spacing: 1px;
-      line-height: 1.3;
-    }
     .footer-logo img {
       width: auto;
       height: auto;
@@ -478,8 +471,9 @@
 <div id="globalToast" style="position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#00e676; color:#000; padding:12px 24px; border-radius:40px; font-size:14px; font-weight:600; z-index:1200; display:none;"></div>
 
 <nav>
+  <!-- ЛОГОТИП В ШАПКЕ: iivolution_logo1.png -->
   <div class="logo" onclick="navigateTo('main-page')">
-    <div class="logo-text">Технологии<br>Доверия</div>
+    <img src="images/iivolution_logo1.png" alt="IIvolution">
   </div>
   <div class="nav-center">
     <div class="search-box">
@@ -660,8 +654,9 @@
 <!-- ФУТЕР -->
 <footer>
   <div class="footer-container">
+    <!-- ЛОГОТИП В ФУТЕРЕ: tedo_white_logo.png -->
     <div class="footer-logo">
-      <div class="logo-text">Технологии<br>Доверия</div>
+      <img src="images/tedo_white_logo.png" alt="Технологии Доверия">
     </div>
     <div class="footer-info">
       <div class="footer-company">Технологии Доверия</div>
@@ -674,9 +669,8 @@
 
 <script>
   // ========== ВЕРСИОНИРОВАНИЕ И ОЧИСТКА КЕША ==========
-  const APP_VERSION = '2026.05.28.002'; // Меняйте при каждом обновлении!
+  const APP_VERSION = '2026.05.28.004'; // Меняйте при каждом обновлении!
   
-  // Проверяем версию и очищаем кеш при обновлении
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
     localStorage.clear();
@@ -688,12 +682,7 @@
     console.log('🔄 Кеш полностью обновлён до версии:', APP_VERSION);
   }
 
-  // ========== ДАННЫЕ КОНТЕНТА (ВСЕ КАРТОЧКИ) ==========
-  // ФОРМАТ ДЛЯ ДОБАВЛЕНИЯ НОВЫХ КАРТОЧЕК:
-  // { id: УНИКАЛЬНЫЙ_НОМЕР, tag: 'ТЕГ', title: 'Заголовок', desc: 'Описание...', 
-  //   date: '2026-05-28T12:00:00.000Z', author: 'Автор', 
-  //   image: 'images/имя_файла.jpg', media: 'media/имя_файла.mp3', mediaTypeHint: 'audio' }
-  
+  // ========== ДАННЫЕ КОНТЕНТА ==========
   let data = {
     news: [
       { id: 1, tag: 'ТЕХНОЛОГИИ', title: 'GPT-5 анонсирована', desc: 'OpenAI представила новую революционную модель искусственного интеллекта.', date: '2026-05-28T12:00:00.000Z', author: 'AI-Репортер', image: 'images/news-gpt5.jpg', media: null, mediaTypeHint: null },
@@ -717,7 +706,6 @@
   };
 
   // ========== ЭФИРНАЯ ОЧЕРЕДЬ (файлы из папки /audio/) ==========
-  // ЕЖЕДНЕВНОЕ ОБНОВЛЕНИЕ: меняете список файлов в этой переменной
   let liveQueue = [
     { id: 'audio1', title: 'Новости ИИ', src: 'audio/news-daily.mp3', originalName: 'news-daily.mp3', mediaType: 'audio' },
     { id: 'audio2', title: 'Интервью с экспертом', src: 'audio/interview.mp3', originalName: 'interview.mp3', mediaType: 'audio' },
@@ -768,6 +756,16 @@
     return item.tag && item.tag.toUpperCase().includes('СОВЕТ ДНЯ');
   }
 
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
   function createCardHTML(type, item, asym = false) {
     let cls = '';
     if (asym) {
@@ -796,16 +794,6 @@
               <div class="card-meta"><span>${item.author}</span><span>${formatDate(item.date)}</span></div>
               ${mediaBtn}
             </div>`;
-  }
-
-  function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-      if (m === '&') return '&amp;';
-      if (m === '<') return '&lt;';
-      if (m === '>') return '&gt;';
-      return m;
-    });
   }
 
   // ========== ОТРИСОВКА СТРАНИЦ ==========
@@ -858,8 +846,6 @@
   }
 
   // ========== МОДАЛЬНОЕ ОКНО ==========
-  let currentAudioPlayer = null;
-
   function stopModalMedia() {
     const modalImage = document.getElementById('modalImage');
     if (modalImage) {
@@ -943,7 +929,7 @@
     if (idx < 0 || idx >= livePlayerQueue.length) return;
     currentQueueIndex = idx;
     const track = livePlayerQueue[idx];
-    currentAudio.src = track.src + '?v=' + Date.now(); // антикеш для аудио
+    currentAudio.src = track.src + '?v=' + Date.now();
     document.getElementById('lpTitle').innerText = track.title;
     renderLiveQueueUI();
     if (isPlaying) currentAudio.play();
@@ -1024,13 +1010,12 @@
     currentAudio.currentTime = pct * currentAudio.duration;
   });
 
-  // ========== НАВИГАЦИЯ И ПОИСК ==========
+  // ========== НАВИГАЦИЯ ==========
   function navigateTo(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(pageId).classList.add('active');
     window.scrollTo(0, 0);
     
-    // Обновляем сортировку при переходах
     if (pageId === 'tips-page') renderTipsPage('Все', tipsSort);
     if (pageId === 'news-page') renderNewsPage('Все', newsSort);
     if (pageId === 'podcasts-page') renderPodcastsPage('Все', podcastsSort);
