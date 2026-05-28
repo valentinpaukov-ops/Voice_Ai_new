@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- АНТИКЕШ: полный запрет кеширования HTML -->
+  <!-- АНТИКЕШ -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   
   <title>Voice_AI — Медиа Хаб ИИ</title>
   <style>
-    /* ========== СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ ========== */
+    /* ========== СТИЛИ ========== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,6 +27,7 @@
       --border: #1a1a1a;
       --btn-bg: #000000;
       --tip-color: #ff9f00;
+      --input-bg: #050505;
     }
 
     body {
@@ -55,20 +56,12 @@
       flex-wrap: wrap;
       gap: 40px;
     }
-    .footer-logo {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
     .footer-logo img {
       width: auto;
-      height: auto;
-      max-height: 50px;
+      height: 45px;
       object-fit: contain;
     }
-    .footer-info {
-      text-align: right;
-    }
+    .footer-info { text-align: right; }
     .footer-company {
       font-size: 14px;
       font-weight: 600;
@@ -80,27 +73,15 @@
       color: var(--text-secondary);
       margin-bottom: 6px;
     }
-    .footer-phone a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-phone a:hover {
-      color: var(--text-primary);
-    }
+    .footer-phone a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+    .footer-phone a:hover { color: var(--text-primary); }
     .footer-email {
       font-size: 13px;
       color: var(--text-secondary);
       margin-bottom: 8px;
     }
-    .footer-email a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-email a:hover {
-      color: var(--text-primary);
-    }
+    .footer-email a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+    .footer-email a:hover { color: var(--text-primary); }
     .footer-rights {
       font-size: 11px;
       color: var(--text-muted);
@@ -119,56 +100,25 @@
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
     nav {
-      position: fixed; top: 0; width: 100%; padding: 32px 48px;
+      position: fixed; top: 0; width: 100%; padding: 20px 48px;
       display: flex; justify-content: space-between; align-items: center; z-index: 100;
       background: var(--bg-dark); border-bottom: 1px solid var(--border);
     }
     
-    .logo {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-    }
-    .logo img {
-      width: auto;
-      height: auto;
-      max-height: 60px;
-      object-fit: contain;
-    }
-    .logo-text {
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      line-height: 1.3;
-    }
+    .logo { cursor: pointer; display: flex; align-items: center; }
+    .logo img { height: 90px; width: auto; object-fit: contain; }
     
-    .nav-center { 
-      flex: 1; 
-      max-width: 550px; 
-      margin: 0 48px; 
-      position: relative; 
-    }
+    .nav-center { flex: 1; max-width: 550px; margin: 0 48px; position: relative; }
     .search-box { position: relative; width: 100%; }
     .search-input {
-      width: 100%; 
-      padding: 10px 40px 10px 16px; 
-      background: var(--input-bg); 
-      border: 1px solid var(--border);
-      color: var(--text-primary); 
-      font-family: inherit; 
-      font-size: 13px; 
-      border-radius: 4px; 
-      outline: none;
+      width: 100%; padding: 10px 40px 10px 16px; background: var(--input-bg);
+      border: 1px solid var(--border); color: var(--text-primary);
+      font-family: inherit; font-size: 13px; border-radius: 4px; outline: none;
     }
     .search-input:focus { border-color: var(--text-secondary); }
     .search-arrow {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 16px;
-      color: var(--text-muted);
-      pointer-events: none;
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      font-size: 16px; color: var(--text-muted); pointer-events: none;
     }
     
     .search-dropdown {
@@ -180,18 +130,11 @@
     .search-item {
       padding: 12px 16px; border-bottom: 1px solid var(--border); cursor: pointer;
       transition: background 0.2s; display: flex; justify-content: space-between;
-      align-items: center;
-      gap: 12px;
+      align-items: center; gap: 12px;
     }
-    .search-item:last-child { border-bottom: none; }
     .search-item:hover { background: var(--input-bg); }
     .search-item-title { font-size: 13px; font-weight: 500; color: var(--text-primary); }
-    .search-item-desc {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 4px;
-      line-height: 1.4;
-    }
+    .search-item-desc { font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
     .search-item mark {
       background: rgba(0, 72, 244, 0.15);
       color: var(--brand);
@@ -208,46 +151,34 @@
     }
     .nav-links a:hover { color: var(--text-primary); }
 
-    .page { display: none; min-height: 100vh; padding-top: 100px; }
+    .page { display: none; min-height: 100vh; padding-top: 90px; }
     .page.active { display: block; }
 
     .hero {
       position: relative; min-height: 90vh; display: flex; align-items: center; justify-content: center;
       padding: 0 48px; overflow: hidden; margin-top: -60px;
     }
-    .hero-bg { 
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+    .hero-bg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       background-size: cover; background-repeat: no-repeat; background-position: center;
-      background-image: url('images/hero-bg.jpg');
       z-index: 0;
     }
     .hero-bg::after {
       content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       background: linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.96) 100%);
     }
-    .hero-content { 
-      position: relative; z-index: 1; max-width: 1400px; width: 100%; 
-    }
-    .hero-label { 
-      display: block;
-      color: #666666;
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 16px;
+    .hero-content { position: relative; z-index: 1; max-width: 1400px; width: 100%; }
+    .hero-label {
+      display: block; color: #666666; font-size: 16px;
+      font-weight: 500; margin-bottom: 16px;
     }
     .hero h1 {
-      font-size: 120px;
-      font-weight: 800;
-      letter-spacing: -2px;
-      margin-bottom: 24px;
-      color: #ffffff;
+      font-size: 120px; font-weight: 800; letter-spacing: -2px;
+      margin-bottom: 24px; color: #ffffff;
     }
     .hero-description {
-      font-size: 18px;
-      color: #666666;
-      max-width: 800px;
-      margin-bottom: 32px;
-      line-height: 1.6;
+      font-size: 18px; color: #666666; max-width: 800px;
+      margin-bottom: 32px; line-height: 1.6;
     }
 
     .live-btn {
@@ -266,24 +197,18 @@
 
     section { padding: 120px 48px; max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border); }
     .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; gap: 40px; flex-wrap: wrap; }
-    .section-title { 
-      font-size: 72px; 
-      font-weight: 800; 
-      line-height: 1.1; 
-      letter-spacing: -2px; 
-      flex: 1; 
-      color: #ffffff;
+    .section-title {
+      font-size: 72px; font-weight: 800; line-height: 1.1;
+      letter-spacing: -2px; flex: 1; color: #ffffff;
     }
-    .section-desc { 
-      font-size: 16px; 
-      margin-top: 8px; 
-      max-width: 500px; 
-      line-height: 1.6;
-      color: #666666;
+    .section-desc {
+      font-size: 16px; margin-top: 8px; max-width: 500px;
+      line-height: 1.6; color: #666666;
     }
     .section-link {
-      color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 1px;
-      text-transform: uppercase; border-bottom: 1px solid var(--text-muted); padding-bottom: 4px; transition: 0.3s; cursor: pointer;
+      color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--text-muted);
+      padding-bottom: 4px; transition: 0.3s; cursor: pointer;
     }
     .section-link:hover { color: var(--text-primary); border-color: var(--text-primary); }
 
@@ -296,17 +221,10 @@
       display: flex; flex-direction: column; height: 100%;
     }
     .card:hover { background: var(--bg-card); }
-    
     .card.tip-of-day::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      background: var(--tip-color);
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: var(--tip-color);
     }
-    
     .card-image {
       width: 100%; height: 200px; margin-bottom: 20px;
       overflow: hidden; flex-shrink: 0; border-radius: 8px;
@@ -315,32 +233,22 @@
     .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
     .card:hover .card-image img { transform: scale(1.03); }
     .card-tag { font-size: 11px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
-    .card h3 { 
-      font-size: 20px; 
-      font-weight: 700; 
-      margin-bottom: 12px; 
-      line-height: 1.3;
-      word-break: break-word;
-      color: #ffffff;
+    .card h3 {
+      font-size: 20px; font-weight: 700; margin-bottom: 12px;
+      line-height: 1.3; word-break: break-word; color: #ffffff;
     }
-    .card p { 
-      font-size: 14px; 
-      color: var(--text-secondary); 
-      line-height: 1.7; 
-      margin-bottom: 16px; 
-      display: -webkit-box; 
-      -webkit-line-clamp: 3; 
-      -webkit-box-orient: vertical; 
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .card p {
+      font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+      margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
     }
     .card-meta { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; margin-top: auto; font-size: 11px; color: var(--text-muted); }
     
     .listen-btn {
       display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; background: transparent;
-      border: 1px solid var(--text-secondary); color: var(--text-primary); cursor: pointer; font-size: 12px;
-      font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.3s; 
-      margin-top: 16px; width: fit-content; border-radius: 4px;
+      border: 1px solid var(--text-secondary); color: var(--text-primary); cursor: pointer;
+      font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      transition: all 0.3s; margin-top: 16px; width: fit-content; border-radius: 4px;
     }
     .listen-btn:hover { border-color: var(--text-primary); background: var(--text-primary); color: var(--bg-dark); }
 
@@ -351,63 +259,47 @@
 
     .filters { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
     .filter-btn {
-      padding: 8px 16px; background: transparent; border: 1px solid var(--border); color: var(--text-secondary);
-      cursor: pointer; font-size: 12px; text-transform: uppercase; transition: 0.3s; border-radius: 4px;
+      padding: 8px 16px; background: transparent; border: 1px solid var(--border);
+      color: var(--text-secondary); cursor: pointer; font-size: 12px;
+      text-transform: uppercase; transition: 0.3s; border-radius: 4px;
     }
     .filter-btn:hover, .filter-btn.active { border-color: var(--text-primary); color: var(--text-primary); background: var(--bg-card); }
 
     .sort-controls {
-      display: flex;
-      gap: 24px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      display: flex; gap: 24px; margin-bottom: 40px;
+      flex-wrap: wrap; justify-content: flex-end;
     }
     .sort-btn {
-      padding: 6px 0;
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 11px;
-      text-transform: uppercase;
-      transition: 0.2s;
-      letter-spacing: 0.8px;
-      position: relative;
+      padding: 6px 0; background: transparent; border: none; color: var(--text-muted);
+      cursor: pointer; font-size: 11px; text-transform: uppercase;
+      transition: 0.2s; letter-spacing: 0.8px; position: relative;
     }
     .sort-btn:hover { color: var(--text-primary); }
     .sort-btn.active { color: var(--text-primary); }
     .sort-btn.active::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: var(--text-primary);
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--text-primary);
     }
 
     .modal-overlay {
       display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.96); z-index: 1000; justify-content: center; align-items: center; padding: 48px;
-      cursor: pointer;
+      background: rgba(0, 0, 0, 0.96); z-index: 1000; justify-content: center;
+      align-items: center; padding: 48px; cursor: pointer;
     }
     .modal-overlay.active { display: flex; animation: fadeIn 0.2s ease; }
-    
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     
     .modal-content {
-      background: var(--bg-card); border: 1px solid var(--border); max-width: 900px; width: 100%;
-      max-height: 90vh; overflow-y: auto; position: relative; border-radius: 16px;
-      cursor: default;
+      background: var(--bg-card); border: 1px solid var(--border); max-width: 900px;
+      width: 100%; max-height: 90vh; overflow-y: auto; position: relative;
+      border-radius: 16px; cursor: default;
     }
     .modal-close {
       position: absolute; top: 16px; right: 16px; width: 36px; height: 36px;
       background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);
       border: 1px solid rgba(255, 255, 255, 0.3); color: white;
       cursor: pointer; border-radius: 50%; z-index: 10;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; transition: all 0.2s ease;
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
     }
     .modal-close:hover { transform: scale(1.05); background: rgba(0,0,0,0.8); border-color: white; }
     
@@ -420,12 +312,11 @@
     .modal-description { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 32px; }
     .modal-player { background: var(--bg-dark); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-top: 16px; }
     .modal-player audio, .modal-player video { width: 100%; }
-    .modal-player img { max-width: 100%; border-radius: 8px; }
 
     .live-player-modal .modal-content { max-width: 1000px; }
     .lp-layout { display: flex; gap: 0; flex-wrap: wrap; }
     .lp-main { flex: 1; padding: 32px; display: flex; flex-direction: column; align-items: center; min-width: 280px; }
-    .lp-cover { width: 200px; height: 200px; background: var(--bg-dark); border-radius: 12px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; font-size: 60px; overflow: hidden; }
+    .lp-cover { width: 200px; height: 200px; background: var(--bg-dark); border-radius: 12px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; font-size: 60px; }
     .lp-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; text-align: center; color: #ffffff; }
     .lp-artist { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
     .lp-progress-wrap { width: 100%; max-width: 400px; margin-bottom: 24px; }
@@ -445,33 +336,38 @@
     .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 13px; text-transform: uppercase; margin-bottom: 40px; cursor: pointer; }
     .back-btn:hover { color: var(--text-primary); }
 
-    :root { --input-bg: #050505; }
-    .search-input { background: var(--input-bg); }
+    #globalToast {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+      background: #00e676; color: #000; padding: 12px 24px; border-radius: 40px;
+      font-size: 14px; font-weight: 600; z-index: 1200; display: none;
+    }
+    #globalToast.error { background: #ff3b30; color: white; }
 
     @media (max-width: 1024px) {
       .hero h1 { font-size: 72px; }
       .section-title { font-size: 48px; }
       .grid-uniform, .grid-asymmetric { grid-template-columns: 1fr 1fr; }
       .nav-center { max-width: 400px; margin: 0 24px; }
+      .logo img { height: 60px; }
     }
     @media (max-width: 768px) {
-      nav { padding: 20px; flex-wrap: wrap; gap: 12px; }
+      nav { padding: 15px 20px; flex-wrap: wrap; gap: 12px; }
       .nav-center { order: 3; width: 100%; margin: 12px 0 0; max-width: 100%; }
       .hero h1 { font-size: 48px; }
       section { padding: 60px 20px; }
       .grid-uniform, .grid-asymmetric { grid-template-columns: 1fr; }
-      .logo img { max-height: 40px; }
+      .logo img { height: 50px; }
       .lp-layout { flex-direction: column; }
       .lp-queue { width: 100%; border-left: none; border-top: 1px solid var(--border); }
+      .footer-logo img { height: 35px; }
     }
   </style>
 </head>
 <body>
 
-<div id="globalToast" style="position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#00e676; color:#000; padding:12px 24px; border-radius:40px; font-size:14px; font-weight:600; z-index:1200; display:none;"></div>
+<div id="globalToast"></div>
 
 <nav>
-  <!-- ЛОГОТИП В ШАПКЕ: iivolution_logo1.png -->
   <div class="logo" onclick="navigateTo('main-page')">
     <img src="./images/iivolution_logo1.png" alt="IIvolution">
   </div>
@@ -502,7 +398,6 @@
     </div>
   </section>
 
-  <!-- БЛОК ГАЙДЫ -->
   <section id="tipsSection">
     <div class="section-header">
       <h2 class="section-title">Гайды</h2>
@@ -512,7 +407,6 @@
     <div class="grid grid-uniform" id="mainTipsGrid"></div>
   </section>
 
-  <!-- БЛОК НОВОСТИ -->
   <section id="newsSection">
     <div class="section-header">
       <h2 class="section-title">Новости</h2>
@@ -522,7 +416,6 @@
     <div class="grid grid-uniform" id="mainNewsGrid"></div>
   </section>
 
-  <!-- БЛОК ПОДКАСТЫ -->
   <section id="podcastsSection">
     <div class="section-header">
       <h2 class="section-title">Подкасты</h2>
@@ -532,7 +425,6 @@
     <div class="grid grid-uniform" id="mainPodcastGrid"></div>
   </section>
 
-  <!-- БЛОК ОБУЧЕНИЕ -->
   <section id="learnSection">
     <div class="section-header">
       <h2 class="section-title">Обучение</h2>
@@ -607,7 +499,7 @@
   </section>
 </main>
 
-<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ПРОСМОТРА КОНТЕНТА -->
+<!-- МОДАЛЬНОЕ ОКНО -->
 <div class="modal-overlay" id="playerModal">
   <div class="modal-content">
     <button class="modal-close" onclick="closePlayerModal()">×</button>
@@ -654,7 +546,6 @@
 <!-- ФУТЕР -->
 <footer>
   <div class="footer-container">
-    <!-- ЛОГОТИП В ФУТЕРЕ: tedo_white_logo.png -->
     <div class="footer-logo">
       <img src="./images/tedo_white_logo.png" alt="Технологии Доверия">
     </div>
@@ -668,8 +559,8 @@
 </footer>
 
 <script>
-  // ========== ВЕРСИОНИРОВАНИЕ И ОЧИСТКА КЕША ==========
-  const APP_VERSION = '2026.05.28.004'; // Меняйте при каждом обновлении!
+  // ========== ВЕРСИОНИРОВАНИЕ ==========
+  const APP_VERSION = '2026.05.28.006';
   
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
@@ -679,7 +570,7 @@
       caches.keys().then(keys => keys.forEach(key => caches.delete(key)));
     }
     localStorage.setItem('app_version', APP_VERSION);
-    console.log('🔄 Кеш полностью обновлён до версии:', APP_VERSION);
+    console.log('🔄 Кеш обновлён до версии:', APP_VERSION);
   }
 
   // ========== ДАННЫЕ КОНТЕНТА ==========
@@ -705,14 +596,14 @@
     ]
   };
 
-  // ========== ЭФИРНАЯ ОЧЕРЕДЬ (файлы из папки /audio/) ==========
+  // ========== ЭФИРНАЯ ОЧЕРЕДЬ ==========
   let liveQueue = [
     { id: 'audio1', title: 'Новости ИИ', src: 'audio/news-daily.mp3', originalName: 'news-daily.mp3', mediaType: 'audio' },
     { id: 'audio2', title: 'Интервью с экспертом', src: 'audio/interview.mp3', originalName: 'interview.mp3', mediaType: 'audio' },
     { id: 'audio3', title: 'Разбор технологий', src: 'audio/tech-review.mp3', originalName: 'tech-review.mp3', mediaType: 'audio' }
   ];
 
-  // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
+  // ========== ФУНКЦИИ ==========
   function showToast(message, isError = false) {
     const toast = document.getElementById('globalToast');
     toast.textContent = message;
@@ -796,7 +687,7 @@
             </div>`;
   }
 
-  // ========== ОТРИСОВКА СТРАНИЦ ==========
+  // ========== ОТРИСОВКА ==========
   function renderAll() {
     const allTips = [...data.tip].sort((a,b) => new Date(b.date) - new Date(a.date));
     const latestNews = [...data.news].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
@@ -904,7 +795,7 @@
     document.getElementById('playerModal').classList.add('active');
   }
 
-  // ========== ЭФИРНЫЙ ПЛЕЕР ==========
+  // ========== ПЛЕЕР ==========
   let currentQueueIndex = -1;
   let isPlaying = false;
   let currentAudio = new Audio();
