@@ -167,19 +167,23 @@
       content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       background: linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.96) 100%);
     }
-    .hero-content { position: relative; z-index: 1; max-width: 1400px; width: 100%; }
+    .hero-content { 
+      position: relative; z-index: 1; max-width: 1400px; width: 100%; 
+      transition: transform 0.3s ease;
+    }
     .hero-label {
       display: block; color: #666666; font-size: 16px;
       font-weight: 500; margin-bottom: 16px;
     }
     .hero h1 {
-      font-size: 120px; font-weight: 800; letter-spacing: -2px;
+      font-size: 126px; font-weight: 700; letter-spacing: -2px;
       margin-bottom: 24px; color: #ffffff;
     }
     .hero-description {
-      font-size: 18px; color: #666666; max-width: 800px;
+      font-size: 16px; color: #666666; max-width: 800px;
       margin-bottom: 32px; line-height: 1.6;
     }
+    .hero-description.full-width { max-width: 100%; width: 100%; }
 
     .live-btn {
       display: inline-flex; align-items: center; gap: 12px; padding: 18px 36px;
@@ -390,10 +394,10 @@
 <main id="main-page" class="page active">
   <section class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-content">
-      <div class="hero-label">МЕДИА-ХАБ ИИ-КОНТЕНТА</div>
-      <h1>Voice_Ai</h1>
-      <p class="hero-description">Первая уникальная платформа технологической команды «Технологии Доверия», где контент об ИИ создан с помощью нейросетей.<br>ИИ-эфиры с познавательными подкастами, последние новости и разборы технологий, уникальные гайды и обучающие материалы. <br>Всё это для тех, кто хочет понимать и использовать искусственный интеллект на практике.</p>
+    <div class="hero-content" id="heroContent" style="transform: translate(0px, 60px) scale(1);">
+      <div class="hero-label" id="heroLabel" style="color: rgb(102, 102, 102); font-size: 16px; font-weight: 500; font-style: normal; text-align: left;">МЕДИА-ХАБ ИИ-КОНТЕНТА</div>
+      <h1 id="heroTitle" style="color: rgb(255, 255, 255); font-size: 126px; font-weight: 700; font-style: normal; text-align: left;">Voice_Ai</h1>
+      <p class="hero-description full-width" id="heroDesc" style="color: rgb(102, 102, 102); font-size: 16px; font-weight: 400; font-style: normal; text-align: left;">Первая уникальная платформа технологической команды «Технологии Доверия», где контент об ИИ создан с помощью нейросетей.<br>ИИ-эфиры с познавательными подкастами, последние новости и разборы технологий, уникальные гайды и обучающие материалы. <br>Всё это для тех, кто хочет понимать и использовать искусственный интеллект на практике.<br><br><br></p>
       <button class="live-btn" onclick="openLivePlayer()"><div class="live-dot"></div><span class="btn-text">Слушать эфир</span></button>
     </div>
   </section>
@@ -560,7 +564,7 @@
 
 <script>
   // ========== ВЕРСИОНИРОВАНИЕ ==========
-  const APP_VERSION = '2026.05.28.006';
+  const APP_VERSION = '2026.05.28.007';
   
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
