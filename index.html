@@ -333,17 +333,21 @@
 
     /* ========== СЕТКИ КАРТОЧЕК ========== */
     .grid { display: grid; gap: 1px; background: var(--border); }
+    /* На главной странице — ровные карточки по 3 в ряд */
     .grid-uniform { 
       grid-template-columns: repeat(3, 1fr);
     }
+    /* На страницах блоков — асимметричная раскладка (wide, tall, big) */
     .grid-asymmetric { 
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1px;
       background: var(--border);
+      grid-auto-rows: minmax(280px, auto);
+      grid-auto-flow: dense;
     }
 
-    /* ========== КАРТОЧКИ (все одинаковые) ========== */
+    /* ========== КАРТОЧКИ ========== */
     .card {
       background: var(--bg-dark);
       padding: 28px;
@@ -354,10 +358,23 @@
       height: 100%;
     }
     .card:hover { background: var(--bg-card); }
+    
+    /* Карточка "Совет дня" — оранжевая полоска и полупрозрачная заливка */
+    .card.tip-of-day {
+      background: rgba(255, 159, 0, 0.05);
+    }
     .card.tip-of-day::before {
       content: ''; position: absolute; left: 0; top: 0; bottom: 0;
       width: 3px; background: var(--tip-color);
     }
+    
+    /* Асимметричные размеры для страниц блоков */
+    .grid-asymmetric .card.wide { grid-column: span 2; }
+    .grid-asymmetric .card.tall { grid-row: span 2; }
+    .grid-asymmetric .card.big { grid-column: span 2; grid-row: span 2; }
+    .grid-asymmetric .card.wide .card-image,
+    .grid-asymmetric .card.big .card-image { height: 240px; }
+    
     .card-image {
       width: 100%; height: 180px; margin-bottom: 20px;
       overflow: hidden; flex-shrink: 0; border-radius: 12px;
@@ -566,10 +583,10 @@
 
     @media (max-width: 768px) {
       nav { flex-direction: column; align-items: stretch; padding: 15px 4%; }
-      .nav-center { max-width: 100%; order: 2; }
-      .nav-links { order: 1; justify-content: center; gap: 15px; }
+      .nav-center { max-width: 100%; order: 2; margin-top: 10px; }
+      .nav-links { order: 1; justify-content: center; gap: 15px; margin-top: 30px; }
       .logo { justify-content: center; order: 0; margin-bottom: 0; }
-      .logo img { height: 50px; }
+      .logo img { height: 70px; }
       
       .hero { min-height: 80vh; padding: 0 4%; }
       .hero-content { text-align: left; }
@@ -810,7 +827,7 @@
 
 <script>
   // ========== ВЕРСИОНИРОВАНИЕ ==========
-  const APP_VERSION = '2026.05.28.016';
+  const APP_VERSION = '2026.05.28.017';
   
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
@@ -845,8 +862,8 @@
       { id: 102, tag: 'ОБУЧЕНИЕ', title: 'Карьера в AI', desc: 'Как начать путь в искусственном интеллекте: маршруты, инструменты и советы.', date: '2026-05-27T11:00:00.000Z', author: 'ПодкастБот', image: 'images/podcast-career.jpg', media: 'media/podcast-career.mp3', mediaTypeHint: 'audio' }
     ],
     tip: [
-      { id: 201, tag: 'СОВЕТ ДНЯ, Безопасность, ИИ', title: 'Безопасная работа с ИИ', desc: 'Никогда не загружайте в нейросети: пароли, персональные данные клиентов, финансовые отчеты, коммерческую тайну.\n\n Можно: общие тексты, идеи, публичную информацию.\n\nНельзя: внутренние документы, базы данных, переписку.\n\n\nПравило: если утечка навредит бизнесу — не загружайте.', date: '2026-05-28T08:00:00.000Z', author: 'НейроГид', image: 'images/Безопасная работа с ИИ.png', media: null, mediaTypeHint: null },
-      { id: 202, tag: 'ПРОДУКТИВНОСТЬ, ИИ', title: 'Что делегировать ИИ', desc: 'Отдайте ИИ: \nрутину (шаблонные письма, расшифровка аудио, суммаризация встреч), черновики, генерацию идей, проверку орфографии.\n\nОставьте себе: \nфинальные решения, стратегию, переговоры, креатив с душой, работу с людьми.\n\nФормула: \nесли задача повторяется 3+ раза в неделю — автоматизируйте.', date: '2026-05-27T09:00:00.000Z', author: 'AI-Ментор', image: 'images/делегирование ии.jpg', media: null, mediaTypeHint: null },
+      { id: 201, tag: 'СОВЕТ ДНЯ, Безопасность, ИИ', title: 'Безопасная работа с ИИ', desc: 'Никогда не загружайте в нейросети: пароли, персональные данные клиентов, финансовые отчеты, коммерческую тайну.\n\n✅ Можно: общие тексты, идеи, публичную информацию.\n✅ Нельзя: внутренние документы, базы данных, переписку.\n\nПравило: если утечка навредит бизнесу — не загружайте.', date: '2026-05-28T08:00:00.000Z', author: 'НейроГид', image: 'images/Безопасная работа с ИИ.png', media: null, mediaTypeHint: null },
+      { id: 202, tag: 'ПРОДУКТИВНОСТЬ, ИИ', title: 'Что делегировать ИИ', desc: 'Отдайте ИИ: рутину (шаблонные письма, расшифровка аудио, суммаризация встреч), черновики, генерацию идей, проверку орфографии.\nОставьте себе: финальные решения, стратегию, переговоры, креатив с душой, работу с людьми.\n\nФормула: если задача повторяется 3+ раза в неделю — автоматизируйте.', date: '2026-05-27T09:00:00.000Z', author: 'AI-Ментор', image: 'images/делегирование ии.jpg', media: null, mediaTypeHint: null },
       { id: 203, tag: 'СОВЕТ', title: 'Как начать в AI', desc: 'Пошаговое руководство для новичков. \nНачните с изучения базовых понятий: нейросети, машинное обучение, промпт-инжиниринг. \nПопробуйте бесплатные инструменты: ChatGPT, Claude, Google Gemini. \nСоздайте свой первый проект.', date: '2026-05-26T10:00:00.000Z', author: 'ТехноГид', image: '', media: null, mediaTypeHint: null },
       { id: 204, tag: 'СОВЕТ', title: 'Промпт-инжиниринг для начинающих', desc: 'Как правильно составлять запросы к нейросетям: \nбудьте конкретны, добавляйте контекст, указывайте формат ответа, используйте примеры (few-shot), итеративно улучшайте промпты.', date: '2026-05-26T11:00:00.000Z', author: 'AI-Ментор', image: '', media: null, mediaTypeHint: null }
     ],
@@ -928,8 +945,15 @@
 
   function createCardHTML(type, item, asym = false) {
     let cls = '';
-    // Убираем рандомные классы wide/tall/big - все карточки одинаковые
-    if (type === 'tip' && isTipOfDay(item)) cls = ' tip-of-day';
+    // Для страниц блоков — добавляем классы wide/tall/big
+    if (asym) {
+      const r = Math.random();
+      if (r < 0.12) cls = ' wide';
+      else if (r < 0.24) cls = ' tall';
+      else if (r < 0.34) cls = ' big';
+    }
+    // Для карточки "Совет дня"
+    if (type === 'tip' && isTipOfDay(item)) cls += ' tip-of-day';
     
     const hasImage = item.image && item.image.trim() !== '';
     const imageHtml = hasImage ? `<div class="card-image"><img src="${item.image}?v=${APP_VERSION}" alt="${escapeHtml(item.title)}"></div>` : `<div class="card-image no-image"></div>`;
@@ -951,7 +975,7 @@
             </div>`;
   }
 
-  // ========== ОТРИСОВКА (на главной - 3 последние карточки) ==========
+  // ========== ОТРИСОВКА (на главной - 3 последние карточки, одинаковые) ==========
   function renderAll() {
     const allTips = [...data.tip].sort((a,b) => new Date(b.date) - new Date(a.date));
     const latestTips = allTips.slice(0, 3);
@@ -959,6 +983,7 @@
     const latestPodcasts = [...data.podcast].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
     const latestLearn = [...data.learn].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
     
+    // На главной странице asym = false
     document.getElementById('mainTipsGrid').innerHTML = latestTips.map(t => createCardHTML('tip', t, false)).join('');
     document.getElementById('mainNewsGrid').innerHTML = latestNews.map(n => createCardHTML('news', n, false)).join('');
     document.getElementById('mainPodcastGrid').innerHTML = latestPodcasts.map(p => createCardHTML('podcast', p, false)).join('');
@@ -970,6 +995,7 @@
     filtered = sortItems(filtered, sortType);
     const tags = ['Все', ...new Set(data.tip.map(i => i.tag).flatMap(t => t.split(',').map(s => s.trim())))];
     document.getElementById('tipsFilters').innerHTML = tags.map(t => `<button class="filter-btn ${t === filter ? 'active' : ''}" onclick="renderTipsPage('${t}', '${sortType}')">${t}</button>`).join('');
+    // На странице блока asym = true
     document.getElementById('allTipsGrid').innerHTML = filtered.map(t => createCardHTML('tip', t, true)).join('');
     if (filtered.length === 0) document.getElementById('allTipsGrid').innerHTML = '<p style="padding:40px; text-align:center; color:#666;">Нет гайдов в этом разделе</p>';
   }
