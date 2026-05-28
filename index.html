@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- АНТИКЕШ: полный запрет кеширования HTML -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <title>Voice_AI — Медиа Хаб ИИ</title>
+  <style>
+    /* ========== СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ ========== */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-dark: #0a0a0a;
+      --bg-card: #111111;
+      --text-primary: #ffffff;
+      --text-secondary: #666666;
+      --text-muted: #444444;
+      --accent: #ff3b30;
+      --brand: #0048f4;
+      --border: #1a1a1a;
+      --btn-bg: #000000;
+      --tip-color: #ff9f00;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border);
+      padding: 48px 48px 32px;
+      background: var(--bg-dark);
+    }
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    .footer-logo {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-logo .logo-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--brand);
+      letter-spacing: 1px;
+      line-height: 1.3;
+    }
+    .footer-logo img {
+      width: auto;
+      height: auto;
+      max-height: 50px;
+      object-fit: contain;
+    }
+    .footer-info {
+      text-align: right;
+    }
+    .footer-company {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .footer-phone {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+    .footer-phone a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-phone a:hover {
+      color: var(--text-primary);
+    }
+    .footer-email {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    .footer-email a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-email a:hover {
+      color: var(--text-primary);
+    }
+    .footer-rights {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 768px) {
+      footer { padding: 32px 24px 24px; }
+      .footer-container { flex-direction: column; align-items: center; text-align: center; }
+      .footer-info { text-align: center; }
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    nav {
+      position: fixed; top: 0; width: 100%; padding: 32px 48px;
+      display: flex; justify-content: space-between; align-items: center; z-index: 100;
+      background: var(--bg-dark); border-bottom: 1px solid var(--border);
+    }
+    
+    .logo {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      width: auto;
+      height: auto;
+      max-height: 60px;
+      object-fit: contain;
+    }
+    .logo-text {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      line-height: 1.3;
+    }
+    
+    .nav-center { 
+      flex: 1; 
+      max-width: 550px; 
+      margin: 0 48px; 
+      position: relative; 
+    }
+    .search-box { position: relative; width: 100%; }
+    .search-input {
+      width: 100%; 
+      padding: 10px 40px 10px 16px; 
+      background: var(--input-bg); 
+      border: 1px solid var(--border);
+      color: var(--text-primary); 
+      font-family: inherit; 
+      font-size: 13px; 
+      border-radius: 4px; 
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--text-secondary); }
+    .search-arrow {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    
+    .search-dropdown {
+      position: absolute; top: 100%; left: 0; width: 100%; background: var(--bg-card);
+      border: 1px solid var(--border); margin-top: 4px; border-radius: 4px; display: none;
+      max-height: 350px; overflow-y: auto; z-index: 101;
+    }
+    .search-dropdown.active { display: block; }
+    .search-item {
+      padding: 12px 16px; border-bottom: 1px solid var(--border); cursor: pointer;
+      transition: background 0.2s; display: flex; justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .search-item:last-child { border-bottom: none; }
+    .search-item:hover { background: var(--input-bg); }
+    .search-item-title { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+    .search-item-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .search-item mark {
+      background: rgba(0, 72, 244, 0.15);
+      color: var(--brand);
+      font-weight: 500;
+      padding: 0 2px;
+      border-radius: 3px;
+    }
+    .search-item-meta { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500;
+      letter-spacing: 0.5px; transition: color 0.3s; text-transform: uppercase; cursor: pointer;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+
+    .page { display: none; min-height: 100vh; padding-top: 100px; }
+    .page.active { display: block; }
+
+    .hero {
+      position: relative; min-height: 90vh; display: flex; align-items: center; justify-content: center;
+      padding: 0 48px; overflow: hidden; margin-top: -60px;
+    }
+    .hero-bg { 
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+      background-size: cover; background-repeat: no-repeat; background-position: center;
+      background-image: url('images/hero-bg.jpg');
+      z-index: 0;
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.96) 100%);
+    }
+    .hero-content { 
+      position: relative; z-index: 1; max-width: 1400px; width: 100%; 
+    }
+    .hero-label { 
+      display: block;
+      color: #666666;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 120px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      color: #ffffff;
+    }
+    .hero-description {
+      font-size: 18px;
+      color: #666666;
+      max-width: 800px;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .live-btn {
+      display: inline-flex; align-items: center; gap: 12px; padding: 18px 36px;
+      background: var(--btn-bg); border: 1px solid var(--border); border-radius: 4px;
+      cursor: pointer; transition: all 0.3s ease;
+    }
+    .live-btn:hover { background: #222; border-color: #333; }
+    .live-btn .live-dot {
+      width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    .live-btn .btn-text { color: var(--text-primary); font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.9); } }
+
+    section { padding: 120px 48px; max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border); }
+    .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; gap: 40px; flex-wrap: wrap; }
+    .section-title { 
+      font-size: 72px; 
+      font-weight: 800; 
+      line-height: 1.1; 
+      letter-spacing: -2px; 
+      flex: 1; 
+      color: #ffffff;
+    }
+    .section-desc { 
+      font-size: 16px; 
+      margin-top: 8px; 
+      max-width: 500px; 
+      line-height: 1.6;
+      color: #666666;
+    }
+    .section-link {
+      color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; border-bottom: 1px solid var(--text-muted); padding-bottom: 4px; transition: 0.3s; cursor: pointer;
+    }
+    .section-link:hover { color: var(--text-primary); border-color: var(--text-primary); }
+
+    .grid { display: grid; gap: 1px; background: var(--border); }
+    .grid-uniform { grid-template-columns: repeat(3, 1fr); }
+    .grid-asymmetric { grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(280px, auto); grid-auto-flow: dense; }
+
+    .card {
+      background: var(--bg-dark); padding: 32px; position: relative; transition: background 0.3s;
+      display: flex; flex-direction: column; height: 100%;
+    }
+    .card:hover { background: var(--bg-card); }
+    
+    .card.tip-of-day::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--tip-color);
+    }
+    
+    .card-image {
+      width: 100%; height: 200px; margin-bottom: 20px;
+      overflow: hidden; flex-shrink: 0; border-radius: 8px;
+    }
+    .card-image.no-image { display: none; }
+    .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .card:hover .card-image img { transform: scale(1.03); }
+    .card-tag { font-size: 11px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+    .card h3 { 
+      font-size: 20px; 
+      font-weight: 700; 
+      margin-bottom: 12px; 
+      line-height: 1.3;
+      word-break: break-word;
+      color: #ffffff;
+    }
+    .card p { 
+      font-size: 14px; 
+      color: var(--text-secondary); 
+      line-height: 1.7; 
+      margin-bottom: 16px; 
+      display: -webkit-box; 
+      -webkit-line-clamp: 3; 
+      -webkit-box-orient: vertical; 
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-meta { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; margin-top: auto; font-size: 11px; color: var(--text-muted); }
+    
+    .listen-btn {
+      display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; background: transparent;
+      border: 1px solid var(--text-secondary); color: var(--text-primary); cursor: pointer; font-size: 12px;
+      font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.3s; 
+      margin-top: 16px; width: fit-content; border-radius: 4px;
+    }
+    .listen-btn:hover { border-color: var(--text-primary); background: var(--text-primary); color: var(--bg-dark); }
+
+    .card.wide { grid-column: span 2; }
+    .card.tall { grid-row: span 2; }
+    .card.big { grid-column: span 2; grid-row: span 2; }
+    .card.wide .card-image, .card.big .card-image { height: 280px; }
+
+    .filters { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 8px 16px; background: transparent; border: 1px solid var(--border); color: var(--text-secondary);
+      cursor: pointer; font-size: 12px; text-transform: uppercase; transition: 0.3s; border-radius: 4px;
+    }
+    .filter-btn:hover, .filter-btn.active { border-color: var(--text-primary); color: var(--text-primary); background: var(--bg-card); }
+
+    .sort-controls {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .sort-btn {
+      padding: 6px 0;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 11px;
+      text-transform: uppercase;
+      transition: 0.2s;
+      letter-spacing: 0.8px;
+      position: relative;
+    }
+    .sort-btn:hover { color: var(--text-primary); }
+    .sort-btn.active { color: var(--text-primary); }
+    .sort-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--text-primary);
+    }
+
+    .modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.96); z-index: 1000; justify-content: center; align-items: center; padding: 48px;
+      cursor: pointer;
+    }
+    .modal-overlay.active { display: flex; animation: fadeIn 0.2s ease; }
+    
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    
+    .modal-content {
+      background: var(--bg-card); border: 1px solid var(--border); max-width: 900px; width: 100%;
+      max-height: 90vh; overflow-y: auto; position: relative; border-radius: 16px;
+      cursor: default;
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px; width: 36px; height: 36px;
+      background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.3); color: white;
+      cursor: pointer; border-radius: 50%; z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; transition: all 0.2s ease;
+    }
+    .modal-close:hover { transform: scale(1.05); background: rgba(0,0,0,0.8); border-color: white; }
+    
+    .modal-image { width: 100%; height: 280px; background: var(--bg-dark); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .modal-image img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-body { padding: 32px; }
+    .modal-tag { font-size: 11px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+    .modal-title { font-size: 28px; font-weight: 700; margin-bottom: 12px; color: #ffffff; }
+    .modal-meta { display: flex; gap: 24px; font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+    .modal-description { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 32px; }
+    .modal-player { background: var(--bg-dark); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-top: 16px; }
+    .modal-player audio, .modal-player video { width: 100%; }
+    .modal-player img { max-width: 100%; border-radius: 8px; }
+
+    .live-player-modal .modal-content { max-width: 1000px; }
+    .lp-layout { display: flex; gap: 0; flex-wrap: wrap; }
+    .lp-main { flex: 1; padding: 32px; display: flex; flex-direction: column; align-items: center; min-width: 280px; }
+    .lp-cover { width: 200px; height: 200px; background: var(--bg-dark); border-radius: 12px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; font-size: 60px; overflow: hidden; }
+    .lp-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; text-align: center; color: #ffffff; }
+    .lp-artist { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .lp-progress-wrap { width: 100%; max-width: 400px; margin-bottom: 24px; }
+    .lp-progress-bar { width: 100%; height: 6px; background: var(--border); border-radius: 3px; cursor: pointer; }
+    .lp-progress-fill { height: 100%; width: 0%; background: var(--accent); border-radius: 3px; }
+    .lp-time { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+    .lp-controls { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; }
+    .lp-ctrl { background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 20px; }
+    .lp-ctrl.play-pause { width: 56px; height: 56px; border: 2px solid var(--text-primary); border-radius: 50%; font-size: 24px; background: transparent; color: #ffffff; }
+    .lp-queue { width: 320px; background: var(--bg-card); border-left: 1px solid var(--border); padding: 24px; overflow-y: auto; max-height: 70vh; }
+    .lp-queue h4 { font-size: 12px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+    .lp-q-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; cursor: pointer; transition: background 0.2s; margin-bottom: 8px; background: var(--input-bg); }
+    .lp-q-item.active { background: rgba(0, 72, 244, 0.2); border-left: 3px solid var(--brand); }
+    .lp-q-item.played { opacity: 0.5; }
+    .lp-q-img { width: 40px; height: 40px; background: var(--bg-dark); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+
+    .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 13px; text-transform: uppercase; margin-bottom: 40px; cursor: pointer; }
+    .back-btn:hover { color: var(--text-primary); }
+
+    :root { --input-bg: #050505; }
+    .search-input { background: var(--input-bg); }
+
+    @media (max-width: 1024px) {
+      .hero h1 { font-size: 72px; }
+      .section-title { font-size: 48px; }
+      .grid-uniform, .grid-asymmetric { grid-template-columns: 1fr 1fr; }
+      .nav-center { max-width: 400px; margin: 0 24px; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 20px; flex-wrap: wrap; gap: 12px; }
+      .nav-center { order: 3; width: 100%; margin: 12px 0 0; max-width: 100%; }
+      .hero h1 { font-size: 48px; }
+      section { padding: 60px 20px; }
+      .grid-uniform, .grid-asymmetric { grid-template-columns: 1fr; }
+      .logo img { max-height: 40px; }
+      .lp-layout { flex-direction: column; }
+      .lp-queue { width: 100%; border-left: none; border-top: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="globalToast" style="position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#00e676; color:#000; padding:12px 24px; border-radius:40px; font-size:14px; font-weight:600; z-index:1200; display:none;"></div>
+
+<nav>
+  <div class="logo" onclick="navigateTo('main-page')">
+    <div class="logo-text">Технологии<br>Доверия</div>
+  </div>
+  <div class="nav-center">
+    <div class="search-box">
+      <input type="text" class="search-input" id="searchInput" placeholder="Поиск...">
+      <span class="search-arrow">→</span>
+      <div class="search-dropdown" id="searchDropdown"></div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a onclick="navigateTo('tips-page')">Гайды</a>
+    <a onclick="navigateTo('news-page')">Новости</a>
+    <a onclick="navigateTo('podcasts-page')">Подкасты</a>
+    <a onclick="navigateTo('learn-page')">Обучение</a>
+  </div>
+</nav>
+
+<!-- ГЛАВНАЯ СТРАНИЦА -->
+<main id="main-page" class="page active">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-label">МЕДИА-ХАБ ИИ-КОНТЕНТА</div>
+      <h1>Voice_Ai</h1>
+      <p class="hero-description">Первая уникальная платформа технологической команды «Технологии Доверия», где контент об ИИ создан с помощью нейросетей.<br>ИИ-эфиры с познавательными подкастами, последние новости и разборы технологий, уникальные гайды и обучающие материалы. <br>Всё это для тех, кто хочет понимать и использовать искусственный интеллект на практике.</p>
+      <button class="live-btn" onclick="openLivePlayer()"><div class="live-dot"></div><span class="btn-text">Слушать эфир</span></button>
+    </div>
+  </section>
+
+  <!-- БЛОК ГАЙДЫ -->
+  <section id="tipsSection">
+    <div class="section-header">
+      <h2 class="section-title">Гайды</h2>
+      <p class="section-desc">Практические руководства по ИИ.</p>
+    </div>
+    <a class="section-link" onclick="navigateTo('tips-page')">Все гайды →</a>
+    <div class="grid grid-uniform" id="mainTipsGrid"></div>
+  </section>
+
+  <!-- БЛОК НОВОСТИ -->
+  <section id="newsSection">
+    <div class="section-header">
+      <h2 class="section-title">Новости</h2>
+      <p class="section-desc">Актуальные события в мире ИИ технологий.</p>
+    </div>
+    <a class="section-link" onclick="navigateTo('news-page')">Все новости →</a>
+    <div class="grid grid-uniform" id="mainNewsGrid"></div>
+  </section>
+
+  <!-- БЛОК ПОДКАСТЫ -->
+  <section id="podcastsSection">
+    <div class="section-header">
+      <h2 class="section-title">Подкасты</h2>
+      <p class="section-desc">Аудиошоу и интервью.</p>
+    </div>
+    <a class="section-link" onclick="navigateTo('podcasts-page')">Все подкасты →</a>
+    <div class="grid grid-uniform" id="mainPodcastGrid"></div>
+  </section>
+
+  <!-- БЛОК ОБУЧЕНИЕ -->
+  <section id="learnSection">
+    <div class="section-header">
+      <h2 class="section-title">Обучение</h2>
+      <p class="section-desc">Курсы и материалы для развития.</p>
+    </div>
+    <a class="section-link" onclick="navigateTo('learn-page')">Все курсы →</a>
+    <div class="grid grid-uniform" id="mainLearnGrid"></div>
+  </section>
+</main>
+
+<!-- СТРАНИЦА ГАЙДЫ -->
+<main id="tips-page" class="page">
+  <section>
+    <a class="back-btn" onclick="navigateTo('main-page')">← На главную</a>
+    <div class="section-header"><h2 class="section-title">Все гайды</h2></div>
+    <div class="filters" id="tipsFilters"></div>
+    <div class="sort-controls" id="tipsSortControls">
+      <button class="sort-btn active" data-sort="date-desc">Новые → Старые</button>
+      <button class="sort-btn" data-sort="date-asc">Старые → Новые</button>
+      <button class="sort-btn" data-sort="alpha-asc">А → Я</button>
+      <button class="sort-btn" data-sort="alpha-desc">Я → А</button>
+    </div>
+    <div class="grid grid-asymmetric" id="allTipsGrid"></div>
+  </section>
+</main>
+
+<!-- СТРАНИЦА НОВОСТИ -->
+<main id="news-page" class="page">
+  <section>
+    <a class="back-btn" onclick="navigateTo('main-page')">← На главную</a>
+    <div class="section-header"><h2 class="section-title">Все новости</h2></div>
+    <div class="filters" id="newsFilters"></div>
+    <div class="sort-controls" id="newsSortControls">
+      <button class="sort-btn active" data-sort="date-desc">Новые → Старые</button>
+      <button class="sort-btn" data-sort="date-asc">Старые → Новые</button>
+      <button class="sort-btn" data-sort="alpha-asc">А → Я</button>
+      <button class="sort-btn" data-sort="alpha-desc">Я → А</button>
+    </div>
+    <div class="grid grid-asymmetric" id="allNewsGrid"></div>
+  </section>
+</main>
+
+<!-- СТРАНИЦА ПОДКАСТЫ -->
+<main id="podcasts-page" class="page">
+  <section>
+    <a class="back-btn" onclick="navigateTo('main-page')">← На главную</a>
+    <div class="section-header"><h2 class="section-title">Подкасты</h2></div>
+    <div class="filters" id="podcastFilters"></div>
+    <div class="sort-controls" id="podcastSortControls">
+      <button class="sort-btn active" data-sort="date-desc">Новые → Старые</button>
+      <button class="sort-btn" data-sort="date-asc">Старые → Новые</button>
+      <button class="sort-btn" data-sort="alpha-asc">А → Я</button>
+      <button class="sort-btn" data-sort="alpha-desc">Я → А</button>
+    </div>
+    <div class="grid grid-asymmetric" id="allPodcastGrid"></div>
+  </section>
+</main>
+
+<!-- СТРАНИЦА ОБУЧЕНИЕ -->
+<main id="learn-page" class="page">
+  <section>
+    <a class="back-btn" onclick="navigateTo('main-page')">← На главную</a>
+    <div class="section-header"><h2 class="section-title">Все курсы</h2></div>
+    <div class="filters" id="learnFilters"></div>
+    <div class="sort-controls" id="learnSortControls">
+      <button class="sort-btn active" data-sort="date-desc">Новые → Старые</button>
+      <button class="sort-btn" data-sort="date-asc">Старые → Новые</button>
+      <button class="sort-btn" data-sort="alpha-asc">А → Я</button>
+      <button class="sort-btn" data-sort="alpha-desc">Я → А</button>
+    </div>
+    <div class="grid grid-asymmetric" id="allLearnGrid"></div>
+  </section>
+</main>
+
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ПРОСМОТРА КОНТЕНТА -->
+<div class="modal-overlay" id="playerModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closePlayerModal()">×</button>
+    <div class="modal-image" id="modalImage"></div>
+    <div class="modal-body">
+      <div class="modal-tag" id="modalTag"></div>
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <div class="modal-meta"><span id="modalAuthor"></span><span id="modalDate"></span></div>
+      <p class="modal-description" id="modalDescription"></p>
+      <div class="modal-player" id="modalPlayer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ПЛЕЕР ЭФИРА -->
+<div class="modal-overlay live-player-modal" id="livePlayerModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeLivePlayer()">×</button>
+    <div class="lp-layout">
+      <div class="lp-main">
+        <div class="lp-cover" id="lpCover">🎙️</div>
+        <div class="lp-title" id="lpTitle">Эфир</div>
+        <div class="lp-artist" id="lpArtist">Radio AI</div>
+        <div class="lp-progress-wrap">
+          <div class="lp-progress-bar" id="lpProgressBar">
+            <div class="lp-progress-fill" id="lpProgressFill"></div>
+          </div>
+          <div class="lp-time"><span id="lpTimeCurrent">0:00</span><span id="lpTimeTotal">0:00</span></div>
+        </div>
+        <div class="lp-controls">
+          <button class="lp-ctrl" onclick="prevTrack()">⏮</button>
+          <button class="lp-ctrl play-pause" id="lpPlayBtn" onclick="togglePlay()">▶</button>
+          <button class="lp-ctrl" onclick="nextTrack()">⏭</button>
+        </div>
+      </div>
+      <div class="lp-queue">
+        <h4>Очередь эфира</h4>
+        <div id="lpQueueList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ФУТЕР -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-logo">
+      <div class="logo-text">Технологии<br>Доверия</div>
+    </div>
+    <div class="footer-info">
+      <div class="footer-company">Технологии Доверия</div>
+      <div class="footer-phone"><a href="tel:+74951234567">+7 (495) 123-45-67</a></div>
+      <div class="footer-email"><a href="mailto:info@tedo.ru">info@tedo.ru</a></div>
+      <div class="footer-rights">© 2026 Все права защищены</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ========== ВЕРСИОНИРОВАНИЕ И ОЧИСТКА КЕША ==========
+  const APP_VERSION = '2026.05.28.002'; // Меняйте при каждом обновлении!
+  
+  // Проверяем версию и очищаем кеш при обновлении
+  const cachedVersion = localStorage.getItem('app_version');
+  if (cachedVersion !== APP_VERSION) {
+    localStorage.clear();
+    sessionStorage.clear();
+    if ('caches' in window) {
+      caches.keys().then(keys => keys.forEach(key => caches.delete(key)));
+    }
+    localStorage.setItem('app_version', APP_VERSION);
+    console.log('🔄 Кеш полностью обновлён до версии:', APP_VERSION);
+  }
+
+  // ========== ДАННЫЕ КОНТЕНТА (ВСЕ КАРТОЧКИ) ==========
+  // ФОРМАТ ДЛЯ ДОБАВЛЕНИЯ НОВЫХ КАРТОЧЕК:
+  // { id: УНИКАЛЬНЫЙ_НОМЕР, tag: 'ТЕГ', title: 'Заголовок', desc: 'Описание...', 
+  //   date: '2026-05-28T12:00:00.000Z', author: 'Автор', 
+  //   image: 'images/имя_файла.jpg', media: 'media/имя_файла.mp3', mediaTypeHint: 'audio' }
+  
+  let data = {
+    news: [
+      { id: 1, tag: 'ТЕХНОЛОГИИ', title: 'GPT-5 анонсирована', desc: 'OpenAI представила новую революционную модель искусственного интеллекта.', date: '2026-05-28T12:00:00.000Z', author: 'AI-Репортер', image: 'images/news-gpt5.jpg', media: null, mediaTypeHint: null },
+      { id: 2, tag: 'ИССЛЕДОВАНИЯ', title: 'Прорыв в компьютерном зрении', desc: 'Новая архитектура нейросетей позволяет распознавать объекты с точностью 99.7%.', date: '2026-05-27T10:00:00.000Z', author: 'Цифровой Корреспондент', image: 'images/news-vision.jpg', media: null, mediaTypeHint: null },
+      { id: 3, tag: 'БИЗНЕС', title: 'ИИ трансформирует рынок труда', desc: 'Аналитики прогнозируют рост спроса на AI-специалистов на 300% в ближайшие 2 года.', date: '2026-05-26T09:00:00.000Z', author: 'НьюсБот', image: 'images/news-job.jpg', media: null, mediaTypeHint: null }
+    ],
+    podcast: [
+      { id: 101, tag: 'ИНТЕРВЬЮ', title: 'Будущее ИИ', desc: 'Разговор с ведущим экспертом в области машинного обучения.', date: '2026-05-28T14:00:00.000Z', author: 'ИИ-Интервьюер', image: 'images/podcast-future.jpg', media: 'media/podcast-future.mp3', mediaTypeHint: 'audio' },
+      { id: 102, tag: 'ОБУЧЕНИЕ', title: 'Карьера в AI', desc: 'Как начать путь в искусственном интеллекте: маршруты, инструменты и советы.', date: '2026-05-27T11:00:00.000Z', author: 'ПодкастБот', image: 'images/podcast-career.jpg', media: 'media/podcast-career.mp3', mediaTypeHint: 'audio' }
+    ],
+    tip: [
+      { id: 201, tag: 'СОВЕТ ДНЯ', title: 'Как начать в AI', desc: 'Пошаговое руководство для новичков.', date: '2026-05-28T08:00:00.000Z', author: 'AI-Ментор', image: 'images/tip-start.jpg', media: null, mediaTypeHint: null },
+      { id: 202, tag: 'ПРОДУКТИВНОСТЬ', title: 'Что делегировать ИИ', desc: 'Отдайте ИИ: рутину (шаблонные письма, расшифровка аудио, суммаризация встреч), черновики, генерацию идей.', date: '2026-05-27T09:00:00.000Z', author: 'НейроГид', image: 'images/tip-delegate.jpg', media: null, mediaTypeHint: null },
+      { id: 203, tag: 'БЕЗОПАСНОСТЬ', title: 'Безопасная работа с ИИ', desc: 'Никогда не загружайте в нейросети: пароли, персональные данные клиентов, финансовые отчеты, коммерческую тайну.', date: '2026-05-26T10:00:00.000Z', author: 'ТехноГид', image: 'images/tip-security.jpg', media: null, mediaTypeHint: null }
+    ],
+    learn: [
+      { id: 301, tag: 'КУРС', title: 'Введение в нейросети', desc: 'Базовый курс по основам нейросетей и машинного обучения.', date: '2026-05-28T13:00:00.000Z', author: 'Цифровой Учитель', image: 'images/learn-intro.jpg', media: null, mediaTypeHint: null },
+      { id: 302, tag: 'ВЕБИНАР', title: 'Промпт-инжиниринг', desc: 'Как правильно составлять запросы к нейросетям.', date: '2026-05-27T15:00:00.000Z', author: 'Академия ИИ', image: 'images/learn-prompt.jpg', media: null, mediaTypeHint: null },
+      { id: 303, tag: 'КНИГА', title: 'Машинное обучение для всех', desc: 'Доступное объяснение сложных концепций ML.', date: '2026-05-26T16:00:00.000Z', author: 'Доктор Алгоритм', image: 'images/learn-ml.jpg', media: null, mediaTypeHint: null }
+    ]
+  };
+
+  // ========== ЭФИРНАЯ ОЧЕРЕДЬ (файлы из папки /audio/) ==========
+  // ЕЖЕДНЕВНОЕ ОБНОВЛЕНИЕ: меняете список файлов в этой переменной
+  let liveQueue = [
+    { id: 'audio1', title: 'Новости ИИ', src: 'audio/news-daily.mp3', originalName: 'news-daily.mp3', mediaType: 'audio' },
+    { id: 'audio2', title: 'Интервью с экспертом', src: 'audio/interview.mp3', originalName: 'interview.mp3', mediaType: 'audio' },
+    { id: 'audio3', title: 'Разбор технологий', src: 'audio/tech-review.mp3', originalName: 'tech-review.mp3', mediaType: 'audio' }
+  ];
+
+  // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
+  function showToast(message, isError = false) {
+    const toast = document.getElementById('globalToast');
+    toast.textContent = message;
+    toast.style.backgroundColor = isError ? '#ff3b30' : '#00e676';
+    toast.style.color = isError ? '#ffffff' : '#000000';
+    toast.style.display = 'block';
+    setTimeout(() => toast.style.display = 'none', 2500);
+  }
+
+  function formatDate(isoString) {
+    const d = new Date(isoString);
+    return `${d.getDate().toString().padStart(2,'0')}.${(d.getMonth()+1).toString().padStart(2,'0')}.${d.getFullYear()}`;
+  }
+
+  function detectMediaType(url, mimeHint) {
+    if (mimeHint) {
+      if (mimeHint.startsWith('audio/')) return 'audio';
+      if (mimeHint.startsWith('video/')) return 'video';
+      if (mimeHint.startsWith('image/')) return 'image';
+    }
+    if (!url) return null;
+    const ext = url.split('.').pop()?.toLowerCase();
+    if (['mp3', 'wav', 'ogg', 'm4a', 'flac', 'aac'].includes(ext)) return 'audio';
+    if (['mp4', 'webm', 'mov', 'avi', 'mkv'].includes(ext)) return 'video';
+    if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(ext)) return 'image';
+    return null;
+  }
+
+  function sortItems(items, sortType) {
+    const s = [...items];
+    switch(sortType) {
+      case 'date-desc': return s.sort((a,b) => new Date(b.date) - new Date(a.date));
+      case 'date-asc': return s.sort((a,b) => new Date(a.date) - new Date(b.date));
+      case 'alpha-asc': return s.sort((a,b) => a.title.localeCompare(b.title, 'ru'));
+      case 'alpha-desc': return s.sort((a,b) => b.title.localeCompare(a.title, 'ru'));
+      default: return s.sort((a,b) => new Date(b.date) - new Date(a.date));
+    }
+  }
+
+  function isTipOfDay(item) {
+    return item.tag && item.tag.toUpperCase().includes('СОВЕТ ДНЯ');
+  }
+
+  function createCardHTML(type, item, asym = false) {
+    let cls = '';
+    if (asym) {
+      const r = Math.random();
+      if (r < 0.12) cls = 'wide';
+      else if (r < 0.24) cls = 'tall';
+      else if (r < 0.34) cls = 'big';
+    }
+    if (type === 'tip' && isTipOfDay(item)) cls += ' tip-of-day';
+    
+    const hasImage = item.image && item.image.trim() !== '';
+    const imageHtml = hasImage ? `<div class="card-image"><img src="${item.image}?v=${APP_VERSION}" alt="${item.title}"></div>` : `<div class="card-image no-image"></div>`;
+    
+    const hasMedia = item.media && item.media.trim() !== '';
+    const mediaType = detectMediaType(item.media, item.mediaTypeHint);
+    const mediaBtn = (type === 'podcast' && hasMedia) ? 
+      `<button class="listen-btn" onclick="event.stopPropagation(); openDetailModal('${type}', ${item.id})">▶ ${mediaType === 'video' ? 'Смотреть' : 'Слушать'}</button>` : '';
+    
+    const shortDesc = item.desc.length > 100 ? item.desc.substring(0, 100) + '...' : item.desc;
+    
+    return `<div class="card ${cls}" onclick="openDetailModal('${type}', ${item.id})">
+              ${imageHtml}
+              <div class="card-tag">${item.tag}</div>
+              <h3>${escapeHtml(item.title)}</h3>
+              <p>${escapeHtml(shortDesc)}</p>
+              <div class="card-meta"><span>${item.author}</span><span>${formatDate(item.date)}</span></div>
+              ${mediaBtn}
+            </div>`;
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  // ========== ОТРИСОВКА СТРАНИЦ ==========
+  function renderAll() {
+    const allTips = [...data.tip].sort((a,b) => new Date(b.date) - new Date(a.date));
+    const latestNews = [...data.news].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
+    const latestPodcasts = [...data.podcast].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 6);
+    const latestLearn = [...data.learn].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
+    
+    document.getElementById('mainTipsGrid').innerHTML = allTips.slice(0, 3).map(t => createCardHTML('tip', t, false)).join('');
+    document.getElementById('mainNewsGrid').innerHTML = latestNews.map(n => createCardHTML('news', n, false)).join('');
+    document.getElementById('mainPodcastGrid').innerHTML = latestPodcasts.map(p => createCardHTML('podcast', p, false)).join('');
+    document.getElementById('mainLearnGrid').innerHTML = latestLearn.map(l => createCardHTML('learn', l, false)).join('');
+  }
+
+  function renderTipsPage(filter = 'Все', sortType = 'date-desc') {
+    let filtered = filter === 'Все' ? [...data.tip] : [...data.tip].filter(i => i.tag === filter);
+    filtered = sortItems(filtered, sortType);
+    const tags = ['Все', ...new Set(data.tip.map(i => i.tag))];
+    document.getElementById('tipsFilters').innerHTML = tags.map(t => `<button class="filter-btn ${t === filter ? 'active' : ''}" onclick="renderTipsPage('${t}', '${sortType}')">${t}</button>`).join('');
+    document.getElementById('allTipsGrid').innerHTML = filtered.map(t => createCardHTML('tip', t, true)).join('');
+    if (filtered.length === 0) document.getElementById('allTipsGrid').innerHTML = '<p style="padding:40px; text-align:center; color:#666;">Нет гайдов в этом разделе</p>';
+  }
+
+  function renderNewsPage(filter = 'Все', sortType = 'date-desc') {
+    let filtered = filter === 'Все' ? [...data.news] : [...data.news].filter(i => i.tag === filter);
+    filtered = sortItems(filtered, sortType);
+    const tags = ['Все', ...new Set(data.news.map(i => i.tag))];
+    document.getElementById('newsFilters').innerHTML = tags.map(t => `<button class="filter-btn ${t === filter ? 'active' : ''}" onclick="renderNewsPage('${t}', '${sortType}')">${t}</button>`).join('');
+    document.getElementById('allNewsGrid').innerHTML = filtered.map(n => createCardHTML('news', n, true)).join('');
+    if (filtered.length === 0) document.getElementById('allNewsGrid').innerHTML = '<p style="padding:40px; text-align:center; color:#666;">Нет новостей в этом разделе</p>';
+  }
+
+  function renderPodcastsPage(filter = 'Все', sortType = 'date-desc') {
+    let filtered = filter === 'Все' ? [...data.podcast] : [...data.podcast].filter(i => i.tag === filter);
+    filtered = sortItems(filtered, sortType);
+    const tags = ['Все', ...new Set(data.podcast.map(i => i.tag))];
+    document.getElementById('podcastFilters').innerHTML = tags.map(t => `<button class="filter-btn ${t === filter ? 'active' : ''}" onclick="renderPodcastsPage('${t}', '${sortType}')">${t}</button>`).join('');
+    document.getElementById('allPodcastGrid').innerHTML = filtered.map(p => createCardHTML('podcast', p, true)).join('');
+    if (filtered.length === 0) document.getElementById('allPodcastGrid').innerHTML = '<p style="padding:40px; text-align:center; color:#666;">Нет подкастов в этом разделе</p>';
+  }
+
+  function renderLearnPage(filter = 'Все', sortType = 'date-desc') {
+    let filtered = filter === 'Все' ? [...data.learn] : [...data.learn].filter(i => i.tag === filter);
+    filtered = sortItems(filtered, sortType);
+    const tags = ['Все', ...new Set(data.learn.map(i => i.tag))];
+    document.getElementById('learnFilters').innerHTML = tags.map(t => `<button class="filter-btn ${t === filter ? 'active' : ''}" onclick="renderLearnPage('${t}', '${sortType}')">${t}</button>`).join('');
+    document.getElementById('allLearnGrid').innerHTML = filtered.map(l => createCardHTML('learn', l, true)).join('');
+    if (filtered.length === 0) document.getElementById('allLearnGrid').innerHTML = '<p style="padding:40px; text-align:center; color:#666;">Нет материалов в этом разделе</p>';
+  }
+
+  // ========== МОДАЛЬНОЕ ОКНО ==========
+  let currentAudioPlayer = null;
+
+  function stopModalMedia() {
+    const modalImage = document.getElementById('modalImage');
+    if (modalImage) {
+      modalImage.querySelectorAll('video, audio').forEach(media => { media.pause(); media.currentTime = 0; });
+    }
+    const modalPlayer = document.getElementById('modalPlayer');
+    if (modalPlayer) {
+      modalPlayer.querySelectorAll('video, audio').forEach(media => { media.pause(); media.currentTime = 0; });
+    }
+  }
+
+  function closePlayerModal() {
+    document.getElementById('playerModal').classList.remove('active');
+    stopModalMedia();
+  }
+
+  function openDetailModal(type, id) {
+    stopModalMedia();
+    const item = data[type].find(i => i.id === id);
+    if (!item) return;
+    
+    document.getElementById('modalTag').innerText = item.tag;
+    document.getElementById('modalTitle').innerText = item.title;
+    document.getElementById('modalAuthor').innerHTML = `Автор: ${item.author}`;
+    document.getElementById('modalDate').innerHTML = formatDate(item.date);
+    document.getElementById('modalDescription').innerText = item.desc;
+    
+    const mediaContainer = document.getElementById('modalImage');
+    const mediaType = detectMediaType(item.media, item.mediaTypeHint);
+    
+    if (item.image && item.image.trim()) {
+      mediaContainer.innerHTML = `<img src="${item.image}?v=${APP_VERSION}">`;
+    } else if (item.media && mediaType === 'image') {
+      mediaContainer.innerHTML = `<img src="${item.media}?v=${APP_VERSION}">`;
+    } else if (item.media && mediaType === 'video') {
+      mediaContainer.innerHTML = `<video src="${item.media}" controls style="width:100%; height:100%; object-fit:cover;"></video>`;
+    } else {
+      mediaContainer.innerHTML = '🎧';
+    }
+    
+    const playerDiv = document.getElementById('modalPlayer');
+    if (item.media) {
+      if (mediaType === 'video') {
+        playerDiv.innerHTML = `<video controls src="${item.media}" style="width:100%"></video>`;
+      } else if (mediaType === 'audio') {
+        playerDiv.innerHTML = `<audio controls src="${item.media}" style="width:100%"></audio>`;
+      } else if (mediaType === 'image') {
+        playerDiv.innerHTML = `<img src="${item.media}" style="width:100%; border-radius:8px;">`;
+      } else {
+        playerDiv.innerHTML = `<p style="color:#666;">Невозможно воспроизвести файл</p>`;
+      }
+    } else {
+      playerDiv.innerHTML = '';
+    }
+    
+    document.getElementById('playerModal').classList.add('active');
+  }
+
+  // ========== ЭФИРНЫЙ ПЛЕЕР ==========
+  let currentQueueIndex = -1;
+  let isPlaying = false;
+  let currentAudio = new Audio();
+  let livePlayerQueue = [...liveQueue];
+
+  function renderLiveQueueUI() {
+    const cont = document.getElementById('lpQueueList');
+    if (!cont) return;
+    if (!livePlayerQueue.length) {
+      cont.innerHTML = '<p>Очередь пуста</p>';
+      return;
+    }
+    cont.innerHTML = livePlayerQueue.map((item, i) => `
+      <div class="lp-q-item ${i === currentQueueIndex ? 'active' : ''} ${i < currentQueueIndex ? 'played' : ''}" onclick="jumpToTrack(${i})">
+        <div class="lp-q-img">🎵</div>
+        <div class="lp-q-info"><div class="lp-q-title">${escapeHtml(item.title)}</div></div>
+      </div>
+    `).join('');
+  }
+
+  function loadTrack(idx) {
+    if (idx < 0 || idx >= livePlayerQueue.length) return;
+    currentQueueIndex = idx;
+    const track = livePlayerQueue[idx];
+    currentAudio.src = track.src + '?v=' + Date.now(); // антикеш для аудио
+    document.getElementById('lpTitle').innerText = track.title;
+    renderLiveQueueUI();
+    if (isPlaying) currentAudio.play();
+  }
+
+  function jumpToTrack(idx) {
+    loadTrack(idx);
+    if (!isPlaying && currentAudio) {
+      currentAudio.play();
+      isPlaying = true;
+      document.getElementById('lpPlayBtn').innerText = '⏸';
+    }
+  }
+
+  function togglePlay() {
+    if (!livePlayerQueue.length) return;
+    if (isPlaying) {
+      currentAudio.pause();
+      isPlaying = false;
+      document.getElementById('lpPlayBtn').innerText = '▶';
+    } else {
+      currentAudio.play();
+      isPlaying = true;
+      document.getElementById('lpPlayBtn').innerText = '⏸';
+    }
+  }
+
+  function nextTrack() {
+    if (currentQueueIndex < livePlayerQueue.length - 1) {
+      loadTrack(currentQueueIndex + 1);
+    } else {
+      closeLivePlayer();
+    }
+  }
+
+  function prevTrack() {
+    if (currentQueueIndex > 0) loadTrack(currentQueueIndex - 1);
+  }
+
+  function updateProgress() {
+    if (!currentAudio.duration) return;
+    const percent = (currentAudio.currentTime / currentAudio.duration) * 100;
+    document.getElementById('lpProgressFill').style.width = percent + '%';
+    document.getElementById('lpTimeCurrent').innerText = formatTime(currentAudio.currentTime);
+    document.getElementById('lpTimeTotal').innerText = formatTime(currentAudio.duration);
+  }
+
+  function formatTime(sec) {
+    if (isNaN(sec)) return '0:00';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  }
+
+  function openLivePlayer() {
+    livePlayerQueue = [...liveQueue];
+    document.getElementById('livePlayerModal').classList.add('active');
+    renderLiveQueueUI();
+    if (livePlayerQueue.length && currentQueueIndex === -1) loadTrack(0);
+    else if (currentQueueIndex >= 0) loadTrack(currentQueueIndex);
+  }
+
+  function closeLivePlayer() {
+    document.getElementById('livePlayerModal').classList.remove('active');
+    if (currentAudio) {
+      currentAudio.pause();
+      isPlaying = false;
+      document.getElementById('lpPlayBtn').innerText = '▶';
+    }
+  }
+
+  currentAudio.addEventListener('timeupdate', updateProgress);
+  currentAudio.addEventListener('ended', nextTrack);
+  document.getElementById('lpProgressBar')?.addEventListener('click', (e) => {
+    if (!currentAudio.duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    currentAudio.currentTime = pct * currentAudio.duration;
+  });
+
+  // ========== НАВИГАЦИЯ И ПОИСК ==========
+  function navigateTo(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    window.scrollTo(0, 0);
+    
+    // Обновляем сортировку при переходах
+    if (pageId === 'tips-page') renderTipsPage('Все', tipsSort);
+    if (pageId === 'news-page') renderNewsPage('Все', newsSort);
+    if (pageId === 'podcasts-page') renderPodcastsPage('Все', podcastsSort);
+    if (pageId === 'learn-page') renderLearnPage('Все', learnSort);
+  }
+
+  // ========== СОРТИРОВКА ==========
+  let tipsSort = 'date-desc';
+  let newsSort = 'date-desc';
+  let podcastsSort = 'date-desc';
+  let learnSort = 'date-desc';
+
+  function initSortControls() {
+    const setups = [
+      { id: 'tips', setter: (v) => tipsSort = v, render: () => renderTipsPage('Все', tipsSort) },
+      { id: 'news', setter: (v) => newsSort = v, render: () => renderNewsPage('Все', newsSort) },
+      { id: 'podcast', setter: (v) => podcastsSort = v, render: () => renderPodcastsPage('Все', podcastsSort) },
+      { id: 'learn', setter: (v) => learnSort = v, render: () => renderLearnPage('Все', learnSort) }
+    ];
+    
+    setups.forEach(({ id, setter, render }) => {
+      const controls = document.getElementById(`${id}SortControls`);
+      if (controls) {
+        controls.querySelectorAll('.sort-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            setter(btn.dataset.sort);
+            controls.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            render();
+          });
+        });
+      }
+    });
+  }
+
+  // ========== ПОИСК ==========
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    const dropdown = document.getElementById('searchDropdown');
+    if (q.length < 2) {
+      dropdown.classList.remove('active');
+      return;
+    }
+    
+    const allItems = [
+      ...data.news.map(i => ({ ...i, _type: 'news' })),
+      ...data.podcast.map(i => ({ ...i, _type: 'podcast' })),
+      ...data.tip.map(i => ({ ...i, _type: 'tip' })),
+      ...data.learn.map(i => ({ ...i, _type: 'learn' }))
+    ];
+    
+    const results = allItems.filter(i => 
+      i.title.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q)
+    ).slice(0, 10);
+    
+    if (results.length) {
+      dropdown.innerHTML = results.map(i => {
+        let highlightedTitle = i.title;
+        let highlightedDesc = i.desc.substring(0, 80);
+        const regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        highlightedTitle = highlightedTitle.replace(regex, '<mark>$1</mark>');
+        highlightedDesc = highlightedDesc.replace(regex, '<mark>$1</mark>');
+        return `<div class="search-item" onclick="openDetailModal('${i._type}', ${i.id}); document.getElementById('searchInput').value=''; dropdown.classList.remove('active');">
+                  <div style="flex:1; min-width:0;">
+                    <div class="search-item-title">${highlightedTitle}</div>
+                    <div class="search-item-desc">${highlightedDesc}${i.desc.length > 80 ? '...' : ''}</div>
+                  </div>
+                  <span class="search-item-meta">${i.tag || 'Общее'}</span>
+                </div>`;
+      }).join('');
+      dropdown.classList.add('active');
+    } else {
+      dropdown.innerHTML = '<div class="search-item">Ничего не найдено</div>';
+      dropdown.classList.add('active');
+    }
+  });
+  
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-box')) {
+      document.getElementById('searchDropdown').classList.remove('active');
+    }
+  });
+
+  // ========== ЗАКРЫТИЕ МОДАЛЬНЫХ ОКОН ==========
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('active');
+        if (this.id === 'livePlayerModal' && currentAudio) {
+          currentAudio.pause();
+          isPlaying = false;
+          document.getElementById('lpPlayBtn').innerText = '▶';
+        }
+        if (this.id === 'playerModal') stopModalMedia();
+      }
+    });
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active').forEach(overlay => {
+        overlay.classList.remove('active');
+        if (overlay.id === 'livePlayerModal' && currentAudio) {
+          currentAudio.pause();
+          isPlaying = false;
+          document.getElementById('lpPlayBtn').innerText = '▶';
+        }
+        if (overlay.id === 'playerModal') stopModalMedia();
+      });
+    }
+  });
+
+  // ========== ИНИЦИАЛИЗАЦИЯ ==========
+  renderAll();
+  renderNewsPage('Все', 'date-desc');
+  renderPodcastsPage('Все', 'date-desc');
+  renderTipsPage('Все', 'date-desc');
+  renderLearnPage('Все', 'date-desc');
+  initSortControls();
+  
+  console.log('✅ Сайт загружен, версия:', APP_VERSION);
+</script>
+</body>
+</html>
