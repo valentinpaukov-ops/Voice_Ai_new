@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   
-  <!-- АНТИКЕШ -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -334,13 +333,17 @@
 
     /* ========== СЕТКИ КАРТОЧЕК ========== */
     .grid { display: grid; gap: 1px; background: var(--border); }
-    .grid-uniform { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    .grid-uniform { 
+      grid-template-columns: repeat(3, 1fr);
+    }
     .grid-asymmetric { 
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      grid-auto-rows: minmax(280px, auto);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
     }
 
-    /* ========== КАРТОЧКИ ========== */
+    /* ========== КАРТОЧКИ (все одинаковые) ========== */
     .card {
       background: var(--bg-dark);
       padding: 28px;
@@ -415,11 +418,6 @@
       border-radius: 30px;
     }
     .listen-btn:hover { border-color: var(--text-primary); background: var(--text-primary); color: var(--bg-dark); }
-
-    .card.wide { grid-column: span 2; }
-    .card.tall { grid-row: span 2; }
-    .card.big { grid-column: span 2; grid-row: span 2; }
-    .card.wide .card-image, .card.big .card-image { height: 240px; }
 
     .filters { display: flex; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
     .filter-btn {
@@ -561,7 +559,9 @@
       .nav-center { max-width: 350px; }
       .logo img { height: 60px; }
       .section-title { font-size: 48px; }
-      .grid-uniform, .grid-asymmetric { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+      .grid-uniform, .grid-asymmetric {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (max-width: 768px) {
@@ -579,7 +579,9 @@
       .section-header { flex-direction: column; align-items: flex-start; margin-bottom: 30px; }
       .section-desc { max-width: 100%; }
       
-      .grid-uniform, .grid-asymmetric { grid-template-columns: 1fr; }
+      .grid-uniform, .grid-asymmetric {
+        grid-template-columns: 1fr;
+      }
       .card { padding: 24px; }
       .card p { -webkit-line-clamp: 5; }
       
@@ -808,7 +810,7 @@
 
 <script>
   // ========== ВЕРСИОНИРОВАНИЕ ==========
-  const APP_VERSION = '2026.05.28.015';
+  const APP_VERSION = '2026.05.28.016';
   
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
@@ -831,7 +833,7 @@
     }
   });
 
-  // ========== ДАННЫЕ КОНТЕНТА (ГАЙДЫ - 4 карточки) ==========
+  // ========== ДАННЫЕ КОНТЕНТА ==========
   let data = {
     news: [
       { id: 1, tag: 'ТЕХНОЛОГИИ', title: 'GPT-5 анонсирована', desc: 'OpenAI представила новую революционную модель искусственного интеллекта.', date: '2026-05-28T12:00:00.000Z', author: 'AI-Репортер', image: 'images/news-gpt5.jpg', media: null, mediaTypeHint: null },
@@ -843,10 +845,10 @@
       { id: 102, tag: 'ОБУЧЕНИЕ', title: 'Карьера в AI', desc: 'Как начать путь в искусственном интеллекте: маршруты, инструменты и советы.', date: '2026-05-27T11:00:00.000Z', author: 'ПодкастБот', image: 'images/podcast-career.jpg', media: 'media/podcast-career.mp3', mediaTypeHint: 'audio' }
     ],
     tip: [
-      { id: 201, tag: 'СОВЕТ ДНЯ, Безопасность, ИИ', title: 'Безопасная работа с ИИ', desc: 'Никогда не загружайте в нейросети: пароли, персональные данные клиентов, финансовые отчеты, коммерческую тайну.\n\n✅ Можно: общие тексты, идеи, публичную информацию.\n✅ Нельзя: внутренние документы, базы данных, переписку.\n\nПравило: если утечка навредит бизнесу — не загружайте.', date: '2026-05-28T08:00:00.000Z', author: 'НейроГид', image: 'images/Безопасная работа с ИИ.png', media: null, mediaTypeHint: null },
-      { id: 202, tag: 'ПРОДУКТИВНОСТЬ, ИИ', title: 'Что делегировать ИИ', desc: 'Отдайте ИИ: \nрутину (шаблонные письма, расшифровка аудио, суммаризация встреч), черновики, генерацию идей, проверку орфографии.\n\nОставьте себе: \nфинальные решения, стратегию, переговоры, креатив с душой, работу с людьми.\n\nФормула: если задача повторяется 3+ раза в неделю — автоматизируйте.', date: '2026-05-27T09:00:00.000Z', author: 'AI-Ментор', image: 'images/делегирование ии.jpg', media: null, mediaTypeHint: null },
-      { id: 203, tag: 'СОВЕТ', title: 'Как начать в AI', desc: 'Пошаговое руководство для новичков. Начните с изучения базовых понятий: нейросети, машинное обучение, промпт-инжиниринг. Попробуйте бесплатные инструменты: ChatGPT, Claude, Google Gemini. Создайте свой первый проект.', date: '2026-05-27T10:00:00.000Z', author: 'ТехноГид', image: '', media: null, mediaTypeHint: null },
-      { id: 204, tag: 'СОВЕТ', title: 'Промпт-инжиниринг для начинающих', desc: 'Как правильно составлять запросы к нейросетям: будьте конкретны, добавляйте контекст, указывайте формат ответа, используйте примеры (few-shot), итеративно улучшайте промпты.', date: '2026-05-26T11:00:00.000Z', author: 'AI-Ментор', image: '', media: null, mediaTypeHint: null }
+      { id: 201, tag: 'СОВЕТ ДНЯ, Безопасность, ИИ', title: 'Безопасная работа с ИИ', desc: 'Никогда не загружайте в нейросети: пароли, персональные данные клиентов, финансовые отчеты, коммерческую тайну.\n\n Можно: общие тексты, идеи, публичную информацию.\n\nНельзя: внутренние документы, базы данных, переписку.\n\n\nПравило: если утечка навредит бизнесу — не загружайте.', date: '2026-05-28T08:00:00.000Z', author: 'НейроГид', image: 'images/Безопасная работа с ИИ.png', media: null, mediaTypeHint: null },
+      { id: 202, tag: 'ПРОДУКТИВНОСТЬ, ИИ', title: 'Что делегировать ИИ', desc: 'Отдайте ИИ: \nрутину (шаблонные письма, расшифровка аудио, суммаризация встреч), черновики, генерацию идей, проверку орфографии.\n\nОставьте себе: \nфинальные решения, стратегию, переговоры, креатив с душой, работу с людьми.\n\nФормула: \nесли задача повторяется 3+ раза в неделю — автоматизируйте.', date: '2026-05-27T09:00:00.000Z', author: 'AI-Ментор', image: 'images/делегирование ии.jpg', media: null, mediaTypeHint: null },
+      { id: 203, tag: 'СОВЕТ', title: 'Как начать в AI', desc: 'Пошаговое руководство для новичков. \nНачните с изучения базовых понятий: нейросети, машинное обучение, промпт-инжиниринг. \nПопробуйте бесплатные инструменты: ChatGPT, Claude, Google Gemini. \nСоздайте свой первый проект.', date: '2026-05-26T10:00:00.000Z', author: 'ТехноГид', image: '', media: null, mediaTypeHint: null },
+      { id: 204, tag: 'СОВЕТ', title: 'Промпт-инжиниринг для начинающих', desc: 'Как правильно составлять запросы к нейросетям: \nбудьте конкретны, добавляйте контекст, указывайте формат ответа, используйте примеры (few-shot), итеративно улучшайте промпты.', date: '2026-05-26T11:00:00.000Z', author: 'AI-Ментор', image: '', media: null, mediaTypeHint: null }
     ],
     learn: [
       { id: 301, tag: 'КУРС', title: 'Введение в нейросети', desc: 'Базовый курс по основам нейросетей и машинного обучения. Изучите архитектуру нейросетей, методы обучения и практические примеры использования.', date: '2026-05-28T13:00:00.000Z', author: 'Цифровой Учитель', image: 'images/learn-intro.jpg', media: null, mediaTypeHint: null },
@@ -926,13 +928,8 @@
 
   function createCardHTML(type, item, asym = false) {
     let cls = '';
-    if (asym) {
-      const r = Math.random();
-      if (r < 0.12) cls = 'wide';
-      else if (r < 0.24) cls = 'tall';
-      else if (r < 0.34) cls = 'big';
-    }
-    if (type === 'tip' && isTipOfDay(item)) cls += ' tip-of-day';
+    // Убираем рандомные классы wide/tall/big - все карточки одинаковые
+    if (type === 'tip' && isTipOfDay(item)) cls = ' tip-of-day';
     
     const hasImage = item.image && item.image.trim() !== '';
     const imageHtml = hasImage ? `<div class="card-image"><img src="${item.image}?v=${APP_VERSION}" alt="${escapeHtml(item.title)}"></div>` : `<div class="card-image no-image"></div>`;
@@ -944,9 +941,9 @@
     
     const shortDesc = item.desc.length > 120 ? item.desc.substring(0, 120) + '...' : item.desc;
     
-    return `<div class="card ${cls}" onclick="openDetailModal('${type}', ${item.id})">
+    return `<div class="card${cls}" onclick="openDetailModal('${type}', ${item.id})">
               ${imageHtml}
-              <div class="card-tag">${item.tag}</div>
+              <div class="card-tag">${escapeHtml(item.tag)}</div>
               <h3>${escapeHtml(item.title)}</h3>
               <p>${escapeHtml(shortDesc)}</p>
               <div class="card-meta"><span>${item.author}</span><span>${formatDate(item.date)}</span></div>
@@ -954,21 +951,22 @@
             </div>`;
   }
 
-  // ========== ОТРИСОВКА ==========
+  // ========== ОТРИСОВКА (на главной - 3 последние карточки) ==========
   function renderAll() {
     const allTips = [...data.tip].sort((a,b) => new Date(b.date) - new Date(a.date));
+    const latestTips = allTips.slice(0, 3);
     const latestNews = [...data.news].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
-    const latestPodcasts = [...data.podcast].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 6);
+    const latestPodcasts = [...data.podcast].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
     const latestLearn = [...data.learn].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
     
-    document.getElementById('mainTipsGrid').innerHTML = allTips.slice(0, 3).map(t => createCardHTML('tip', t, false)).join('');
+    document.getElementById('mainTipsGrid').innerHTML = latestTips.map(t => createCardHTML('tip', t, false)).join('');
     document.getElementById('mainNewsGrid').innerHTML = latestNews.map(n => createCardHTML('news', n, false)).join('');
     document.getElementById('mainPodcastGrid').innerHTML = latestPodcasts.map(p => createCardHTML('podcast', p, false)).join('');
     document.getElementById('mainLearnGrid').innerHTML = latestLearn.map(l => createCardHTML('learn', l, false)).join('');
   }
 
   function renderTipsPage(filter = 'Все', sortType = 'date-desc') {
-    let filtered = filter === 'Все' ? [...data.tip] : [...data.tip].filter(i => i.tag === filter || i.tag.includes(filter));
+    let filtered = filter === 'Все' ? [...data.tip] : [...data.tip].filter(i => i.tag.includes(filter) || i.tag === filter);
     filtered = sortItems(filtered, sortType);
     const tags = ['Все', ...new Set(data.tip.map(i => i.tag).flatMap(t => t.split(',').map(s => s.trim())))];
     document.getElementById('tipsFilters').innerHTML = tags.map(t => `<button class="filter-btn ${t === filter ? 'active' : ''}" onclick="renderTipsPage('${t}', '${sortType}')">${t}</button>`).join('');
