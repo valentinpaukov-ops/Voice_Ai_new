@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   
   <!-- АНТИКЕШ -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -34,17 +34,18 @@
       font-family: 'Inter', sans-serif;
       background: var(--bg-dark);
       color: var(--text-primary);
-      line-height: 1.6;
+      line-height: 1.5;
       overflow-x: hidden;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
 
+    /* ========== ФУТЕР ========== */
     footer {
       margin-top: auto;
       border-top: 1px solid var(--border);
-      padding: 48px 48px 32px;
+      padding: 40px 24px 32px;
       background: var(--bg-dark);
     }
     .footer-container {
@@ -54,7 +55,7 @@
       justify-content: space-between;
       align-items: flex-start;
       flex-wrap: wrap;
-      gap: 40px;
+      gap: 30px;
     }
     .footer-logo img {
       width: auto;
@@ -68,20 +69,17 @@
       color: var(--text-primary);
       margin-bottom: 8px;
     }
-    .footer-phone {
+    .footer-phone, .footer-email {
       font-size: 13px;
       color: var(--text-secondary);
       margin-bottom: 6px;
     }
-    .footer-phone a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
-    .footer-phone a:hover { color: var(--text-primary); }
-    .footer-email {
-      font-size: 13px;
+    .footer-phone a, .footer-email a {
       color: var(--text-secondary);
-      margin-bottom: 8px;
+      text-decoration: none;
+      transition: color 0.2s;
     }
-    .footer-email a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
-    .footer-email a:hover { color: var(--text-primary); }
+    .footer-phone a:hover, .footer-email a:hover { color: var(--text-primary); }
     .footer-rights {
       font-size: 11px;
       color: var(--text-muted);
@@ -89,41 +87,43 @@
       margin-top: 4px;
     }
 
-    @media (max-width: 768px) {
-      footer { padding: 32px 24px 24px; }
-      .footer-container { flex-direction: column; align-items: center; text-align: center; }
-      .footer-info { text-align: center; }
-    }
-
-    ::-webkit-scrollbar { width: 6px; }
+    /* ========== СКРОЛЛБАР ========== */
+    ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--bg-dark); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
+    /* ========== НАВИГАЦИЯ ========== */
     nav {
-      position: fixed; top: 0; width: 100%; padding: 20px 48px;
-      display: flex; justify-content: space-between; align-items: center; z-index: 100;
-      background: var(--bg-dark); border-bottom: 1px solid var(--border);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 15px;
     }
-    
-    .logo { cursor: pointer; display: flex; align-items: center; }
-    .logo img { height: 70px; width: auto; object-fit: contain; }
-    
-    .nav-center { flex: 1; max-width: 550px; margin: 0 48px; position: relative; }
+    .logo { cursor: pointer; display: flex; align-items: center; flex-shrink: 0; }
+    .logo img { height: 50px; width: auto; object-fit: contain; }
+    .nav-center { flex: 1; min-width: 200px; max-width: 450px; }
     .search-box { position: relative; width: 100%; }
     .search-input {
       width: 100%; padding: 10px 40px 10px 16px; background: var(--input-bg);
       border: 1px solid var(--border); color: var(--text-primary);
-      font-family: inherit; font-size: 13px; border-radius: 4px; outline: none;
+      font-family: inherit; font-size: 14px; border-radius: 40px; outline: none;
     }
     .search-input:focus { border-color: var(--text-secondary); }
     .search-arrow {
-      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
       font-size: 16px; color: var(--text-muted); pointer-events: none;
     }
-    
     .search-dropdown {
       position: absolute; top: 100%; left: 0; width: 100%; background: var(--bg-card);
-      border: 1px solid var(--border); margin-top: 4px; border-radius: 4px; display: none;
+      border: 1px solid var(--border); margin-top: 8px; border-radius: 12px; display: none;
       max-height: 350px; overflow-y: auto; z-index: 101;
     }
     .search-dropdown.active { display: block; }
@@ -144,19 +144,27 @@
     }
     .search-item-meta { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
 
-    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
     .nav-links a {
       color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500;
       letter-spacing: 0.5px; transition: color 0.3s; text-transform: uppercase; cursor: pointer;
     }
     .nav-links a:hover { color: var(--text-primary); }
 
-    .page { display: none; min-height: 100vh; padding-top: 90px; }
+    /* ========== СТРАНИЦЫ ========== */
+    .page { display: none; min-height: 100vh; padding-top: 85px; }
     .page.active { display: block; }
 
+    /* ========== HERO БЛОК ========== */
     .hero {
-      position: relative; min-height: 90vh; display: flex; align-items: center; justify-content: center;
-      padding: 0 48px; overflow: hidden; margin-top: -60px;
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5%;
+      overflow: hidden;
+      margin-top: -60px;
     }
     .hero-bg {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -172,57 +180,118 @@
       transition: transform 0.3s ease;
     }
     .hero-label {
-      display: block; color: #666666; font-size: 16px;
-      font-weight: 500; margin-bottom: 16px;
+      display: block;
+      color: #666666;
+      font-size: clamp(12px, 3vw, 16px);
+      font-weight: 500;
+      margin-bottom: 16px;
     }
     .hero h1 {
-      font-size: 110px; font-weight: 600; letter-spacing: -2px;
-      margin-bottom: 24px; color: #ffffff;
+      font-size: clamp(48px, 10vw, 110px);
+      font-weight: 600;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      color: #ffffff;
+      line-height: 1.1;
     }
     .hero-description {
-      font-size: 14px; color: #666666; max-width: 800px;
-      margin-bottom: 32px; line-height: 1.6;
+      font-size: clamp(12px, 3vw, 14px);
+      color: #666666;
+      max-width: 800px;
+      margin-bottom: 32px;
+      line-height: 1.6;
     }
     .hero-description.full-width { max-width: 100%; width: 100%; }
 
+    /* ========== КНОПКА ЭФИРА ========== */
     .live-btn {
-      display: inline-flex; align-items: center; gap: 12px; padding: 18px 36px;
-      background: var(--btn-bg); border: 1px solid var(--border); border-radius: 4px;
-      cursor: pointer; transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      background: var(--btn-bg);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
-    .live-btn:hover { background: #222; border-color: #333; }
+    .live-btn:hover { background: #222; border-color: #333; transform: translateY(-2px); }
     .live-btn .live-dot {
       width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
       animation: pulse 2s infinite;
     }
-    .live-btn .btn-text { color: var(--text-primary); font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+    .live-btn .btn-text {
+      color: var(--text-primary);
+      font-size: clamp(12px, 3vw, 13px);
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
 
     @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.9); } }
 
-    section { padding: 120px 48px; max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border); }
-    .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; gap: 40px; flex-wrap: wrap; }
+    /* ========== СЕКЦИИ ========== */
+    section { 
+      padding: 80px 5%;
+      max-width: 1600px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 50px;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
     .section-title {
-      font-size: 72px; font-weight: 800; line-height: 1.1;
-      letter-spacing: -2px; flex: 1; color: #ffffff;
+      font-size: clamp(32px, 6vw, 72px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      flex: 1;
+      color: #ffffff;
     }
     .section-desc {
-      font-size: 16px; margin-top: 8px; max-width: 500px;
-      line-height: 1.6; color: #666666;
+      font-size: clamp(12px, 2.5vw, 16px);
+      margin-top: 8px;
+      max-width: 450px;
+      line-height: 1.6;
+      color: #666666;
     }
     .section-link {
-      color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 600;
-      letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--text-muted);
-      padding-bottom: 4px; transition: 0.3s; cursor: pointer;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--text-muted);
+      padding-bottom: 4px;
+      transition: 0.3s;
+      cursor: pointer;
+      white-space: nowrap;
     }
     .section-link:hover { color: var(--text-primary); border-color: var(--text-primary); }
 
+    /* ========== СЕТКИ КАРТОЧЕК ========== */
     .grid { display: grid; gap: 1px; background: var(--border); }
-    .grid-uniform { grid-template-columns: repeat(3, 1fr); }
-    .grid-asymmetric { grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(280px, auto); grid-auto-flow: dense; }
+    .grid-uniform { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    .grid-asymmetric { 
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-auto-rows: minmax(280px, auto);
+    }
 
+    /* ========== КАРТОЧКИ ========== */
     .card {
-      background: var(--bg-dark); padding: 32px; position: relative; transition: background 0.3s;
-      display: flex; flex-direction: column; height: 100%;
+      background: var(--bg-dark);
+      padding: 28px;
+      position: relative;
+      transition: background 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
     .card:hover { background: var(--bg-card); }
     .card.tip-of-day::before {
@@ -230,47 +299,82 @@
       width: 3px; background: var(--tip-color);
     }
     .card-image {
-      width: 100%; height: 200px; margin-bottom: 20px;
-      overflow: hidden; flex-shrink: 0; border-radius: 8px;
+      width: 100%; height: 180px; margin-bottom: 20px;
+      overflow: hidden; flex-shrink: 0; border-radius: 12px;
     }
     .card-image.no-image { display: none; }
     .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
     .card:hover .card-image img { transform: scale(1.03); }
-    .card-tag { font-size: 11px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+    .card-tag {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
     .card h3 {
-      font-size: 20px; font-weight: 700; margin-bottom: 12px;
-      line-height: 1.3; word-break: break-word; color: #ffffff;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.3;
+      word-break: break-word;
+      color: #ffffff;
     }
     .card p {
-      font-size: 14px; color: var(--text-secondary); line-height: 1.7;
-      margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    .card-meta { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; margin-top: auto; font-size: 11px; color: var(--text-muted); }
-    
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      margin-top: auto;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
     .listen-btn {
-      display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; background: transparent;
-      border: 1px solid var(--text-secondary); color: var(--text-primary); cursor: pointer;
-      font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
-      transition: all 0.3s; margin-top: 16px; width: fit-content; border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid var(--text-secondary);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      margin-top: 16px;
+      width: fit-content;
+      border-radius: 30px;
     }
     .listen-btn:hover { border-color: var(--text-primary); background: var(--text-primary); color: var(--bg-dark); }
 
     .card.wide { grid-column: span 2; }
     .card.tall { grid-row: span 2; }
     .card.big { grid-column: span 2; grid-row: span 2; }
-    .card.wide .card-image, .card.big .card-image { height: 280px; }
+    .card.wide .card-image, .card.big .card-image { height: 240px; }
 
-    .filters { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+    /* ========== ФИЛЬТРЫ И СОРТИРОВКА ========== */
+    .filters { display: flex; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
     .filter-btn {
       padding: 8px 16px; background: transparent; border: 1px solid var(--border);
       color: var(--text-secondary); cursor: pointer; font-size: 12px;
-      text-transform: uppercase; transition: 0.3s; border-radius: 4px;
+      text-transform: uppercase; transition: 0.3s; border-radius: 30px;
     }
     .filter-btn:hover, .filter-btn.active { border-color: var(--text-primary); color: var(--text-primary); background: var(--bg-card); }
 
     .sort-controls {
-      display: flex; gap: 24px; margin-bottom: 40px;
+      display: flex; gap: 20px; margin-bottom: 40px;
       flex-wrap: wrap; justify-content: flex-end;
     }
     .sort-btn {
@@ -285,10 +389,11 @@
       height: 1px; background: var(--text-primary);
     }
 
+    /* ========== МОДАЛЬНЫЕ ОКНА ========== */
     .modal-overlay {
       display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0, 0, 0, 0.96); z-index: 1000; justify-content: center;
-      align-items: center; padding: 48px; cursor: pointer;
+      align-items: center; padding: 20px; cursor: pointer;
     }
     .modal-overlay.active { display: flex; animation: fadeIn 0.2s ease; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -296,7 +401,7 @@
     .modal-content {
       background: var(--bg-card); border: 1px solid var(--border); max-width: 900px;
       width: 100%; max-height: 90vh; overflow-y: auto; position: relative;
-      border-radius: 16px; cursor: default;
+      border-radius: 20px; cursor: default;
     }
     .modal-close {
       position: absolute; top: 16px; right: 16px; width: 36px; height: 36px;
@@ -307,31 +412,31 @@
     }
     .modal-close:hover { transform: scale(1.05); background: rgba(0,0,0,0.8); border-color: white; }
     
-    .modal-image { width: 100%; height: 280px; background: var(--bg-dark); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .modal-image { width: 100%; height: 260px; background: var(--bg-dark); overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .modal-image img { width: 100%; height: 100%; object-fit: cover; }
-    .modal-body { padding: 32px; }
+    .modal-body { padding: 28px; }
     .modal-tag { font-size: 11px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
-    .modal-title { font-size: 28px; font-weight: 700; margin-bottom: 12px; color: #ffffff; }
+    .modal-title { font-size: 24px; font-weight: 700; margin-bottom: 12px; color: #ffffff; }
     .modal-meta { display: flex; gap: 24px; font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
-    .modal-description { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 32px; }
+    .modal-description { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 28px; }
     .modal-player { background: var(--bg-dark); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-top: 16px; }
     .modal-player audio, .modal-player video { width: 100%; }
 
-    /* ========== СТИЛИ ПЛЕЕРА ЭФИРА (обновлённые) ========== */
+    /* ========== ПЛЕЕР ЭФИРА ========== */
     .live-player-modal .modal-content { max-width: 1000px; }
     .lp-layout { display: flex; gap: 0; flex-wrap: wrap; }
     .lp-main { 
-      flex: 1; 
-      padding: 32px; 
+      flex: 2; 
+      padding: 28px; 
       display: flex; 
       flex-direction: column; 
       align-items: center; 
-      min-width: 280px;
+      min-width: 260px;
       background: var(--bg-dark);
     }
     .lp-cover { 
       width: 100%; 
-      max-width: 300px; 
+      max-width: 280px; 
       background: var(--bg-card); 
       border-radius: 16px; 
       margin-bottom: 24px; 
@@ -341,200 +446,113 @@
       align-items: center;
       justify-content: center;
     }
-    .lp-cover video { 
-      width: 100%; 
-      height: 100%; 
-      object-fit: cover;
+    .lp-cover video { width: 100%; height: 100%; object-fit: cover; }
+    .lp-cover .audio-icon { font-size: 70px; }
+    .lp-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; text-align: center; color: #ffffff; }
+    .lp-artist { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+    .lp-progress-wrap { width: 100%; max-width: 400px; margin-bottom: 24px; }
+    .lp-progress-bar { width: 100%; height: 4px; background: var(--border); border-radius: 2px; cursor: pointer; }
+    .lp-progress-fill { height: 100%; width: 0%; background: var(--accent); border-radius: 2px; }
+    .lp-time { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 8px; }
+    .lp-controls { display: flex; align-items: center; gap: 24px; margin-bottom: 16px; }
+    .lp-ctrl {
+      background: none; border: none; color: var(--text-secondary); cursor: pointer;
+      font-size: 22px; transition: all 0.2s; width: 44px; height: 44px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
     }
-    .lp-cover .audio-icon {
-      font-size: 80px;
-      background: var(--bg-card);
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .lp-ctrl:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+    .lp-ctrl.play-pause {
+      width: 56px; height: 56px; border: 2px solid var(--text-primary);
+      border-radius: 50%; font-size: 24px; background: transparent; color: #ffffff;
     }
-    .lp-title { 
-      font-size: 22px; 
-      font-weight: 700; 
-      margin-bottom: 8px; 
-      text-align: center; 
-      color: #ffffff;
-    }
-    .lp-artist { 
-      font-size: 13px; 
-      color: var(--text-muted); 
-      margin-bottom: 24px; 
-    }
-    .lp-progress-wrap { 
-      width: 100%; 
-      max-width: 400px; 
-      margin-bottom: 24px; 
-    }
-    .lp-progress-bar { 
-      width: 100%; 
-      height: 4px; 
-      background: var(--border); 
-      border-radius: 2px; 
-      cursor: pointer; 
-      position: relative;
-    }
-    .lp-progress-fill { 
-      height: 100%; 
-      width: 0%; 
-      background: var(--accent); 
-      border-radius: 2px; 
-      position: relative;
-    }
-    .lp-time { 
-      display: flex; 
-      justify-content: space-between; 
-      font-size: 11px; 
-      color: var(--text-muted); 
-      margin-top: 8px; 
-    }
-    .lp-controls { 
-      display: flex; 
-      align-items: center; 
-      gap: 28px; 
-      margin-bottom: 16px; 
-    }
-    .lp-ctrl { 
-      background: none; 
-      border: none; 
-      color: var(--text-secondary); 
-      cursor: pointer; 
-      font-size: 22px;
-      transition: all 0.2s ease;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .lp-ctrl:hover { 
-      color: var(--text-primary); 
-      background: rgba(255,255,255,0.05);
-    }
-    .lp-ctrl.play-pause { 
-      width: 56px; 
-      height: 56px; 
-      border: 2px solid var(--text-primary); 
-      border-radius: 50%; 
-      font-size: 24px; 
-      background: transparent; 
-      color: #ffffff;
-    }
-    .lp-ctrl.play-pause:hover {
-      background: rgba(255,255,255,0.1);
-      transform: scale(1.02);
-    }
+    .lp-ctrl.play-pause:hover { background: rgba(255,255,255,0.1); transform: scale(1.02); }
     .lp-queue { 
-      width: 320px; 
+      width: 300px; 
       background: var(--bg-card); 
       border-left: 1px solid var(--border); 
-      padding: 24px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
     }
-    .lp-queue h4 { 
-      font-size: 12px; 
-      text-transform: uppercase; 
-      color: var(--text-muted); 
-      margin-bottom: 16px;
-      letter-spacing: 1.5px;
+    .lp-queue h4 { font-size: 12px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; letter-spacing: 1.5px; }
+    .lp-queue-list { flex: 1; overflow-y: auto; max-height: 380px; display: flex; flex-direction: column; gap: 8px; }
+    .lp-queue-list::-webkit-scrollbar { width: 4px; }
+    .lp-queue-list::-webkit-scrollbar-track { background: var(--border); border-radius: 2px; }
+    .lp-queue-list::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 2px; }
+    .lp-q-item {
+      display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+      border-radius: 10px; cursor: pointer; transition: all 0.2s;
+      background: var(--input-bg); border-left: 3px solid transparent;
     }
-    .lp-queue-list {
-      flex: 1;
-      overflow-y: auto;
-      max-height: 400px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .lp-queue-list::-webkit-scrollbar {
-      width: 4px;
-    }
-    .lp-queue-list::-webkit-scrollbar-track {
-      background: var(--border);
-      border-radius: 2px;
-    }
-    .lp-queue-list::-webkit-scrollbar-thumb {
-      background: var(--text-muted);
-      border-radius: 2px;
-    }
-    .lp-q-item { 
-      display: flex; 
-      align-items: center; 
-      gap: 12px; 
-      padding: 12px; 
-      border-radius: 10px; 
-      cursor: pointer; 
-      transition: all 0.2s ease; 
-      background: var(--input-bg);
-      border-left: 3px solid transparent;
-    }
-    .lp-q-item:hover { 
-      background: rgba(255,255,255,0.05);
-    }
-    .lp-q-item.active { 
-      background: rgba(255, 159, 0, 0.1); 
-      border-left-color: var(--tip-color);
-    }
-    .lp-q-item.played { 
-      opacity: 0.5;
-    }
-    .lp-q-img { 
-      width: 40px; 
-      height: 40px; 
-      background: var(--bg-dark); 
-      border-radius: 8px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      font-size: 20px; 
-    }
-    .lp-q-info {
-      flex: 1;
-      min-width: 0;
-    }
-    .lp-q-title {
-      font-size: 14px;
-      font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    .lp-q-item:hover { background: rgba(255,255,255,0.05); }
+    .lp-q-item.active { background: rgba(255, 159, 0, 0.1); border-left-color: var(--tip-color); }
+    .lp-q-item.played { opacity: 0.5; }
+    .lp-q-img { width: 36px; height: 36px; background: var(--bg-dark); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .lp-q-info { flex: 1; min-width: 0; }
+    .lp-q-title { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 13px; text-transform: uppercase; margin-bottom: 40px; cursor: pointer; }
     .back-btn:hover { color: var(--text-primary); }
 
     #globalToast {
       position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-      background: #00e676; color: #000; padding: 12px 24px; border-radius: 40px;
-      font-size: 14px; font-weight: 600; z-index: 1200; display: none;
+      background: #00e676; color: #000; padding: 10px 20px; border-radius: 40px;
+      font-size: 13px; font-weight: 600; z-index: 1200; display: none; white-space: nowrap;
     }
     #globalToast.error { background: #ff3b30; color: white; }
 
+    /* ========== АДАПТИВНОСТЬ ========== */
     @media (max-width: 1024px) {
-      .hero h1 { font-size: 72px; }
+      nav { padding: 16px 4%; }
+      .nav-center { max-width: 350px; }
+      .logo img { height: 45px; }
       .section-title { font-size: 48px; }
-      .grid-uniform, .grid-asymmetric { grid-template-columns: 1fr 1fr; }
-      .nav-center { max-width: 400px; margin: 0 24px; }
-      .logo img { height: 60px; }
+      .grid-uniform, .grid-asymmetric { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
     }
+
     @media (max-width: 768px) {
-      nav { padding: 15px 20px; flex-wrap: wrap; gap: 12px; }
-      .nav-center { order: 3; width: 100%; margin: 12px 0 0; max-width: 100%; }
+      nav { flex-direction: column; align-items: stretch; padding: 15px 4%; }
+      .nav-center { max-width: 100%; order: 2; }
+      .nav-links { order: 1; justify-content: center; gap: 15px; }
+      .logo { justify-content: center; order: 0; margin-bottom: 0; }
+      .logo img { height: 40px; }
+      
+      .hero { min-height: 70vh; margin-top: -40px; padding: 0 4%; }
+      .hero-content { text-align: center; }
+      .hero-label { text-align: center; }
       .hero h1 { font-size: 48px; }
-      section { padding: 60px 20px; }
+      .hero-description { text-align: center; margin-left: auto; margin-right: auto; }
+      .live-btn { margin: 0 auto; display: flex; width: fit-content; }
+      
+      section { padding: 50px 4%; }
+      .section-header { flex-direction: column; align-items: flex-start; margin-bottom: 30px; }
+      .section-desc { max-width: 100%; }
+      
       .grid-uniform, .grid-asymmetric { grid-template-columns: 1fr; }
-      .logo img { height: 50px; }
+      .card { padding: 24px; }
+      
       .lp-layout { flex-direction: column; }
-      .lp-queue { width: 100%; border-left: none; border-top: 1px solid var(--border); }
-      .footer-logo img { height: 35px; }
+      .lp-queue { width: 100%; border-left: none; border-top: 1px solid var(--border); max-height: 280px; }
+      .lp-main { padding: 24px; }
+      
+      .modal-body { padding: 20px; }
+      .modal-title { font-size: 20px; }
+      
+      #globalToast { white-space: normal; text-align: center; max-width: 90%; font-size: 12px; }
+      
+      .filters { gap: 8px; }
+      .filter-btn { padding: 6px 12px; font-size: 10px; }
+      .sort-controls { gap: 12px; justify-content: flex-start; }
+      .sort-btn { font-size: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 36px; }
+      .section-title { font-size: 32px; }
+      .card h3 { font-size: 16px; }
+      .live-btn { padding: 12px 24px; }
+      .lp-ctrl { width: 36px; height: 36px; font-size: 18px; }
+      .lp-ctrl.play-pause { width: 48px; height: 48px; font-size: 20px; }
     }
   </style>
 </head>
@@ -565,18 +583,18 @@
 <main id="main-page" class="page active">
   <section class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-content" id="heroContent" style="transform: translate(0px, 50px) scale(1);">
-      <div class="hero-label" id="heroLabel" style="color: rgb(102, 102, 102); font-size: 16px; font-weight: 500; font-style: normal; text-align: left;">МЕДИА-ХАБ ИИ-КОНТЕНТА</div>
-      <h1 id="heroTitle" style="color: rgb(255, 255, 255); font-size: 110px; font-weight: 600; font-style: normal; text-align: left;">Voice_Ai</h1>
-      <p class="hero-description full-width" id="heroDesc" style="color: rgb(102, 102, 102); font-size: 14px; font-weight: 300; font-style: normal; text-align: left;">Первая уникальная платформа технологической команды «Технологии Доверия», где контент об ИИ создан с помощью нейросетей.<br>ИИ-эфиры с познавательными подкастами, последние новости и разборы технологий, уникальные гайды и обучающие материалы. <br>Всё это для тех, кто хочет понимать и использовать искусственный интеллект на практике.<br></p>
+    <div class="hero-content" id="heroContent" style="transform: translate(0px, 40px) scale(1);">
+      <div class="hero-label" id="heroLabel">МЕДИА-ХАБ ИИ-КОНТЕНТА</div>
+      <h1 id="heroTitle">Voice_Ai</h1>
+      <p class="hero-description full-width" id="heroDesc">Первая уникальная платформа технологической команды «Технологии Доверия», где контент об ИИ создан с помощью нейросетей.<br>ИИ-эфиры с познавательными подкастами, последние новости и разборы технологий, уникальные гайды и обучающие материалы. <br>Всё это для тех, кто хочет понимать и использовать искусственный интеллект на практике.<br></p>
       <button class="live-btn" onclick="openLivePlayer()"><div class="live-dot"></div><span class="btn-text">Слушать эфир</span></button>
     </div>
   </section>
 
   <section id="tipsSection">
     <div class="section-header">
-      <h2 class="section-title">Гайды</h2>
-      <p class="section-desc">Практические руководства по ИИ.</p>
+      <h2 class="section-title" id="sectionTipsTitle">Гайды</h2>
+      <p class="section-desc" id="sectionTipsDesc">Практические руководства по ИИ.</p>
     </div>
     <a class="section-link" onclick="navigateTo('tips-page')">Все гайды →</a>
     <div class="grid grid-uniform" id="mainTipsGrid"></div>
@@ -584,8 +602,8 @@
 
   <section id="newsSection">
     <div class="section-header">
-      <h2 class="section-title">Новости</h2>
-      <p class="section-desc">Актуальные события в мире ИИ технологий.</p>
+      <h2 class="section-title" id="sectionNewsTitle">Новости</h2>
+      <p class="section-desc" id="sectionNewsDesc">Актуальные события в мире ИИ технологий.</p>
     </div>
     <a class="section-link" onclick="navigateTo('news-page')">Все новости →</a>
     <div class="grid grid-uniform" id="mainNewsGrid"></div>
@@ -593,8 +611,8 @@
 
   <section id="podcastsSection">
     <div class="section-header">
-      <h2 class="section-title">Подкасты</h2>
-      <p class="section-desc">Аудиошоу и интервью.</p>
+      <h2 class="section-title" id="sectionPodcastsTitle">Подкасты</h2>
+      <p class="section-desc" id="sectionPodcastsDesc">Аудиошоу и интервью.</p>
     </div>
     <a class="section-link" onclick="navigateTo('podcasts-page')">Все подкасты →</a>
     <div class="grid grid-uniform" id="mainPodcastGrid"></div>
@@ -602,77 +620,19 @@
 
   <section id="learnSection">
     <div class="section-header">
-      <h2 class="section-title">Обучение</h2>
-      <p class="section-desc">Курсы и материалы для развития.</p>
+      <h2 class="section-title" id="sectionLearnTitle">Обучение</h2>
+      <p class="section-desc" id="sectionLearnDesc">Курсы и материалы для развития.</p>
     </div>
     <a class="section-link" onclick="navigateTo('learn-page')">Все курсы →</a>
     <div class="grid grid-uniform" id="mainLearnGrid"></div>
   </section>
 </main>
 
-<!-- СТРАНИЦА ГАЙДЫ -->
-<main id="tips-page" class="page">
-  <section>
-    <a class="back-btn" onclick="navigateTo('main-page')">← На главную</a>
-    <div class="section-header"><h2 class="section-title">Все гайды</h2></div>
-    <div class="filters" id="tipsFilters"></div>
-    <div class="sort-controls" id="tipsSortControls">
-      <button class="sort-btn active" data-sort="date-desc">Новые → Старые</button>
-      <button class="sort-btn" data-sort="date-asc">Старые → Новые</button>
-      <button class="sort-btn" data-sort="alpha-asc">А → Я</button>
-      <button class="sort-btn" data-sort="alpha-desc">Я → А</button>
-    </div>
-    <div class="grid grid-asymmetric" id="allTipsGrid"></div>
-  </section>
-</main>
-
-<!-- СТРАНИЦА НОВОСТИ -->
-<main id="news-page" class="page">
-  <section>
-    <a class="back-btn" onclick="navigateTo('main-page')">← На главную</a>
-    <div class="section-header"><h2 class="section-title">Все новости</h2></div>
-    <div class="filters" id="newsFilters"></div>
-    <div class="sort-controls" id="newsSortControls">
-      <button class="sort-btn active" data-sort="date-desc">Новые → Старые</button>
-      <button class="sort-btn" data-sort="date-asc">Старые → Новые</button>
-      <button class="sort-btn" data-sort="alpha-asc">А → Я</button>
-      <button class="sort-btn" data-sort="alpha-desc">Я → А</button>
-    </div>
-    <div class="grid grid-asymmetric" id="allNewsGrid"></div>
-  </section>
-</main>
-
-<!-- СТРАНИЦА ПОДКАСТЫ -->
-<main id="podcasts-page" class="page">
-  <section>
-    <a class="back-btn" onclick="navigateTo('main-page')">← На главную</a>
-    <div class="section-header"><h2 class="section-title">Подкасты</h2></div>
-    <div class="filters" id="podcastFilters"></div>
-    <div class="sort-controls" id="podcastSortControls">
-      <button class="sort-btn active" data-sort="date-desc">Новые → Старые</button>
-      <button class="sort-btn" data-sort="date-asc">Старые → Новые</button>
-      <button class="sort-btn" data-sort="alpha-asc">А → Я</button>
-      <button class="sort-btn" data-sort="alpha-desc">Я → А</button>
-    </div>
-    <div class="grid grid-asymmetric" id="allPodcastGrid"></div>
-  </section>
-</main>
-
-<!-- СТРАНИЦА ОБУЧЕНИЕ -->
-<main id="learn-page" class="page">
-  <section>
-    <a class="back-btn" onclick="navigateTo('main-page')">← На главную</a>
-    <div class="section-header"><h2 class="section-title">Все курсы</h2></div>
-    <div class="filters" id="learnFilters"></div>
-    <div class="sort-controls" id="learnSortControls">
-      <button class="sort-btn active" data-sort="date-desc">Новые → Старые</button>
-      <button class="sort-btn" data-sort="date-asc">Старые → Новые</button>
-      <button class="sort-btn" data-sort="alpha-asc">А → Я</button>
-      <button class="sort-btn" data-sort="alpha-desc">Я → А</button>
-    </div>
-    <div class="grid grid-asymmetric" id="allLearnGrid"></div>
-  </section>
-</main>
+<!-- ОСТАЛЬНЫЕ СТРАНИЦЫ (ГАЙДЫ, НОВОСТИ, ПОДКАСТЫ, ОБУЧЕНИЕ) -->
+<main id="tips-page" class="page"><section><a class="back-btn" onclick="navigateTo('main-page')">← На главную</a><div class="section-header"><h2 class="section-title">Все гайды</h2></div><div class="filters" id="tipsFilters"></div><div class="sort-controls" id="tipsSortControls"><button class="sort-btn active" data-sort="date-desc">Новые → Старые</button><button class="sort-btn" data-sort="date-asc">Старые → Новые</button><button class="sort-btn" data-sort="alpha-asc">А → Я</button><button class="sort-btn" data-sort="alpha-desc">Я → А</button></div><div class="grid grid-asymmetric" id="allTipsGrid"></div></section></main>
+<main id="news-page" class="page"><section><a class="back-btn" onclick="navigateTo('main-page')">← На главную</a><div class="section-header"><h2 class="section-title">Все новости</h2></div><div class="filters" id="newsFilters"></div><div class="sort-controls" id="newsSortControls"><button class="sort-btn active" data-sort="date-desc">Новые → Старые</button><button class="sort-btn" data-sort="date-asc">Старые → Новые</button><button class="sort-btn" data-sort="alpha-asc">А → Я</button><button class="sort-btn" data-sort="alpha-desc">Я → А</button></div><div class="grid grid-asymmetric" id="allNewsGrid"></div></section></main>
+<main id="podcasts-page" class="page"><section><a class="back-btn" onclick="navigateTo('main-page')">← На главную</a><div class="section-header"><h2 class="section-title">Подкасты</h2></div><div class="filters" id="podcastFilters"></div><div class="sort-controls" id="podcastSortControls"><button class="sort-btn active" data-sort="date-desc">Новые → Старые</button><button class="sort-btn" data-sort="date-asc">Старые → Новые</button><button class="sort-btn" data-sort="alpha-asc">А → Я</button><button class="sort-btn" data-sort="alpha-desc">Я → А</button></div><div class="grid grid-asymmetric" id="allPodcastGrid"></div></section></main>
+<main id="learn-page" class="page"><section><a class="back-btn" onclick="navigateTo('main-page')">← На главную</a><div class="section-header"><h2 class="section-title">Все курсы</h2></div><div class="filters" id="learnFilters"></div><div class="sort-controls" id="learnSortControls"><button class="sort-btn active" data-sort="date-desc">Новые → Старые</button><button class="sort-btn" data-sort="date-asc">Старые → Новые</button><button class="sort-btn" data-sort="alpha-asc">А → Я</button><button class="sort-btn" data-sort="alpha-desc">Я → А</button></div><div class="grid grid-asymmetric" id="allLearnGrid"></div></section></main>
 
 <!-- МОДАЛЬНОЕ ОКНО -->
 <div class="modal-overlay" id="playerModal">
@@ -689,25 +649,18 @@
   </div>
 </div>
 
-<!-- ПЛЕЕР ЭФИРА (исправленный) -->
+<!-- ПЛЕЕР ЭФИРА -->
 <div class="modal-overlay live-player-modal" id="livePlayerModal">
   <div class="modal-content">
     <button class="modal-close" onclick="closeLivePlayer()">×</button>
     <div class="lp-layout">
       <div class="lp-main">
-        <div class="lp-cover" id="lpCover">
-          <div class="audio-icon">🎙️</div>
-        </div>
+        <div class="lp-cover" id="lpCover"><div class="audio-icon">🎙️</div></div>
         <div class="lp-title" id="lpTitle">Эфир</div>
         <div class="lp-artist" id="lpArtist">Radio AI</div>
         <div class="lp-progress-wrap">
-          <div class="lp-progress-bar" id="lpProgressBar">
-            <div class="lp-progress-fill" id="lpProgressFill"></div>
-          </div>
-          <div class="lp-time">
-            <span id="lpTimeCurrent">0:00</span>
-            <span id="lpTimeTotal">0:00</span>
-          </div>
+          <div class="lp-progress-bar" id="lpProgressBar"><div class="lp-progress-fill" id="lpProgressFill"></div></div>
+          <div class="lp-time"><span id="lpTimeCurrent">0:00</span><span id="lpTimeTotal">0:00</span></div>
         </div>
         <div class="lp-controls">
           <button class="lp-ctrl" onclick="prevTrack()">⏮</button>
@@ -726,9 +679,7 @@
 <!-- ФУТЕР -->
 <footer>
   <div class="footer-container">
-    <div class="footer-logo">
-      <img src="./images/tedo_white_logo.png" alt="Технологии Доверия">
-    </div>
+    <div class="footer-logo"><img src="./images/tedo_white_logo.png" alt="Технологии Доверия"></div>
     <div class="footer-info">
       <div class="footer-company">Технологии Доверия</div>
       <div class="footer-phone"><a href="tel:+74951234567">+7 (495) 123-45-67</a></div>
@@ -740,7 +691,7 @@
 
 <script>
   // ========== ВЕРСИОНИРОВАНИЕ ==========
-  const APP_VERSION = '2026.05.28.009';
+  const APP_VERSION = '2026.05.28.010';
   
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
@@ -778,10 +729,10 @@
 
   // ========== ЭФИРНАЯ ОЧЕРЕДЬ ==========
   let liveQueue = [
-    { id: 'audio1', title: 'Voice_Ai_intro', src: './audio/01_Voice_Ai_intro.MP3', originalName: '01_Voice_Ai_intro.MP3', mediaType: 'audio' },
-    { id: 'audio2', title: 'Podcst', src: './audio/02_Podcast.MP3', originalName: '02_Podcast.MP3', mediaType: 'audio' },
-    { id: 'audio3', title: 'Music', src: './audio/03_SoundHelix_music.mp3', originalName: '03_SoundHelix_music.mp3', mediaType: 'audio' },
-    { id: 'audio4', title: 'News', src: './audio/04_SoundHelix2_music.mp3', originalName: '04_SoundHelix2_music.mp3', mediaType: 'audio' }
+    { id: 'audio1', title: 'Voice_Ai_intro', src: 'audio/01_Voice_Ai_intro.MP3', originalName: '01_Voice_Ai_intro.MP3', mediaType: 'audio' },
+    { id: 'audio2', title: 'Подкаст: Первый шаг в ИИ', src: 'audio/02_Первый шаг в ИИ_Podcast.MP3', originalName: '02_Первый шаг в ИИ_Podcast.MP3', mediaType: 'audio' },
+    { id: 'audio3', title: 'Музыка ИИ', src: 'audio/03_SoundHelix_music.mp3', originalName: '03_SoundHelix_music.mp3', mediaType: 'audio' },
+    { id: 'audio4', title: 'Новости', src: 'audio/04_SoundHelix2_music.mp3', originalName: '04_SoundHelix2_music.mp3', mediaType: 'audio' }
   ];
 
   // ========== ФУНКЦИИ ==========
@@ -983,7 +934,7 @@
     document.getElementById('playerModal').classList.add('active');
   }
 
-  // ========== ПЛЕЕР ЭФИРА (исправленный) ==========
+  // ========== ПЛЕЕР ЭФИРА (ИСПРАВЛЕННЫЙ) ==========
   let currentQueueIndex = -1;
   let isPlaying = false;
   let currentAudio = null;
@@ -1022,45 +973,37 @@
       `;
     }).join('');
     
-    // Автоскролл к активному треку
     const activeItem = cont.querySelector('.lp-q-item.active');
     if (activeItem) {
       activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }
 
-  function setupAudioEvents() {
-    if (!currentAudio) return;
-    
-    // Удаляем старые обработчики, чтобы не было дублей
-    currentAudio.removeEventListener('timeupdate', updateProgress);
-    currentAudio.removeEventListener('ended', onTrackEnd);
-    
-    // Добавляем новые
-    currentAudio.addEventListener('timeupdate', updateProgress);
-    currentAudio.addEventListener('ended', onTrackEnd);
-  }
-  
   function onTrackEnd() {
     console.log('Трек закончился, переключаем на следующий');
-    // Автоматически переключаем на следующий трек
     if (currentQueueIndex < livePlayerQueue.length - 1) {
       loadTrack(currentQueueIndex + 1);
       if (isPlaying && currentAudio) {
         currentAudio.play().catch(e => console.log('Play error:', e));
       }
     } else {
-      // Конец очереди
       isPlaying = false;
       document.getElementById('lpPlayBtn').innerText = '▶';
       showToast('Конец очереди');
     }
   }
 
+  function setupAudioEvents() {
+    if (!currentAudio) return;
+    currentAudio.removeEventListener('timeupdate', updateProgress);
+    currentAudio.removeEventListener('ended', onTrackEnd);
+    currentAudio.addEventListener('timeupdate', updateProgress);
+    currentAudio.addEventListener('ended', onTrackEnd);
+  }
+
   function loadTrack(idx) {
     if (idx < 0 || idx >= livePlayerQueue.length) return;
     
-    // Останавливаем текущее воспроизведение
     if (currentAudio) {
       currentAudio.pause();
       currentAudio = null;
@@ -1069,7 +1012,6 @@
     currentQueueIndex = idx;
     const track = livePlayerQueue[idx];
     
-    // Создаём новый аудио/видео элемент
     if (track.mediaType === 'video') {
       currentAudio = document.createElement('video');
     } else {
@@ -1079,21 +1021,14 @@
     currentAudio.src = track.src + '?v=' + Date.now();
     document.getElementById('lpTitle').innerText = track.title;
     
-    // Обновляем отображение обложки
     updateCoverDisplay();
-    
-    // Обновляем UI очереди
     renderLiveQueueUI();
-    
-    // Настраиваем события
     setupAudioEvents();
     
-    // Обновляем прогресс при загрузке метаданных
     currentAudio.addEventListener('loadedmetadata', () => {
       document.getElementById('lpTimeTotal').innerText = formatTime(currentAudio.duration);
     });
     
-    // Если плеер был включён, запускаем воспроизведение
     if (isPlaying) {
       currentAudio.play().catch(e => console.log('Play error:', e));
     }
@@ -1110,14 +1045,12 @@
   }
 
   function togglePlay() {
-    if (!livePlayerQueue.length || !currentAudio) {
-      // Если нет активного трека, загружаем первый
-      if (livePlayerQueue.length && currentQueueIndex === -1) {
-        loadTrack(0);
-      } else {
-        return;
-      }
+    if (!livePlayerQueue.length) {
+      if (livePlayerQueue.length && currentQueueIndex === -1) loadTrack(0);
+      else return;
     }
+    if (!currentAudio && livePlayerQueue.length) loadTrack(0);
+    
     if (isPlaying) {
       currentAudio.pause();
       isPlaying = false;
@@ -1132,15 +1065,8 @@
   function nextTrack() {
     if (currentQueueIndex < livePlayerQueue.length - 1) {
       loadTrack(currentQueueIndex + 1);
-      if (isPlaying && currentAudio) {
-        currentAudio.play();
-      }
+      if (isPlaying && currentAudio) currentAudio.play();
     } else {
-      if (currentAudio) {
-        currentAudio.pause();
-        isPlaying = false;
-        document.getElementById('lpPlayBtn').innerText = '▶';
-      }
       showToast('Конец очереди');
     }
   }
@@ -1148,9 +1074,7 @@
   function prevTrack() {
     if (currentQueueIndex > 0) {
       loadTrack(currentQueueIndex - 1);
-      if (isPlaying && currentAudio) {
-        currentAudio.play();
-      }
+      if (isPlaying && currentAudio) currentAudio.play();
     }
   }
 
@@ -1166,11 +1090,8 @@
     livePlayerQueue = [...liveQueue];
     document.getElementById('livePlayerModal').classList.add('active');
     renderLiveQueueUI();
-    if (livePlayerQueue.length && currentQueueIndex === -1) {
-      loadTrack(0);
-    } else if (currentQueueIndex >= 0) {
-      loadTrack(currentQueueIndex);
-    }
+    if (livePlayerQueue.length && currentQueueIndex === -1) loadTrack(0);
+    else if (currentQueueIndex >= 0) loadTrack(currentQueueIndex);
   }
 
   function closeLivePlayer() {
@@ -1182,7 +1103,6 @@
     }
   }
 
-  // Перемотка по клику на прогресс-бар
   document.addEventListener('click', (e) => {
     const progressBar = document.getElementById('lpProgressBar');
     if (progressBar && progressBar.contains(e.target) && currentAudio && currentAudio.duration) {
@@ -1192,25 +1112,18 @@
     }
   });
 
-  
-
-  // ========== НАВИГАЦИЯ ==========
+  // ========== НАВИГАЦИЯ И СОРТИРОВКА ==========
   function navigateTo(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(pageId).classList.add('active');
     window.scrollTo(0, 0);
-    
     if (pageId === 'tips-page') renderTipsPage('Все', tipsSort);
     if (pageId === 'news-page') renderNewsPage('Все', newsSort);
     if (pageId === 'podcasts-page') renderPodcastsPage('Все', podcastsSort);
     if (pageId === 'learn-page') renderLearnPage('Все', learnSort);
   }
 
-  // ========== СОРТИРОВКА ==========
-  let tipsSort = 'date-desc';
-  let newsSort = 'date-desc';
-  let podcastsSort = 'date-desc';
-  let learnSort = 'date-desc';
+  let tipsSort = 'date-desc', newsSort = 'date-desc', podcastsSort = 'date-desc', learnSort = 'date-desc';
 
   function initSortControls() {
     const setups = [
@@ -1219,7 +1132,6 @@
       { id: 'podcast', setter: (v) => podcastsSort = v, render: () => renderPodcastsPage('Все', podcastsSort) },
       { id: 'learn', setter: (v) => learnSort = v, render: () => renderLearnPage('Все', learnSort) }
     ];
-    
     setups.forEach(({ id, setter, render }) => {
       const controls = document.getElementById(`${id}SortControls`);
       if (controls) {
@@ -1239,10 +1151,7 @@
   document.getElementById('searchInput').addEventListener('input', (e) => {
     const q = e.target.value.trim().toLowerCase();
     const dropdown = document.getElementById('searchDropdown');
-    if (q.length < 2) {
-      dropdown.classList.remove('active');
-      return;
-    }
+    if (q.length < 2) { dropdown.classList.remove('active'); return; }
     
     const allItems = [
       ...data.news.map(i => ({ ...i, _type: 'news' })),
@@ -1251,14 +1160,11 @@
       ...data.learn.map(i => ({ ...i, _type: 'learn' }))
     ];
     
-    const results = allItems.filter(i => 
-      i.title.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q)
-    ).slice(0, 10);
+    const results = allItems.filter(i => i.title.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q)).slice(0, 10);
     
     if (results.length) {
       dropdown.innerHTML = results.map(i => {
-        let highlightedTitle = i.title;
-        let highlightedDesc = i.desc.substring(0, 80);
+        let highlightedTitle = i.title, highlightedDesc = i.desc.substring(0, 80);
         const regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
         highlightedTitle = highlightedTitle.replace(regex, '<mark>$1</mark>');
         highlightedDesc = highlightedDesc.replace(regex, '<mark>$1</mark>');
@@ -1278,9 +1184,7 @@
   });
   
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('.search-box')) {
-      document.getElementById('searchDropdown').classList.remove('active');
-    }
+    if (!e.target.closest('.search-box')) document.getElementById('searchDropdown').classList.remove('active');
   });
 
   // ========== ЗАКРЫТИЕ МОДАЛЬНЫХ ОКОН ==========
