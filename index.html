@@ -39,6 +39,59 @@
       min-height: 100vh;
     }
 
+    /* ========== КНОПКА "ВВЕРХ" ========== */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 48px;
+      height: 48px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    .scroll-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-top:hover {
+      background: var(--bg-dark);
+      border-color: var(--text-primary);
+      transform: translateY(-3px);
+    }
+    .scroll-top svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--text-secondary);
+      stroke-width: 2;
+      fill: none;
+      transition: stroke 0.3s ease;
+    }
+    .scroll-top:hover svg {
+      stroke: var(--text-primary);
+    }
+    @media (max-width: 768px) {
+      .scroll-top {
+        bottom: 20px;
+        right: 20px;
+        width: 42px;
+        height: 42px;
+      }
+      .scroll-top svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
     footer {
       margin-top: auto;
       border-top: 1px solid var(--border);
@@ -152,7 +205,7 @@
     .page { display: none; min-height: 100vh; padding-top: 120px; }
     .page.active { display: block; }
 
-    /* ========== HERO БЛОК (исправлен) ========== */
+    /* ========== HERO БЛОК ========== */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -233,7 +286,7 @@
 
     @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.9); } }
 
-    /* ========== СЕКЦИИ (линия опущена ниже) ========== */
+    /* ========== СЕКЦИИ ========== */
     section { 
       padding: 80px 5% 100px;
       max-width: 1600px;
@@ -557,6 +610,13 @@
 
 <div id="globalToast"></div>
 
+<!-- КНОПКА "ВВЕРХ" -->
+<div class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+  <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</div>
+
 <nav>
   <div class="logo" onclick="navigateTo('main-page')">
     <img src="./images/iivolution_logo1.png" alt="IIvolution">
@@ -688,7 +748,7 @@
 
 <script>
   // ========== ВЕРСИОНИРОВАНИЕ ==========
-  const APP_VERSION = '2026.05.28.012';
+  const APP_VERSION = '2026.05.28.013';
   
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
@@ -700,6 +760,16 @@
     localStorage.setItem('app_version', APP_VERSION);
     console.log('🔄 Кеш обновлён до версии:', APP_VERSION);
   }
+
+  // ========== КНОПКА "ВВЕРХ" - ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ==========
+  window.addEventListener('scroll', function() {
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    if (window.scrollY > 300) {
+      scrollBtn.classList.add('show');
+    } else {
+      scrollBtn.classList.remove('show');
+    }
+  });
 
   // ========== ДАННЫЕ КОНТЕНТА ==========
   let data = {
