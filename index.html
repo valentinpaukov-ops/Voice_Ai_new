@@ -371,9 +371,13 @@
     }
     .card:hover { background: var(--bg-card); }
     
-    /* Карточка "Совет дня" — оранжевая полоска и полупрозрачная заливка */
+    /* Карточка "Совет дня" — оранжевая полоска и очень слабая заливка */
     .card.tip-of-day {
-      background: rgba(255, 159, 0, 0.05);
+      background: rgba(255, 159, 0, 0.02);
+      transition: background 0.3s;
+    }
+    .card.tip-of-day:hover {
+      background: rgba(255, 159, 0, 0.08);
     }
     .card.tip-of-day::before {
       content: ''; position: absolute; left: 0; top: 0; bottom: 0;
@@ -400,6 +404,11 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       margin-bottom: 12px;
+    }
+    /* Выделение тега СОВЕТ ДНЯ */
+    .card.tip-of-day .card-tag {
+      color: var(--text-primary);
+      font-weight: 700;
     }
     .card h3 {
       font-size: 18px;
@@ -852,7 +861,7 @@
 
 <script>
   // ========== ВЕРСИОНИРОВАНИЕ ==========
-  const APP_VERSION = '2026.05.28.018';
+  const APP_VERSION = '2026.05.28.019';
   
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
@@ -878,19 +887,19 @@
   // ========== ДАННЫЕ КОНТЕНТА ==========
   let data = {
     news: [
-      { id: 1, tag: 'ТЕХНОЛОГИИ', title: 'GPT-5 анонсирована', desc: 'OpenAI представила новую революционную модель искусственного интеллекта.', date: '2026-05-28T12:00:00.000Z', author: 'AI-Репортер', image: 'images/news-gpt5.jpg', media: null, mediaTypeHint: null },
-      { id: 2, tag: 'ИССЛЕДОВАНИЯ', title: 'Прорыв в компьютерном зрении', desc: 'Новая архитектура нейросетей позволяет распознавать объекты с точностью 99.7%.', date: '2026-05-27T10:00:00.000Z', author: 'Цифровой Корреспондент', image: 'images/news-vision.jpg', media: null, mediaTypeHint: null },
-      { id: 3, tag: 'БИЗНЕС', title: 'ИИ трансформирует рынок труда', desc: 'Аналитики прогнозируют рост спроса на AI-специалистов на 300% в ближайшие 2 года.', date: '2026-05-26T09:00:00.000Z', author: 'НьюсБот', image: 'images/news-job.jpg', media: null, mediaTypeHint: null }
+      { id: 1, tag: 'БИЗНЕС, НОВОСТЬ', title: 'ИИ трансформирует рынок труда', desc: 'Аналитики прогнозируют рост спроса на AI-специалистов на 300% в ближайшие 2 года.', date: '2026-05-26T09:00:00.000Z', author: 'Цифровой Корреспондент', image: 'images/ИИ трансформирует рынок труда.jpg', media: null, mediaTypeHint: null },
+      { id: 2, tag: 'ИССЛЕДОВАНИЯ, НОВОСТЬ', title: 'Прорыв в компьютерном зрении', desc: 'Новая архитектура нейросетей позволяет распознавать объекты с точностью 99.7%.', date: '2026-05-27T10:00:00.000Z', author: 'Цифровой Корреспондент', image: 'images/Прорыв в компьютерном зрении.jpg', media: null, mediaTypeHint: null },
+      { id: 3, tag: 'ТЕХНОЛОГИИ', title: 'GPT-5 анонсирована', desc: 'OpenAI представила новую революционную модель искусственного интеллекта.', date: '2026-05-28T12:00:00.000Z', author: 'AI-Репортер', image: 'images/GPT-5 анонсирована.webp', media: null, mediaTypeHint: null }
     ],
     podcast: [
       { id: 101, tag: 'ИНТЕРВЬЮ', title: 'Будущее ИИ', desc: 'Разговор с ведущим экспертом в области машинного обучения.', date: '2026-05-28T14:00:00.000Z', author: 'ИИ-Интервьюер', image: 'images/podcast-future.jpg', media: 'media/podcast-future.mp3', mediaTypeHint: 'audio' },
       { id: 102, tag: 'ОБУЧЕНИЕ', title: 'Карьера в AI', desc: 'Как начать путь в искусственном интеллекте: маршруты, инструменты и советы.', date: '2026-05-27T11:00:00.000Z', author: 'ПодкастБот', image: 'images/podcast-career.jpg', media: 'media/podcast-career.mp3', mediaTypeHint: 'audio' }
     ],
     tip: [
-      { id: 201, tag: 'СОВЕТ ДНЯ, Безопасность, ИИ', title: 'Безопасная работа с ИИ', desc: 'Никогда не загружайте в нейросети: пароли, персональные данные клиентов, финансовые отчеты, коммерческую тайну.\n\n✅ Можно: общие тексты, идеи, публичную информацию.\n✅ Нельзя: внутренние документы, базы данных, переписку.\n\nПравило: если утечка навредит бизнесу — не загружайте.', date: '2026-05-28T08:00:00.000Z', author: 'НейроГид', image: 'images/Безопасная работа с ИИ.png', media: null, mediaTypeHint: null },
-      { id: 202, tag: 'ПРОДУКТИВНОСТЬ, ИИ', title: 'Что делегировать ИИ', desc: 'Отдайте ИИ: рутину (шаблонные письма, расшифровка аудио, суммаризация встреч), черновики, генерацию идей, проверку орфографии.\nОставьте себе: финальные решения, стратегию, переговоры, креатив с душой, работу с людьми.\n\nФормула: если задача повторяется 3+ раза в неделю — автоматизируйте.', date: '2026-05-27T09:00:00.000Z', author: 'AI-Ментор', image: 'images/делегирование ии.jpg', media: null, mediaTypeHint: null },
-      { id: 203, tag: 'СОВЕТ', title: 'Как начать в AI', desc: 'Пошаговое руководство для новичков. \nНачните с изучения базовых понятий: нейросети, машинное обучение, промпт-инжиниринг. \nПопробуйте бесплатные инструменты: ChatGPT, Claude, Google Gemini. \nСоздайте свой первый проект.', date: '2026-05-26T10:00:00.000Z', author: 'ТехноГид', image: '', media: null, mediaTypeHint: null },
-      { id: 204, tag: 'СОВЕТ', title: 'Промпт-инжиниринг для начинающих', desc: 'Как правильно составлять запросы к нейросетям: \nбудьте конкретны, добавляйте контекст, указывайте формат ответа, используйте примеры (few-shot), итеративно улучшайте промпты.', date: '2026-05-26T11:00:00.000Z', author: 'AI-Ментор', image: '', media: null, mediaTypeHint: null }
+      { id: 201, tag: 'СОВЕТ ДНЯ', title: 'Безопасная работа с ИИ', desc: 'Никогда не загружайте в нейросети: пароли, персональные данные клиентов, финансовые отчеты, коммерческую тайну.\n\nМожно: общие тексты, идеи, публичную информацию.\nНельзя: внутренние документы, базы данных, переписку.\n\nПравило: если утечка навредит бизнесу — не загружайте.', date: '2026-05-28T08:00:00.000Z', author: 'НейроГид', image: 'images/Безопасная работа с ИИ.png', media: null, mediaTypeHint: null },
+      { id: 202, tag: 'ПРОДУКТИВНОСТЬ', title: 'Что делегировать ИИ', desc: 'Отдайте ИИ: рутину (шаблонные письма, расшифровка аудио, суммаризация встреч), черновики, генерацию идей, проверку орфографии.\nОставьте себе: финальные решения, стратегию, переговоры, креатив с душой, работу с людьми.\n\nФормула: если задача повторяется 3+ раза в неделю — автоматизируйте.', date: '2026-05-27T09:00:00.000Z', author: 'AI-Ментор', image: 'images/делегирование ии.jpg', media: null, mediaTypeHint: null },
+      { id: 203, tag: 'СОВЕТ', title: 'Как начать в AI', desc: 'Пошаговое руководство для новичков. Начните с изучения базовых понятий: нейросети, машинное обучение, промпт-инжиниринг. Попробуйте бесплатные инструменты: ChatGPT, Claude, Google Gemini. Создайте свой первый проект.', date: '2026-05-26T10:00:00.000Z', author: 'ТехноГид', image: '', media: null, mediaTypeHint: null },
+      { id: 204, tag: 'СОВЕТ', title: 'Промпт-инжиниринг для начинающих', desc: 'Как правильно составлять запросы к нейросетям: будьте конкретны, добавляйте контекст, указывайте формат ответа, используйте примеры (few-shot), итеративно улучшайте промпты.', date: '2026-05-26T11:00:00.000Z', author: 'AI-Ментор', image: '', media: null, mediaTypeHint: null }
     ],
     learn: [
       { id: 301, tag: 'КУРС', title: 'Введение в нейросети', desc: 'Базовый курс по основам нейросетей и машинного обучения. Изучите архитектуру нейросетей, методы обучения и практические примеры использования.', date: '2026-05-28T13:00:00.000Z', author: 'Цифровой Учитель', image: 'images/learn-intro.jpg', media: null, mediaTypeHint: null },
@@ -1026,9 +1035,9 @@
   }
 
   function renderNewsPage(filter = 'Все', sortType = 'date-desc') {
-    let filtered = filter === 'Все' ? [...data.news] : [...data.news].filter(i => i.tag === filter);
+    let filtered = filter === 'Все' ? [...data.news] : [...data.news].filter(i => i.tag.includes(filter) || i.tag === filter);
     filtered = sortItems(filtered, sortType);
-    const tags = ['Все', ...new Set(data.news.map(i => i.tag))];
+    const tags = ['Все', ...new Set(data.news.map(i => i.tag).flatMap(t => t.split(',').map(s => s.trim())))];
     document.getElementById('newsFilters').innerHTML = tags.map(t => `<button class="filter-btn ${t === filter ? 'active' : ''}" onclick="renderNewsPage('${t}', '${sortType}')">${t}</button>`).join('');
     document.getElementById('allNewsGrid').innerHTML = filtered.map(n => createCardHTML('news', n, true)).join('');
     if (filtered.length === 0) document.getElementById('allNewsGrid').innerHTML = '<p style="padding:40px; text-align:center; color:#666;">Нет новостей в этом разделе</p>';
