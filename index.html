@@ -4,14 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   
-  <!-- АНТИКЕШ -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   
   <title>Voice_AI — Медиа Хаб ИИ</title>
   <style>
-    /* ========== СТИЛИ ========== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -41,11 +39,10 @@
       min-height: 100vh;
     }
 
-    /* ========== ФУТЕР ========== */
     footer {
       margin-top: auto;
       border-top: 1px solid var(--border);
-      padding: 40px 24px 32px;
+      padding: 48px 48px 32px;
       background: var(--bg-dark);
     }
     .footer-container {
@@ -55,11 +52,11 @@
       justify-content: space-between;
       align-items: flex-start;
       flex-wrap: wrap;
-      gap: 30px;
+      gap: 40px;
     }
     .footer-logo img {
       width: auto;
-      height: 40px;
+      height: 45px;
       object-fit: contain;
     }
     .footer-info { text-align: right; }
@@ -69,17 +66,20 @@
       color: var(--text-primary);
       margin-bottom: 8px;
     }
-    .footer-phone, .footer-email {
+    .footer-phone {
       font-size: 13px;
       color: var(--text-secondary);
       margin-bottom: 6px;
     }
-    .footer-phone a, .footer-email a {
+    .footer-phone a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+    .footer-phone a:hover { color: var(--text-primary); }
+    .footer-email {
+      font-size: 13px;
       color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.2s;
+      margin-bottom: 8px;
     }
-    .footer-phone a:hover, .footer-email a:hover { color: var(--text-primary); }
+    .footer-email a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+    .footer-email a:hover { color: var(--text-primary); }
     .footer-rights {
       font-size: 11px;
       color: var(--text-muted);
@@ -87,40 +87,38 @@
       margin-top: 4px;
     }
 
-    /* ========== СКРОЛЛБАР ========== */
-    ::-webkit-scrollbar { width: 5px; }
+    @media (max-width: 768px) {
+      footer { padding: 32px 24px 24px; }
+      .footer-container { flex-direction: column; align-items: center; text-align: center; }
+      .footer-info { text-align: center; }
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg-dark); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-    /* ========== НАВИГАЦИЯ ========== */
     nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 16px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-      background: var(--bg-dark);
-      border-bottom: 1px solid var(--border);
-      flex-wrap: wrap;
-      gap: 15px;
+      position: fixed; top: 0; width: 100%; padding: 20px 48px;
+      display: flex; justify-content: space-between; align-items: center; z-index: 100;
+      background: var(--bg-dark); border-bottom: 1px solid var(--border);
     }
-    .logo { cursor: pointer; display: flex; align-items: center; flex-shrink: 0; }
-    .logo img { height: 50px; width: auto; object-fit: contain; }
-    .nav-center { flex: 1; min-width: 200px; max-width: 450px; }
+    
+    .logo { cursor: pointer; display: flex; align-items: center; }
+    .logo img { height: 90px; width: auto; object-fit: contain; }
+    
+    .nav-center { flex: 1; max-width: 550px; margin: 0 48px; position: relative; }
     .search-box { position: relative; width: 100%; }
     .search-input {
       width: 100%; padding: 10px 40px 10px 16px; background: var(--input-bg);
       border: 1px solid var(--border); color: var(--text-primary);
-      font-family: inherit; font-size: 14px; border-radius: 40px; outline: none;
+      font-family: inherit; font-size: 13px; border-radius: 40px; outline: none;
     }
     .search-input:focus { border-color: var(--text-secondary); }
     .search-arrow {
       position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
       font-size: 16px; color: var(--text-muted); pointer-events: none;
     }
+    
     .search-dropdown {
       position: absolute; top: 100%; left: 0; width: 100%; background: var(--bg-card);
       border: 1px solid var(--border); margin-top: 8px; border-radius: 12px; display: none;
@@ -144,27 +142,25 @@
     }
     .search-item-meta { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
 
-    .nav-links { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
     .nav-links a {
       color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500;
       letter-spacing: 0.5px; transition: color 0.3s; text-transform: uppercase; cursor: pointer;
     }
     .nav-links a:hover { color: var(--text-primary); }
 
-    /* ========== СТРАНИЦЫ ========== */
-    .page { display: none; min-height: 100vh; padding-top: 85px; }
+    .page { display: none; min-height: 100vh; padding-top: 90px; }
     .page.active { display: block; }
 
-    /* ========== HERO БЛОК ========== */
+    /* ========== HERO БЛОК (исправлен) ========== */
     .hero {
       position: relative;
-      min-height: 85vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 0 5% 100px;
+      justify-content: flex-start;
+      padding: 0 5%;
       overflow: hidden;
-      margin-top: -60px;
     }
     .hero-bg {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -176,8 +172,10 @@
       background: linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.96) 100%);
     }
     .hero-content { 
-      position: relative; z-index: 1; max-width: 1400px; width: 100%; 
-      transition: transform 0.3s ease;
+      position: relative; z-index: 1; 
+      max-width: 1400px; 
+      width: 100%;
+      text-align: left;
     }
     .hero-label {
       display: block;
@@ -185,25 +183,30 @@
       font-size: clamp(12px, 3vw, 16px);
       font-weight: 500;
       margin-bottom: 16px;
+      text-align: left;
     }
     .hero h1 {
-      font-size: clamp(48px, 10vw, 110px);
-      font-weight: 600;
+      font-size: clamp(48px, 10vw, 126px);
+      font-weight: 700;
       letter-spacing: -2px;
       margin-bottom: 24px;
       color: #ffffff;
       line-height: 1.1;
+      text-align: left;
     }
     .hero-description {
-      font-size: clamp(12px, 3vw, 14px);
+      font-size: clamp(12px, 3vw, 16px);
       color: #666666;
       max-width: 800px;
       margin-bottom: 32px;
       line-height: 1.6;
+      text-align: left;
     }
-    .hero-description.full-width { max-width: 100%; width: 100%; }
+    .hero-description.full-width { 
+      max-width: 100%; 
+      width: 100%; 
+    }
 
-    /* ========== КНОПКА ЭФИРА ========== */
     .live-btn {
       display: inline-flex;
       align-items: center;
@@ -230,9 +233,9 @@
 
     @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.9); } }
 
-    /* ========== СЕКЦИИ ========== */
+    /* ========== СЕКЦИИ (линия опущена ниже) ========== */
     section { 
-      padding: 80px 5%;
+      padding: 80px 5% 100px;
       max-width: 1600px;
       margin: 0 auto;
       border-top: 1px solid var(--border);
@@ -256,7 +259,7 @@
     .section-desc {
       font-size: clamp(12px, 2.5vw, 16px);
       margin-top: 8px;
-      max-width: 450px;
+      max-width: 500px;
       line-height: 1.6;
       color: #666666;
     }
@@ -364,7 +367,6 @@
     .card.big { grid-column: span 2; grid-row: span 2; }
     .card.wide .card-image, .card.big .card-image { height: 240px; }
 
-    /* ========== ФИЛЬТРЫ И СОРТИРОВКА ========== */
     .filters { display: flex; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
     .filter-btn {
       padding: 8px 16px; background: transparent; border: 1px solid var(--border);
@@ -389,7 +391,6 @@
       height: 1px; background: var(--text-primary);
     }
 
-    /* ========== МОДАЛЬНЫЕ ОКНА ========== */
     .modal-overlay {
       display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0, 0, 0, 0.96); z-index: 1000; justify-content: center;
@@ -497,15 +498,14 @@
     #globalToast {
       position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
       background: #00e676; color: #000; padding: 10px 20px; border-radius: 40px;
-      font-size: 13px; font-weight: 600; z-index: 1200; display: none; white-space: nowrap;
+      font-size: 13px; font-weight: 600; z-index: 1200; display: none;
     }
     #globalToast.error { background: #ff3b30; color: white; }
 
-    /* ========== АДАПТИВНОСТЬ ========== */
     @media (max-width: 1024px) {
       nav { padding: 16px 4%; }
       .nav-center { max-width: 350px; }
-      .logo img { height: 45px; }
+      .logo img { height: 60px; }
       .section-title { font-size: 48px; }
       .grid-uniform, .grid-asymmetric { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
     }
@@ -515,16 +515,13 @@
       .nav-center { max-width: 100%; order: 2; }
       .nav-links { order: 1; justify-content: center; gap: 15px; }
       .logo { justify-content: center; order: 0; margin-bottom: 0; }
-      .logo img { height: 40px; }
+      .logo img { height: 50px; }
       
-      .hero { min-height: 70vh; margin-top: -40px; padding: 0 4%; }
-      .hero-content { text-align: center; }
-      .hero-label { text-align: center; }
-      .hero h1 { font-size: 48px; }
-      .hero-description { text-align: center; margin-left: auto; margin-right: auto; }
-      .live-btn { margin: 0 auto; display: flex; width: fit-content; }
+      .hero { min-height: 80vh; padding: 0 4%; }
+      .hero-content { text-align: left; }
+      .hero-label { text-align: left; }
       
-      section { padding: 50px 4%; }
+      section { padding: 60px 4% 80px; }
       .section-header { flex-direction: column; align-items: flex-start; margin-bottom: 30px; }
       .section-desc { max-width: 100%; }
       
@@ -547,7 +544,7 @@
     }
 
     @media (max-width: 480px) {
-      .hero h1 { font-size: 36px; }
+      .hero h1 { font-size: 42px; }
       .section-title { font-size: 32px; }
       .card h3 { font-size: 16px; }
       .live-btn { padding: 12px 24px; }
@@ -583,10 +580,10 @@
 <main id="main-page" class="page active">
   <section class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-content" id="heroContent" style="transform: translate(0px, 60px) scale(1);">
+    <div class="hero-content" id="heroContent">
       <div class="hero-label" id="heroLabel">МЕДИА-ХАБ ИИ-КОНТЕНТА</div>
       <h1 id="heroTitle">Voice_Ai</h1>
-      <p class="hero-description full-width" id="heroDesc"><br>Первая уникальная платформа технологической команды «Технологии Доверия», где контент об ИИ создан с помощью нейросетей.<br>ИИ-эфиры с познавательными подкастами, последние новости и разборы технологий, уникальные гайды и обучающие материалы. <br>Всё это для тех, кто хочет понимать и использовать искусственный интеллект на практике.<br><br><br></p>
+      <p class="hero-description full-width" id="heroDesc">Первая уникальная платформа технологической команды «Технологии Доверия», где контент об ИИ создан с помощью нейросетей.<br>ИИ-эфиры с познавательными подкастами, последние новости и разборы технологий, уникальные гайды и обучающие материалы. <br>Всё это для тех, кто хочет понимать и использовать искусственный интеллект на практике.<br></p>
       <button class="live-btn" onclick="openLivePlayer()"><div class="live-dot"></div><span class="btn-text">Слушать эфир</span></button>
     </div>
   </section>
@@ -628,7 +625,7 @@
   </section>
 </main>
 
-<!-- ОСТАЛЬНЫЕ СТРАНИЦЫ (ГАЙДЫ, НОВОСТИ, ПОДКАСТЫ, ОБУЧЕНИЕ) -->
+<!-- СТРАНИЦА ГАЙДЫ -->
 <main id="tips-page" class="page"><section><a class="back-btn" onclick="navigateTo('main-page')">← На главную</a><div class="section-header"><h2 class="section-title">Все гайды</h2></div><div class="filters" id="tipsFilters"></div><div class="sort-controls" id="tipsSortControls"><button class="sort-btn active" data-sort="date-desc">Новые → Старые</button><button class="sort-btn" data-sort="date-asc">Старые → Новые</button><button class="sort-btn" data-sort="alpha-asc">А → Я</button><button class="sort-btn" data-sort="alpha-desc">Я → А</button></div><div class="grid grid-asymmetric" id="allTipsGrid"></div></section></main>
 <main id="news-page" class="page"><section><a class="back-btn" onclick="navigateTo('main-page')">← На главную</a><div class="section-header"><h2 class="section-title">Все новости</h2></div><div class="filters" id="newsFilters"></div><div class="sort-controls" id="newsSortControls"><button class="sort-btn active" data-sort="date-desc">Новые → Старые</button><button class="sort-btn" data-sort="date-asc">Старые → Новые</button><button class="sort-btn" data-sort="alpha-asc">А → Я</button><button class="sort-btn" data-sort="alpha-desc">Я → А</button></div><div class="grid grid-asymmetric" id="allNewsGrid"></div></section></main>
 <main id="podcasts-page" class="page"><section><a class="back-btn" onclick="navigateTo('main-page')">← На главную</a><div class="section-header"><h2 class="section-title">Подкасты</h2></div><div class="filters" id="podcastFilters"></div><div class="sort-controls" id="podcastSortControls"><button class="sort-btn active" data-sort="date-desc">Новые → Старые</button><button class="sort-btn" data-sort="date-asc">Старые → Новые</button><button class="sort-btn" data-sort="alpha-asc">А → Я</button><button class="sort-btn" data-sort="alpha-desc">Я → А</button></div><div class="grid grid-asymmetric" id="allPodcastGrid"></div></section></main>
@@ -691,7 +688,7 @@
 
 <script>
   // ========== ВЕРСИОНИРОВАНИЕ ==========
-  const APP_VERSION = '2026.05.28.010';
+  const APP_VERSION = '2026.05.28.012';
   
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
@@ -934,7 +931,7 @@
     document.getElementById('playerModal').classList.add('active');
   }
 
-  // ========== ПЛЕЕР ЭФИРА (ИСПРАВЛЕННЫЙ) ==========
+  // ========== ПЛЕЕР ЭФИРА ==========
   let currentQueueIndex = -1;
   let isPlaying = false;
   let currentAudio = null;
