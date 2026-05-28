@@ -176,11 +176,11 @@
       font-weight: 500; margin-bottom: 16px;
     }
     .hero h1 {
-      font-size: 126px; font-weight: 700; letter-spacing: -2px;
+      font-size: 110px; font-weight: 600; letter-spacing: -2px;
       margin-bottom: 24px; color: #ffffff;
     }
     .hero-description {
-      font-size: 16px; color: #666666; max-width: 800px;
+      font-size: 14px; color: #666666; max-width: 800px;
       margin-bottom: 32px; line-height: 1.6;
     }
     .hero-description.full-width { max-width: 100%; width: 100%; }
@@ -317,37 +317,196 @@
     .modal-player { background: var(--bg-dark); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-top: 16px; }
     .modal-player audio, .modal-player video { width: 100%; }
 
+    /* ========== СТИЛИ ПЛЕЕРА ЭФИРА (обновлённые) ========== */
     .live-player-modal .modal-content { max-width: 1000px; }
     .lp-layout { display: flex; gap: 0; flex-wrap: wrap; }
-    .lp-main { flex: 1; padding: 32px; display: flex; flex-direction: column; align-items: center; min-width: 280px; }
+    .lp-main { 
+      flex: 1; 
+      padding: 32px; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      min-width: 280px;
+      background: var(--bg-dark);
+    }
     .lp-cover { 
-      width: 100%; max-width: 400px; 
-      background: var(--bg-dark); 
-      border-radius: 12px; 
+      width: 100%; 
+      max-width: 300px; 
+      background: var(--bg-card); 
+      border-radius: 16px; 
       margin-bottom: 24px; 
       overflow: hidden;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .lp-cover video { width: 100%; height: auto; border-radius: 12px; }
+    .lp-cover video { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover;
+    }
     .lp-cover .audio-icon {
-      width: 200px; height: 200px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 80px; background: var(--bg-card); border-radius: 12px;
+      font-size: 80px;
+      background: var(--bg-card);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .lp-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; text-align: center; color: #ffffff; }
-    .lp-artist { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
-    .lp-progress-wrap { width: 100%; max-width: 400px; margin-bottom: 24px; }
-    .lp-progress-bar { width: 100%; height: 6px; background: var(--border); border-radius: 3px; cursor: pointer; }
-    .lp-progress-fill { height: 100%; width: 0%; background: var(--accent); border-radius: 3px; }
-    .lp-time { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
-    .lp-controls { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; }
-    .lp-ctrl { background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 20px; }
-    .lp-ctrl.play-pause { width: 56px; height: 56px; border: 2px solid var(--text-primary); border-radius: 50%; font-size: 24px; background: transparent; color: #ffffff; }
-    .lp-queue { width: 320px; background: var(--bg-card); border-left: 1px solid var(--border); padding: 24px; overflow-y: auto; max-height: 70vh; }
-    .lp-queue h4 { font-size: 12px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
-    .lp-q-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; cursor: pointer; transition: background 0.2s; margin-bottom: 8px; background: var(--input-bg); }
-    .lp-q-item.active { background: rgba(0, 72, 244, 0.2); border-left: 3px solid var(--brand); }
-    .lp-q-item.played { opacity: 0.5; }
-    .lp-q-img { width: 40px; height: 40px; background: var(--bg-dark); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .lp-title { 
+      font-size: 22px; 
+      font-weight: 700; 
+      margin-bottom: 8px; 
+      text-align: center; 
+      color: #ffffff;
+    }
+    .lp-artist { 
+      font-size: 13px; 
+      color: var(--text-muted); 
+      margin-bottom: 24px; 
+    }
+    .lp-progress-wrap { 
+      width: 100%; 
+      max-width: 400px; 
+      margin-bottom: 24px; 
+    }
+    .lp-progress-bar { 
+      width: 100%; 
+      height: 4px; 
+      background: var(--border); 
+      border-radius: 2px; 
+      cursor: pointer; 
+      position: relative;
+    }
+    .lp-progress-fill { 
+      height: 100%; 
+      width: 0%; 
+      background: var(--accent); 
+      border-radius: 2px; 
+      position: relative;
+    }
+    .lp-time { 
+      display: flex; 
+      justify-content: space-between; 
+      font-size: 11px; 
+      color: var(--text-muted); 
+      margin-top: 8px; 
+    }
+    .lp-controls { 
+      display: flex; 
+      align-items: center; 
+      gap: 28px; 
+      margin-bottom: 16px; 
+    }
+    .lp-ctrl { 
+      background: none; 
+      border: none; 
+      color: var(--text-secondary); 
+      cursor: pointer; 
+      font-size: 22px;
+      transition: all 0.2s ease;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lp-ctrl:hover { 
+      color: var(--text-primary); 
+      background: rgba(255,255,255,0.05);
+    }
+    .lp-ctrl.play-pause { 
+      width: 56px; 
+      height: 56px; 
+      border: 2px solid var(--text-primary); 
+      border-radius: 50%; 
+      font-size: 24px; 
+      background: transparent; 
+      color: #ffffff;
+    }
+    .lp-ctrl.play-pause:hover {
+      background: rgba(255,255,255,0.1);
+      transform: scale(1.02);
+    }
+    .lp-queue { 
+      width: 320px; 
+      background: var(--bg-card); 
+      border-left: 1px solid var(--border); 
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .lp-queue h4 { 
+      font-size: 12px; 
+      text-transform: uppercase; 
+      color: var(--text-muted); 
+      margin-bottom: 16px;
+      letter-spacing: 1.5px;
+    }
+    .lp-queue-list {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .lp-queue-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    .lp-queue-list::-webkit-scrollbar-track {
+      background: var(--border);
+      border-radius: 2px;
+    }
+    .lp-queue-list::-webkit-scrollbar-thumb {
+      background: var(--text-muted);
+      border-radius: 2px;
+    }
+    .lp-q-item { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      padding: 12px; 
+      border-radius: 10px; 
+      cursor: pointer; 
+      transition: all 0.2s ease; 
+      background: var(--input-bg);
+      border-left: 3px solid transparent;
+    }
+    .lp-q-item:hover { 
+      background: rgba(255,255,255,0.05);
+    }
+    .lp-q-item.active { 
+      background: rgba(255, 159, 0, 0.1); 
+      border-left-color: var(--tip-color);
+    }
+    .lp-q-item.played { 
+      opacity: 0.5;
+    }
+    .lp-q-img { 
+      width: 40px; 
+      height: 40px; 
+      background: var(--bg-dark); 
+      border-radius: 8px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 20px; 
+    }
+    .lp-q-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .lp-q-title {
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 13px; text-transform: uppercase; margin-bottom: 40px; cursor: pointer; }
     .back-btn:hover { color: var(--text-primary); }
@@ -530,7 +689,7 @@
   </div>
 </div>
 
-<!-- ПЛЕЕР ЭФИРА (с поддержкой видео) -->
+<!-- ПЛЕЕР ЭФИРА (исправленный) -->
 <div class="modal-overlay live-player-modal" id="livePlayerModal">
   <div class="modal-content">
     <button class="modal-close" onclick="closeLivePlayer()">×</button>
@@ -545,7 +704,10 @@
           <div class="lp-progress-bar" id="lpProgressBar">
             <div class="lp-progress-fill" id="lpProgressFill"></div>
           </div>
-          <div class="lp-time"><span id="lpTimeCurrent">0:00</span><span id="lpTimeTotal">0:00</span></div>
+          <div class="lp-time">
+            <span id="lpTimeCurrent">0:00</span>
+            <span id="lpTimeTotal">0:00</span>
+          </div>
         </div>
         <div class="lp-controls">
           <button class="lp-ctrl" onclick="prevTrack()">⏮</button>
@@ -555,7 +717,7 @@
       </div>
       <div class="lp-queue">
         <h4>Очередь эфира</h4>
-        <div id="lpQueueList"></div>
+        <div class="lp-queue-list" id="lpQueueList"></div>
       </div>
     </div>
   </div>
@@ -578,7 +740,7 @@
 
 <script>
   // ========== ВЕРСИОНИРОВАНИЕ ==========
-  const APP_VERSION = '2026.05.28.008';
+  const APP_VERSION = '2026.05.28.009';
   
   const cachedVersion = localStorage.getItem('app_version');
   if (cachedVersion !== APP_VERSION) {
@@ -614,14 +776,12 @@
     ]
   };
 
-  // ========== ЭФИРНАЯ ОЧЕРЕДЬ (поддерживает аудио и видео) ==========
-  // Для аудио: mediaType: 'audio'
-  // Для видео: mediaType: 'video'
+  // ========== ЭФИРНАЯ ОЧЕРЕДЬ ==========
   let liveQueue = [
     { id: 'audio1', title: 'Voice_Ai_intro', src: 'audio/01_Voice_Ai_intro.MP3', originalName: '01_Voice_Ai_intro.MP3', mediaType: 'audio' },
-    { id: 'audio1', title: 'Подкаст: Первый шаг в ИИ', src: 'audio/02_Первый шаг в ИИ_Podcast.MP3', originalName: '02_Первый шаг в ИИ_Podcast.MP3', mediaType: 'audio' },
-    { id: 'audio2', title: 'Музыка ИИ', src: 'audio/03_SoundHelix_music.mp3', originalName: '03_SoundHelix_music.mp3', mediaType: 'audio' },
-    { id: 'audio3', title: 'Новости', src: 'audio/04_SoundHelix2_music.mp3', originalName: '04_SoundHelix2_music.mp3', mediaType: 'audio' }
+    { id: 'audio2', title: 'Подкаст: Первый шаг в ИИ', src: 'audio/02_Первый шаг в ИИ_Podcast.MP3', originalName: '02_Первый шаг в ИИ_Podcast.MP3', mediaType: 'audio' },
+    { id: 'audio3', title: 'Музыка ИИ', src: 'audio/03_SoundHelix_music.mp3', originalName: '03_SoundHelix_music.mp3', mediaType: 'audio' },
+    { id: 'audio4', title: 'Новости', src: 'audio/04_SoundHelix2_music.mp3', originalName: '04_SoundHelix2_music.mp3', mediaType: 'audio' }
   ];
 
   // ========== ФУНКЦИИ ==========
@@ -676,6 +836,13 @@
       if (m === '>') return '&gt;';
       return m;
     });
+  }
+
+  function formatTime(sec) {
+    if (isNaN(sec)) return '0:00';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
   }
 
   function createCardHTML(type, item, asym = false) {
@@ -816,10 +983,10 @@
     document.getElementById('playerModal').classList.add('active');
   }
 
-  // ========== ПЛЕЕР ЭФИРА (с поддержкой аудио и видео) ==========
+  // ========== ПЛЕЕР ЭФИРА (исправленный) ==========
   let currentQueueIndex = -1;
   let isPlaying = false;
-  let currentAudio = new Audio();
+  let currentAudio = null;
   let livePlayerQueue = [...liveQueue];
 
   function updateCoverDisplay() {
@@ -828,7 +995,7 @@
     if (!currentTrack) return;
     
     if (currentTrack.mediaType === 'video') {
-      coverDiv.innerHTML = `<video src="${currentTrack.src}?v=${Date.now()}" style="width:100%; height:auto; border-radius:12px;"></video>`;
+      coverDiv.innerHTML = `<video src="${currentTrack.src}?v=${Date.now()}" style="width:100%; height:100%; object-fit:cover;"></video>`;
     } else {
       coverDiv.innerHTML = `<div class="audio-icon">🎙️</div>`;
     }
@@ -838,42 +1005,71 @@
     const cont = document.getElementById('lpQueueList');
     if (!cont) return;
     if (!livePlayerQueue.length) {
-      cont.innerHTML = '<p>Очередь пуста</p>';
+      cont.innerHTML = '<p style="text-align:center; padding:20px; color:#666;">Очередь пуста</p>';
       return;
     }
     cont.innerHTML = livePlayerQueue.map((item, i) => {
       const icon = item.mediaType === 'video' ? '🎬' : '🎵';
+      const isActive = i === currentQueueIndex;
+      const isPlayed = i < currentQueueIndex;
       return `
-        <div class="lp-q-item ${i === currentQueueIndex ? 'active' : ''} ${i < currentQueueIndex ? 'played' : ''}" onclick="jumpToTrack(${i})">
+        <div class="lp-q-item ${isActive ? 'active' : ''} ${isPlayed ? 'played' : ''}" onclick="jumpToTrack(${i})">
           <div class="lp-q-img">${icon}</div>
-          <div class="lp-q-info"><div class="lp-q-title">${escapeHtml(item.title)}</div></div>
+          <div class="lp-q-info">
+            <div class="lp-q-title">${escapeHtml(item.title)}</div>
+          </div>
         </div>
       `;
     }).join('');
+    
+    // Автоскролл к активному треку
+    const activeItem = cont.querySelector('.lp-q-item.active');
+    if (activeItem) {
+      activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   }
 
   function loadTrack(idx) {
     if (idx < 0 || idx >= livePlayerQueue.length) return;
+    
+    // Останавливаем текущее воспроизведение
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    
     currentQueueIndex = idx;
     const track = livePlayerQueue[idx];
     
-    // Останавливаем текущее воспроизведение
-    currentAudio.pause();
-    currentAudio = new Audio();
+    // Создаём новый аудио/видео элемент
+    if (track.mediaType === 'video') {
+      currentAudio = document.createElement('video');
+    } else {
+      currentAudio = new Audio();
+    }
     
     currentAudio.src = track.src + '?v=' + Date.now();
     document.getElementById('lpTitle').innerText = track.title;
     
-    // Обновляем отображение (иконка или видео)
+    // Обновляем отображение обложки
     updateCoverDisplay();
     
+    // Обновляем UI очереди
     renderLiveQueueUI();
-    if (isPlaying) {
+    
+    // Если плеер был включён, запускаем воспроизведение
+    if (isPlaying && currentAudio) {
       currentAudio.play().catch(e => console.log('Play error:', e));
     }
+    
+    // Обновляем прогресс при загрузке метаданных
+    currentAudio.addEventListener('loadedmetadata', () => {
+      document.getElementById('lpTimeTotal').innerText = formatTime(currentAudio.duration);
+    });
   }
 
   function jumpToTrack(idx) {
+    if (idx === currentQueueIndex) return;
     loadTrack(idx);
     if (!isPlaying && currentAudio) {
       currentAudio.play();
@@ -883,7 +1079,7 @@
   }
 
   function togglePlay() {
-    if (!livePlayerQueue.length) return;
+    if (!livePlayerQueue.length || !currentAudio) return;
     if (isPlaying) {
       currentAudio.pause();
       isPlaying = false;
@@ -898,32 +1094,35 @@
   function nextTrack() {
     if (currentQueueIndex < livePlayerQueue.length - 1) {
       loadTrack(currentQueueIndex + 1);
-      if (isPlaying) currentAudio.play();
+      if (isPlaying && currentAudio) {
+        currentAudio.play();
+      }
     } else {
-      closeLivePlayer();
+      // Если это последний трек, останавливаем воспроизведение
+      if (currentAudio) {
+        currentAudio.pause();
+        isPlaying = false;
+        document.getElementById('lpPlayBtn').innerText = '▶';
+      }
+      showToast('Конец очереди');
     }
   }
 
   function prevTrack() {
     if (currentQueueIndex > 0) {
       loadTrack(currentQueueIndex - 1);
-      if (isPlaying) currentAudio.play();
+      if (isPlaying && currentAudio) {
+        currentAudio.play();
+      }
     }
   }
 
   function updateProgress() {
-    if (!currentAudio.duration) return;
+    if (!currentAudio || !currentAudio.duration) return;
     const percent = (currentAudio.currentTime / currentAudio.duration) * 100;
     document.getElementById('lpProgressFill').style.width = percent + '%';
     document.getElementById('lpTimeCurrent').innerText = formatTime(currentAudio.currentTime);
     document.getElementById('lpTimeTotal').innerText = formatTime(currentAudio.duration);
-  }
-
-  function formatTime(sec) {
-    if (isNaN(sec)) return '0:00';
-    const m = Math.floor(sec / 60);
-    const s = Math.floor(sec % 60);
-    return `${m}:${s < 10 ? '0' : ''}${s}`;
   }
 
   function openLivePlayer() {
@@ -946,14 +1145,45 @@
     }
   }
 
-  currentAudio.addEventListener('timeupdate', updateProgress);
-  currentAudio.addEventListener('ended', nextTrack);
-  document.getElementById('lpProgressBar')?.addEventListener('click', (e) => {
-    if (!currentAudio.duration) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const pct = (e.clientX - rect.left) / rect.width;
-    currentAudio.currentTime = pct * currentAudio.duration;
+  // Настройка событий для аудио/видео
+  function setupAudioEvents() {
+    if (!currentAudio) return;
+    currentAudio.addEventListener('timeupdate', updateProgress);
+    currentAudio.addEventListener('ended', () => {
+      // Автоматически переключаем на следующий трек
+      if (currentQueueIndex < livePlayerQueue.length - 1) {
+        loadTrack(currentQueueIndex + 1);
+        if (isPlaying && currentAudio) {
+          currentAudio.play();
+        }
+      } else {
+        // Конец очереди
+        isPlaying = false;
+        document.getElementById('lpPlayBtn').innerText = '▶';
+      }
+    });
+  }
+
+  // Перемотка по клику на прогресс-бар
+  document.addEventListener('click', (e) => {
+    const progressBar = document.getElementById('lpProgressBar');
+    if (progressBar && progressBar.contains(e.target) && currentAudio && currentAudio.duration) {
+      const rect = progressBar.getBoundingClientRect();
+      const pct = (e.clientX - rect.left) / rect.width;
+      currentAudio.currentTime = pct * currentAudio.duration;
+    }
   });
+
+  // Обёртка для loadTrack с добавлением событий
+  const originalLoadTrack = loadTrack;
+  window.loadTrack = function(idx) {
+    originalLoadTrack(idx);
+    setTimeout(setupAudioEvents, 100);
+  };
+  loadTrack = function(idx) {
+    originalLoadTrack(idx);
+    setTimeout(setupAudioEvents, 100);
+  };
 
   // ========== НАВИГАЦИЯ ==========
   function navigateTo(pageId) {
